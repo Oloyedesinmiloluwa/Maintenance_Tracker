@@ -1,0 +1,49 @@
+.nav {
+  list-style: none;
+  height: auto;
+  background-color:rgb(49, 49, 231);
+  padding: 1% 0 ;
+  color: white;
+  /* border: solid blue; */
+}
+.nav a {
+  text-decoration: none;
+  display: block;
+  padding: 0 1em;
+  color: white;
+  /* background-color: solid red; */
+}
+
+.navContainer {
+  display: flex;
+}
+.navItem {
+  flex: 1;
+}
+.navStart {
+  justify-content: flex-start;
+}
+.flexCenter {
+  justify-content: center;
+}
+.navEnd {
+  justify-content: flex-end;
+}
+.navWrap {
+  flex-wrap: wrap;
+}
+.itemCenter {
+  align-items: center;
+}
+.navColumn {
+  flex-direction: column;
+}
+.navSpaceBetween {
+  justify-content: space-between;
+}
+.navSpaceAround {
+  justify-content: space-around;
+}
+.text-center {
+  text-align: center;
+}
