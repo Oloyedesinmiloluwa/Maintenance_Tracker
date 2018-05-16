@@ -1,0 +1,125 @@
+#logo {
+  text-shadow: 4px 4px 8px white;
+  color: #0B2240;
+}
+.nav {
+  list-style: none;
+  height: auto;
+  background-color:#15437F;
+  padding: 1% 0 ;
+  color: red;
+}
+.nav a {
+  text-decoration: none;
+  display: block;
+  padding: 0 1em;
+  color: white;
+}
+.navContainer {
+  display: flex;
+}
+.navItem {
+  flex: 1;
+}
+.navStart {
+  justify-content: flex-start;
+}
+.navEnd {
+  justify-content: flex-end;
+}
+.navWrap {
+  flex-wrap: wrap;
+}
+.itemCenter {
+  align-items: center;
+}
+.navColumn {
+  flex-direction: column;
+}
+.navSpaceBetween {
+  justify-content: space-between;
+}
+.navSpaceAround {
+  justify-content: space-around;
+}
+.text-center {
+  text-align: center;
+}
+
+
+body {
+  font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
+  background: #2065BF;
+  color: #fff;
+  padding: 0 0 50px 0;
+}
+
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container * {
+  box-sizing: border-box;
+}
+
+.flex-outer {
+  list-style-type: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex-outer li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-outer > li {
+  margin-bottom: 20px;
+}
+
+.flex-outer li label {
+  padding: 8px;
+  font-weight: 300;
+  letter-spacing: .09em;
+}
+
+.flex-outer > li > label {
+  flex: 1 0 120px;
+  max-width: 220px;
+}
+
+.flex-outer > li > label + * {
+  flex: 1 0 220px;
+}
+
+.flex-outer li input {
+  padding: 15px;
+  border: none;
+}
+
+.flex-outer li button {
+  margin-left: auto;
+  padding: 8px 16px;
+  border: none;
+  background: #0B2240;
+  color: #f2f2f2;
+  letter-spacing: .09em;
+  border-radius: 2px;
+}
+.col-1 {
+  flex: 1;
+}
+.col-2 {
+  flex: 2;
+}
+.col-3 {
+  flex: 3;
+}
+.col-12 {
+  flex: 12;
+  color: rgb(115, 14, 197);
+}
