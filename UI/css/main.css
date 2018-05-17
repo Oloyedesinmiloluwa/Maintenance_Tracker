@@ -2,27 +2,12 @@
   text-shadow: 4px 4px 8px white;
   color: #0B2240;
 }
-#home-dropdown {
-  color: black;
-  margin: 5%;
-}
-#home-dropdown select {
-  background-color:#15437F;
-  color: white;
-}
-.welcome-div {
-  height: 500px;
-  max-height: 500px;
-  background-image: url("../image/repair1.jpg");
-}
-.welcome-div img {
-  height: 500px;
-}
 .nav {
   list-style: none;
   height: auto;
   background-color:#15437F;
   padding: 1% 0 ;
+  color: red;
 }
 .nav a {
   text-decoration: none;
@@ -64,8 +49,8 @@
 
 body {
   font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
-  background: #fff;
-  color: #15437F;
+  background: #2065BF;
+  color: #fff;
   padding: 0 0 50px 0;
 }
 
@@ -98,9 +83,8 @@ body {
 
 .flex-outer li label {
   padding: 8px;
-  font-weight: 900;
+  font-weight: 300;
   letter-spacing: .09em;
-  color: #15437F;
 }
 
 .flex-outer > li > label {
@@ -114,7 +98,7 @@ body {
 
 .flex-outer li input {
   padding: 15px;
-  border: solid 2px #15437F;
+  border: none;
 }
 
 .flex-outer li button {
@@ -125,40 +109,6 @@ body {
   color: #f2f2f2;
   letter-spacing: .09em;
   border-radius: 2px;
-}
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 5%;
-  margin-top: 0;
-}
-.card {
-  flex: 0 1 24%;
-  background: white;
-  border: solid 1px rgb(73, 73, 182);
-  border-radius:5px;
-  color:#505152;
-  height: auto;
-}
-.card h3 {
-  color: royalblue;
-}
-.card-content {
-  padding: 5px;
-  text-align: center;
-}
-#request-header {
-  margin-left: 5%;
-  margin-top: 5%;
-  color: black;
-}
-img {
-	display: block;
-	border: 0;
-	width: 100%;
-  height: auto;
-  
 }
 .col-1 {
   flex: 1;
@@ -172,20 +122,4 @@ img {
 .col-12 {
   flex: 12;
   color: rgb(115, 14, 197);
-}
-@media only screen and (max-width: 768px) {
-  .nav a {
-    font-size: 80%;
-    
-  }
-
-  .card {
-    flex: 1 0 300px;
-    margin: 5px;
-    background: white;
-    border: solid 1px rgb(73, 73, 182);
-    border-radius:5px;
-    color:#505152;
-    height: auto;
-  }
 }
