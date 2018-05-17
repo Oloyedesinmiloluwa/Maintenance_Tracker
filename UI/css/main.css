@@ -142,7 +142,7 @@ body {
   height: auto;
 }
 .card h3 {
-  color: royalblue;
+  color: #0B2240;
 }
 .card-content {
   padding: 5px;
@@ -159,6 +159,51 @@ img {
 	width: 100%;
   height: auto;
   
+}
+.show-detail-card {
+  margin: auto;
+  justify-content: center;
+}
+.description-card {
+  margin:0 10%;
+  height: auto;
+  display: flex;
+  flex: 0 1 500px;
+  background-color: #0B2240;
+}
+.description-p {
+  margin: 10px 5%;
+  text-align: justify;
+}
+.description-label {
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #0B2240;
+  color: white;
+}
+.description-btn {
+  display: flex;
+  justify-content: center;
+}
+.description-btn select, .description-btn button {
+  margin-top: 20px;
+  border-radius: 6px;
+  padding: 1%;
+  background-color: #0B2240;
+  color: white;
+}
+[class="fa fa-check"] {
+  color: green;
+}
+[class="fa fa-thumbs-up"] {
+  color: yellow;
+}
+[class="fa fa-thumbs-down"] {
+  color: red;
+}
+h3 a {
+  text-decoration: none;
+  color:#0B2240;
 }
 .col-1 {
   flex: 1;
