@@ -30,7 +30,7 @@ export default class requestController {
    * @returns {Array} request
    */
   static getAll(req, res) {
-    return res.status(200).send(data);
+    return res.status(200).json(data);
   }
   /**
    * This method gets a single request.
@@ -39,8 +39,8 @@ export default class requestController {
    * @returns {Object} request
    */
   static getARequest (req, res) {
-    if (requestController.selectRequest(req) === null) return res.status(404).send({ message: 'Invalid ID' });
-    res.status(200).send(requestController.selectRequest(req));
+    if (requestController.selectRequest(req) === null) return res.status(404).json({ message: 'Invalid ID' });
+    res.status(200).json(requestController.selectRequest(req));
   }
 
   /**
@@ -59,6 +59,20 @@ export default class requestController {
       image: req.body.image
     }
     data.push(request);
-    res.status(200).send(request);
+    res.status(200).json(request);
+  }
+  /**
+   * This updates an existing request
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} updated request
+   */
+  static modifyRequest(req, res) {
+    if (requestController.selectRequest(req) === null) return res.status(404).json({ message: 'Invalid ID' });
+    const item = requestController.selectRequest(req);    
+    Object.keys(item).forEach((property) => {
+      item[property] = req.body[property] || item[property];
+    });
+    res.status(200).json(item);
   }
 }
