@@ -42,4 +42,23 @@ export default class requestController {
     if (requestController.selectRequest(req) === null) return res.status(404).send({ message: 'Invalid ID' });
     res.status(200).send(requestController.selectRequest(req));
   }
+
+  /**
+   * This method create a request.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} request
+   */
+  static addRequest (req, res) {
+    const request = {
+      id: data[data.length - 1].id + 1,
+      title: req.body.title,
+      description: req.body.description,
+      status: req.body.status,
+      date: req.body.date,
+      image: req.body.image
+    }
+    data.push(request);
+    res.status(200).send(request);
+  }
 }
