@@ -1,0 +1,269 @@
+#logo {
+  text-shadow: 4px 4px 8px white;
+  color: #0B2240;
+}
+#home-dropdown {
+  color: black;
+  margin: 5%;
+}
+#home-dropdown select {
+  background-color:#15437F;
+  color: white;
+}
+.welcome-div {
+  height: 500px;
+  max-height: 500px;
+  background-image: url("../image/repair1.jpg");
+}
+.welcome-div img {
+  height: 500px;
+}
+.nav {
+  list-style: none;
+  height: auto;
+  background-color:#15437F;
+  padding: 1% 0 ;
+}
+.nav a {
+  text-decoration: none;
+  display: block;
+  padding: 0 1em;
+  color: white;
+}
+.navContainer {
+  display: flex;
+}
+.navItem {
+  flex: 1;
+}
+.navStart {
+  justify-content: flex-start;
+}
+.navEnd {
+  justify-content: flex-end;
+}
+.navWrap {
+  flex-wrap: wrap;
+}
+.itemCenter {
+  align-items: center;
+}
+.navColumn {
+  flex-direction: column;
+}
+.navSpaceBetween {
+  justify-content: space-between;
+}
+.navSpaceAround {
+  justify-content: space-around;
+}
+.text-center {
+  text-align: center;
+}
+
+
+body {
+  font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
+  background: #fff;
+  color: #15437F;
+  padding: 0 0 50px 0;
+}
+
+.container {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container * {
+  box-sizing: border-box;
+}
+
+.flex-outer {
+  list-style-type: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex-outer li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-outer > li {
+  margin-bottom: 20px;
+}
+
+.flex-outer li label {
+  padding: 8px;
+  font-weight: 900;
+  letter-spacing: .09em;
+  color: #15437F;
+}
+
+.flex-outer > li > label {
+  flex: 1 0 120px;
+  max-width: 220px;
+}
+
+.flex-outer > li > label + * {
+  flex: 1 0 220px;
+}
+
+.flex-outer li input {
+  padding: 15px;
+  border: solid 2px #15437F;
+}
+
+.flex-outer li button {
+  margin-left: auto;
+  padding: 8px 16px;
+  border: none;
+  background: #0B2240;
+  color: #f2f2f2;
+  letter-spacing: .09em;
+  border-radius: 2px;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5%;
+  margin-top: 0;
+}
+.card {
+  flex: 0 1 24%;
+  background: white;
+  border: solid 1px rgb(73, 73, 182);
+  border-radius:5px;
+  color:#505152;
+  height: auto;
+}
+.card h3 {
+  color: #0B2240;
+}
+.card-content {
+  padding: 5px;
+  text-align: center;
+}
+#request-header {
+  margin-left: 5%;
+  margin-top: 5%;
+  color: black;
+}
+img {
+	display: block;
+	border: 0;
+	width: 100%;
+  height: auto;
+  
+}
+.show-detail-card {
+  margin: auto;
+  justify-content: center;
+}
+.description-card {
+  margin:0 10%;
+  height: auto;
+  display: flex;
+  flex: 0 1 500px;
+  background-color: #0B2240;
+}
+.description-p {
+  margin: 10px 5%;
+  text-align: justify;
+}
+.description-label {
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #0B2240;
+  color: white;
+}
+.description-btn {
+  display: flex;
+  justify-content: center;
+}
+.description-btn select, .description-btn button {
+  margin-top: 20px;
+  border-radius: 6px;
+  padding: 1%;
+  background-color: #0B2240;
+  color: white;
+}
+[class="fa fa-check"] {
+  color: green;
+}
+[class="fa fa-thumbs-up"] {
+  color: yellow;
+}
+[class="fa fa-thumbs-down"] {
+  color: red;
+}
+h3 a {
+  text-decoration: none;
+  color:#0B2240;
+}
+#file {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+textarea {
+  border-radius: 10px;
+  resize: none;
+  width: 80%;
+  margin-left: 10%; 
+
+}
+.description-p-textarea, .date-p-textarea {
+  background-color: #0B2240;
+  color: white;
+}
+.textarea-div, .date-div {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+#request-btn {
+  display: flex;
+  justify-content: center;
+  
+}
+#request-btn button {
+  margin: 10%;
+  border-radius: 6px;
+  padding: 1%;
+  width: 20%;
+  background-color: #0B2240;
+  color: white;
+}
+.col-1 {
+  flex: 1;
+}
+.col-2 {
+  flex: 2;
+}
+.col-3 {
+  flex: 3;
+}
+.col-12 {
+  flex: 12;
+  color: rgb(115, 14, 197);
+}
+@media only screen and (max-width: 768px) {
+  .nav a {
+    font-size: 80%;
+    
+  }
+
+  .card {
+    flex: 1 0 300px;
+    margin: 5px;
+    background: white;
+    border: solid 1px rgb(73, 73, 182);
+    border-radius:5px;
+    color:#505152;
+    height: auto;
+  }
+}
