@@ -205,6 +205,39 @@ h3 a {
   text-decoration: none;
   color:#0B2240;
 }
+#file {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+textarea {
+  border-radius: 10px;
+  resize: none;
+  width: 80%;
+  margin-left: 10%; 
+
+}
+.description-p-textarea, .date-p-textarea {
+  background-color: #0B2240;
+  color: white;
+}
+.textarea-div, .date-div {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+#request-btn {
+  display: flex;
+  justify-content: center;
+  
+}
+#request-btn button {
+  margin: 10%;
+  border-radius: 6px;
+  padding: 1%;
+  width: 20%;
+  background-color: #0B2240;
+  color: white;
+}
 .col-1 {
   flex: 1;
 }
