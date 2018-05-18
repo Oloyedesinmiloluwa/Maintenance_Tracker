@@ -9,7 +9,7 @@ export default class requestController {
    * @param {Object} req - The client request object.
    * @returns {Object} The selected request
    */
-  static selectrequest(req) {
+  static selectRequest(req) {
     const id = parseInt(req.params.requestId, 10);
     if (!data[id]) return null;
     return data[id];
@@ -31,5 +31,15 @@ export default class requestController {
    */
   static getAll(req, res) {
     return res.status(200).send(data);
+  }
+  /**
+   * This method gets a single request.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} request
+   */
+  static getARequest (req, res) {
+    if (requestController.selectRequest(req) === null) return res.status(404).send({ message: 'Invalid ID' });
+    res.status(200).send(requestController.selectRequest(req));
   }
 }
