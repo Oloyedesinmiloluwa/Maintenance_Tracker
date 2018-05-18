@@ -9,5 +9,6 @@ requestRoute.route('/users/requests')
   .get(requestController.getAll)
   .post(requestController.addRequest);
 requestRoute.route('/users/requests/:requestId')
-  .get(requestController.getARequest);
+  .get(requestController.getARequest)
+  .put(requestController.modifyRequest);
 export default requestRoute;
