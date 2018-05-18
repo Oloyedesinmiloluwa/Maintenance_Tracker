@@ -6,7 +6,8 @@ const requestRoute = express();
 requestRoute.use(bodyParser.json());
 requestRoute.use(bodyParser.urlencoded({ extended: false }));
 requestRoute.route('/users/requests')
-  .get(requestController.getAll);
+  .get(requestController.getAll)
+  .post(requestController.addRequest);
 requestRoute.route('/users/requests/:requestId')
   .get(requestController.getARequest);
 export default requestRoute;
