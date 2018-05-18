@@ -5,7 +5,7 @@ import requestController from '../controllers/requestController';
 const requestRoute = express();
 requestRoute.use(bodyParser.json());
 requestRoute.use(bodyParser.urlencoded({ extended: false }));
-requestRoute.route('/requests')
+requestRoute.route('users/requests')
   .get(requestController.getAll)
   
 export default requestRoute;
