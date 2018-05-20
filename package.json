@@ -8,7 +8,8 @@
     "start:dev": "nodemon server/src/index.js --exec babel-node",
     "build": "babel ./server/src -d ./server/dist",
     "start": "node server/dist/index.js",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
