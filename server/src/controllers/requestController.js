@@ -1,3 +1,4 @@
+import validator from 'validator';
 import data from '../model/data';
 
 /**
@@ -34,6 +35,7 @@ export default class requestController {
   static getAll(req, res) {
     if (req.query.status) {
       req.query.status = req.query.status.toLowerCase();
+      req.query.status = validator.trim(req.query.status);
       const filteredData = data.filter(request => request.status === req.query.status);
       return res.status(200).send(filteredData);
     }
