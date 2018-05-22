@@ -7,7 +7,7 @@ export default {
     database: 'postgres',
     host: '127.0.0.1',
     password: 'JESUS',
-    port: process.env.port,
+    port: process.env.conPort,
     max: 10,
     idleTimeoutMillis: 30000
   },
@@ -17,7 +17,7 @@ export default {
     password: process.env.testPassword,
     database: 'postgres',
     host: '127.0.0.1',
-    port: process.env.port,
+    port: process.env.conPort,
     max: 10,
     idleTimeoutMillis: 30000
   },
