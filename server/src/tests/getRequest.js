@@ -48,24 +48,6 @@ const getRequest = () => {
           done();
         });
     });
-    it('It should get a single request', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests/1')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.id.should.eql(1);
-          assert.isObject(res.body, 'The response is object');
-          done();
-        });
-    });
-    it('It should return Not found for an invalid Id', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests/900000')
-        .end((err, res) => {
-          res.should.have.status(404);
-          done();
-        });
-    });
   });
 };
 export default getRequest;

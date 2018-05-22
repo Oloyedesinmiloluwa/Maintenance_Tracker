@@ -4,8 +4,13 @@ node_js:
 env:
   global:
     - CC_TEST_REPORTER_ID=410a965e5ce79b5ffe3fd354fc74b4ed9e6fee15b84fc44a5052606a7c4f426a
-install: npm install
+services:
+  - postgresql
+install: 
+  - npm install
+
 before_script:
+  - psql -U postgres -a -f travis.sql
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build

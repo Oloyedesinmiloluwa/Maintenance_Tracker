@@ -4,7 +4,7 @@
   "description": "Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha ./server/src/tests/index.js --compilers js:babel-register --exit",
+    "test": "set NODE_ENV=test&& nyc mocha ./server/src/tests/index.js --compilers js:babel-register --exit",
     "start:dev": "nodemon server/src/index.js --exec babel-node",
     "build": "babel ./server/src -d ./server/dist",
     "start": "node server/dist/index.js",
@@ -22,12 +22,16 @@
   },
   "homepage": "https://github.com/Oloyedesinmiloluwa/Maintenance_Tracker#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
+    "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "mocha": "^5.0.2",
     "morgan": "^1.9.0",
+    "pg": "^7.4.3",
+    "pg-promise": "^8.4.4",
     "validator": "^9.4.1"
   },
   "devDependencies": {
