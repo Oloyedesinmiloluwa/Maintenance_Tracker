@@ -1,0 +1,42 @@
+{
+  "name": "maintenance_tracker",
+  "version": "1.0.0",
+  "description": "Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha ./server/src/tests/index.js --compilers js:babel-register --exit",
+    "start:dev": "nodemon server/src/index.js --exec babel-node",
+    "build": "babel ./server/src -d ./server/dist",
+    "start": "node server/dist/index.js",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oloyedesinmiloluwa/Maintenance_Tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oloyedesinmiloluwa/Maintenance_Tracker/issues"
+  },
+  "homepage": "https://github.com/Oloyedesinmiloluwa/Maintenance_Tracker#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "express": "^4.16.2",
+    "mocha": "^5.0.2",
+    "morgan": "^1.9.0",
+    "validator": "^9.4.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "coveralls": "^3.0.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "nodemon": "^1.17.4",
+    "nyc": "^11.8.0"
+  }
+}
