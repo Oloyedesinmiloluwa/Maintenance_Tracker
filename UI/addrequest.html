@@ -4,8 +4,6 @@
 <title>M-Tracker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit=no">
 <link href="css/main.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/font-awesome.min.css"/>
 <link href="css/normalize.css" rel="stylesheet" />
 </head>
 <body>
@@ -19,7 +17,7 @@
             <li><a href="signup.html">Sign up</a></li>
         </ul>
     </nav>
-    <h2 class="text-center">Have you got a fault? Tell us about it</h2>
+    <h2 id="addrequest-h2" class="text-center">Have you got a fault? Tell us about it</h2>
     <div class="cards show-detail-card">
         <div class="card">
           <img src="image/repair2.png">
@@ -27,8 +25,11 @@
             </div>
         </div>
         </div>
-        <div id="file">
-        <input type="file" name="photo-upload" accept="image/*">
+        <div id="file-div">
+            <label> Choose File ...
+                <input type="file" id="File" accept="image/*" >
+            </label>
+        
       </div>
       <div class="textarea-div">
       <p class="description-p-textarea">Description</p>
@@ -43,3 +44,4 @@
       </div>
   </body>
   </html>
+  <footer><p class="text-center">&copy; M-tracker.com</p></footer>
