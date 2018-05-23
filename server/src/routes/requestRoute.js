@@ -10,5 +10,6 @@ requestRoute.route('/users/requests')
   .get(requestController.getAll)
   .post(requestValidator.addRequest, requestController.addRequest);
 requestRoute.route('/users/requests/:requestId')
-  .get(requestController.getARequest);
+  .get(requestController.getARequest)
+  .put(requestValidator.modifyRequest, requestController.modifyRequest);
 export default requestRoute;

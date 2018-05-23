@@ -20,9 +20,14 @@ export default class validateRequest {
       return res.status(400).json({ message: 'Request description required' });
     }
     const keys = Object.keys(req.body);
+    let flag2 = false;
     keys.forEach((key) => {
-      if (!isString(req.body[key])) return res.status(400).json({ message: `Invalid Format for ${key} field` });
+      if (!isString(req.body[key])) {
+        flag2 = true;
+        return res.status(400).json({ message: `Invalid Format for ${key} field` });
+      }
     });
+    if (flag2) return;
     if (req.body.title.indexOf(' ') !== -1 || req.body.title.indexOf('-') !== -1) {
       let test = req.body.title;
       for (let i = 0; i < test.length; i += 1) {
@@ -45,17 +50,24 @@ export default class validateRequest {
    * @returns {Object} success or fail
    */
   static modifyRequest(req, res, next) {
+    const id = parseInt(req.params.requestId, 10);
+    if (!id || id < 0 || id !== Number(req.params.requestId)) return res.status(400).json({ message: 'Invalid ID' });
     let flag = false;
     if (req.body.status) {
-      ['new', 'approved', 'disapproved', 'resolved'].forEach((status) => {
+      ['pending', 'approved', 'disapproved', 'resolved'].forEach((status) => {
         if (req.body.status === status) flag = true;
       });
       if (!flag) res.status(400).json({ message: 'Status not valid' });
     }
+    let flag2 = false;
     const keys = Object.keys(req.body);
     keys.forEach((key) => {
-      if (!isString(req.body[key])) return res.status(400).json({ message: `Invalid Format for ${key} field` });
+      if (!isString(req.body[key])) {
+        flag2 = true;
+        return res.status(400).json({ message: `Invalid Format for ${key} field` });
+      }
     });
+    if (flag2) return;
     if (req.body.title && req.body.title.indexOf(' ') !== -1) {
       let test = req.body.title;
       for (let i = 0; i < test.length; i += 1) {

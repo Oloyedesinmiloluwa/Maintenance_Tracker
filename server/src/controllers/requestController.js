@@ -90,4 +90,45 @@ export default class requestController {
           });
       });
   }
+  /**
+   * This updates an existing request
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} updated request
+   */
+  static modifyRequest(req, res) {
+    pool.connect()
+      .then((client) => {
+        return client.query({ text: 'SELECT * FROM Requests WHERE Id=$1', values: [parseInt(req.params.requestId, 10)] })
+          .then((requests) => {
+            if (!requests.rows[0]) return res.status(404).json({ message: 'Request not found' });
+            client.release();
+            const [selectedRequest] = requests.rows;
+            if (selectedRequest.status === 'approved') return res.status(403).json({ message: 'Request is already approved' }); 
+            pool.connect()
+              .then((client2) => {
+                Object.keys(req.body).forEach((key) => {
+                  if (req.body[key]) selectedRequest[key] = req.body[key];
+                });
+                return client2.query({ text:
+          'UPDATE Requests SET title=$1,description=$2, category=$3, image=$4, status=$5, dated=$6 WHERE id=$7',
+                values: [selectedRequest.title, selectedRequest.description, selectedRequest.category, selectedRequest.image,
+                  selectedRequest.status, selectedRequest.dated, parseInt(req.params.requestId, 10)]
+                })
+                  .then(() => {
+                    client.release();
+                    res.status(201).json({ message: 'Request Updated Successfully'});
+                  })
+                  .catch((error) => {
+                    client.release();
+                    res.status(400).json(error.stack);
+                  });
+              });
+          })
+          .catch((error) => {
+            client.release();
+            res.status(400).json(error.stack);
+          });
+      });
+  }
 }
