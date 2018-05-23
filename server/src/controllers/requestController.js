@@ -65,4 +65,29 @@ export default class requestController {
           });
       });
   }
+  /**
+   * This adds a request to the database.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} added request
+   */
+  static addRequest(req, res) {
+    if (req.body.category) req.body.category = req.body.category.toLowerCase();
+    pool.connect()
+      .then((client) => {
+        return client.query({ text:
+          'INSERT INTO Requests(title,description, category, image, status, dated) VALUES ($1, $2, $3, $4, $5, $6)',
+        values: [req.body.title, req.body.description, req.body.category, req.body.image,
+          'pending', req.body.dated]
+        })
+          .then(() => {
+            client.release();
+            res.status(201).json({ message: 'Request Added Successfully'});
+          })
+          .catch((error) => {
+            client.release();
+            res.status(400).json(error.stack);
+          });
+      });
+  }
 }
