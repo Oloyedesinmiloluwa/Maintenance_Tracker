@@ -52,4 +52,24 @@ export default class userValidator {
     }
     next();
   }
+  /**
+   * This validates login details
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @param {Object} next - call next route handler
+   * @returns {Object} Success or failure message
+   */
+  static login(req, res, next) {
+    let flag = false;
+    Object.keys(req.body).forEach((key) => {
+      if (!isString(req.body[key])) {
+        flag = true;
+        return res.status(400).json({ message: `Invalid Format for ${key} field` });
+      }
+    });
+    if (flag) return;
+    if (!req.body.email) return res.status(400).json({ message: 'Email is required' });
+    if (!req.body.password) return res.status(400).json({ message: 'Password is required' });
+    next();
+  }
 }

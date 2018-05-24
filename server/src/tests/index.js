@@ -5,11 +5,13 @@ import getRequest from './getRequest';
 import postRequest from './postRequest';
 import updateRequest from './updateRequest';
 import createUser from './createUser';
+import loginUser from './loginUser';
 
 dotenv.config();
 chai.should();
 chai.use(chaiHttp);
 describe('Test for Request API endpoints', () => {
+  loginUser();
   getRequest();
   postRequest();
   updateRequest();
