@@ -8,4 +8,6 @@ userRoute.use(bodyParser.json());
 userRoute.use(bodyParser.urlencoded({ extended: false }));
 userRoute.route('/auth/signup')
   .post(userValidator.signUp, userController.signUp);
+userRoute.route('/auth/login')
+  .post(userValidator.login, userController.login);
 export default userRoute;
