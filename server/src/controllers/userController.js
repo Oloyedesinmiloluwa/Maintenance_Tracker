@@ -30,7 +30,7 @@ export default class userController {
             } = result.rows[0];
             const token = jwt.sign({ id }, process.env.secret_key, { expiresIn: '1h' });
             if (process.env.NODE_ENV === 'test') process.env.token = token;
-            return res.status(201).json({ message: 'Successfully created an account', id });
+            return res.status(201).json({ message: 'Successfully created an account', token });
           })
           .catch((error) => {
             client.release();
