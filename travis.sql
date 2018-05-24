@@ -1,4 +1,4 @@
-CREATE TABLE Users (id SERIAL, firstname varchar, lastname varchar, email varchar, password varchar ;
+CREATE TABLE Users (id SERIAL, firstname varchar, lastname varchar, email varchar, password varchar) ;
 INSERT INTO Requests (firstname, lastname, email, password)
 VALUES ('Sinmi','John', 'sinmiloluwasunday@yahoo.com','test');
 CREATE TABLE Requests (ID SERIAL, title varchar, description varchar, category varchar, image varchar, status varchar, dated date, userId REFERENCES users(id);

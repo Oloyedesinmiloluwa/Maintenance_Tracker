@@ -29,6 +29,7 @@ export default class requestController {
               res.status(400).json(error.stack);
             });
         });
+      return;
     }
     pool.connect()
       .then((client) => {
