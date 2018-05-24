@@ -12,7 +12,7 @@ const createUser = () => {
       chai.request(userRoute)
         .post('/auth/signup')
         .send({
-          firstName: 'Grace', lastName: 'Love', email: 'admin1@yahoo.com', password: 'test' })
+          firstName: 'Grace', lastName: 'Love', email: 'regular1@yahoo.com', password: 'test' })
         .end((err, res) => {
           res.should.have.status(201);
           assert.equal(res.body.message, 'Successfully created an account');
@@ -23,7 +23,7 @@ const createUser = () => {
       chai.request(userRoute)
         .post('/auth/signup')
         .send({
-          firstName: 'Mike-bamiloye', lastName: 'Love', email: 'admin2@yahoo.com', password: 'test' })
+          firstName: 'Mike-bamiloye', lastName: 'Love', email: 'regular2@yahoo.com', password: 'test' })
         .end((err, res) => {
           res.should.have.status(201);
           assert.equal(res.body.message, 'Successfully created an account');
@@ -34,7 +34,7 @@ const createUser = () => {
       chai.request(userRoute)
         .post('/auth/signup')
         .send({
-          firstName: 'grace', lastName: 'Love-mercy', email: 'admin3@yahoo.com', password: 'test' })
+          firstName: 'grace', lastName: 'Love-mercy', email: 'regular3@yahoo.com', password: 'test' })
         .end((err, res) => {
           res.should.have.status(201);
           assert.equal(res.body.message, 'Successfully created an account');

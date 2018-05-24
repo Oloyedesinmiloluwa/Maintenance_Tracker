@@ -20,15 +20,15 @@ export default class userController {
     pool.connect()
       .then((client) => {
         return client.query({ text:
-          'INSERT INTO users (firstname, lastname,email,password) VALUES ($1, $2, $3, $4) RETURNING id',
-        values: [req.body.firstName, req.body.lastName, req.body.email, hashedPassword]
+          'INSERT INTO users (firstname, lastname,email,password, role) VALUES ($1, $2, $3, $4, $5) RETURNING id, email',
+        values: [req.body.firstName, req.body.lastName, req.body.email, hashedPassword, 'user']
         })
           .then((result) => {
             client.release();
             const {
-              id
+              id, email
             } = result.rows[0];
-            const token = jwt.sign({ id }, process.env.secret_key, { expiresIn: '1h' });
+            const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '1h' });
             if (process.env.NODE_ENV === 'test') process.env.token = token;
             return res.status(201).json({ message: 'Successfully created an account', token });
           })
@@ -56,9 +56,9 @@ export default class userController {
               .then((response) => {
                 if (!response) return res.status(401).json({ message: 'Invalid Password' });
                 const {
-                  id
+                  id, email
                 } = result.rows[0];
-                const token = jwt.sign({ id }, process.env.secret_key, { expiresIn: '1h' });
+                const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '1h' });
                 if (process.env.NODE_ENV === 'test') process.env.token = token;
                 return res.status(201).json({ message: 'Login successful', token });
               })

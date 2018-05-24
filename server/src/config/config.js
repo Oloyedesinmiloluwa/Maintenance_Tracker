@@ -22,6 +22,6 @@ export default {
     idleTimeoutMillis: 30000
   },
   production: {
-    
+    use_env_variable: 'DATABASE_URL'
   }
 };

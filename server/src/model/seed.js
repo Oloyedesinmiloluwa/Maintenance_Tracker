@@ -1,11 +1,11 @@
-import { Pool, Client } from 'pg';
+import { Client } from 'pg';
 import bcryptjs from 'bcryptjs';
 import config from '../config/config';
 
 const hashedPassword = bcryptjs.hashSync('test', 8);
 const env = process.env.NODE_ENV || 'test';
-const seedUserData = { text: 'INSERT INTO users (firstname, lastname, email, password) VALUES($1, $2,$3,$4)',
-  values: ['Sinmi', 'John', 'sinmiloluwasunday@yahoo.com', hashedPassword] };
+const seedUserData = { text: 'INSERT INTO users (firstname, lastname, email, password, role) VALUES($1, $2,$3,$4,$5)',
+  values: ['Sinmi', 'John', 'sinmiloluwasunday@yahoo.com', hashedPassword, 'admin'] };
 const seedRequestData1 = `INSERT INTO requests (title, description, category, image, status, dated, userId) VALUES
 ('Faulty Fan', 'we have a fault', 'electrical', 'IMAGE', 'approved', '2018-12-13', 1);`;
 const seedRequestData2 = `INSERT INTO requests (title, description, category, image, status, dated, userId) VALUES
