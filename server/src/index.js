@@ -2,10 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import http from 'http';
 import logger from 'morgan';
-import { Pool, Client } from 'pg';
 import dotenv from 'dotenv';
 import requestRoute from './routes/requestRoute';
-import config from './config/config';
+import userRoute from './routes/userRoute';
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 const app = express();
@@ -14,6 +13,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api/v1/', requestRoute);
+app.use('/api/v1/', userRoute);
 app.all('*', (req, res) => res.status(404).send({
   message: 'You are not in the right place, pls input a valid endpoint',
 }));
