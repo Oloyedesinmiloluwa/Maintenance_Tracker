@@ -23,14 +23,14 @@ export default class userController {
           'INSERT INTO users (firstname, lastname,email,password) VALUES ($1, $2, $3, $4) RETURNING id',
         values: [req.body.firstName, req.body.lastName, req.body.email, hashedPassword]
         })
-          .then((userId) => {
+          .then((result) => {
             client.release();
             const {
               id
-            } = userId;
+            } = result.rows[0];
             const token = jwt.sign({ id }, process.env.secret_key, { expiresIn: '1h' });
             if (process.env.NODE_ENV === 'test') process.env.token = token;
-            return res.status(201).json({ message: 'Successfully created an account', token });
+            return res.status(201).json({ message: 'Successfully created an account', id });
           })
           .catch((error) => {
             client.release();
