@@ -9,5 +9,7 @@ adminRoute.use(bodyParser.urlencoded({ extended: false }));
 
 adminRoute.route('/requests')
   .get(auth, adminController.getAll);
+adminRoute.route('/requests/:requestId/approve')
+  .put(auth, adminController.approveRequest);
 
 export default adminRoute;

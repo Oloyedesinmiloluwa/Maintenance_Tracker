@@ -8,8 +8,6 @@ export default {
     host: '127.0.0.1',
     password: 'JESUS',
     port: process.env.conPort,
-    max: 10,
-    idleTimeoutMillis: 30000
   },
   test:
   {
@@ -18,8 +16,6 @@ export default {
     database: 'postgres',
     host: '127.0.0.1',
     port: process.env.conPort,
-    max: 10,
-    idleTimeoutMillis: 30000
   },
   production: {
     use_env_variable: 'DATABASE_URL'
