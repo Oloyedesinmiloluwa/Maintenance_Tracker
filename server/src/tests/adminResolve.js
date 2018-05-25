@@ -4,18 +4,18 @@ import adminRoute from '../routes/adminRoute';
 
 chai.should();
 chai.use(chaiHttp);
-const adminDisapprove = () => {
+const adminResolve = () => {
   describe('/PUT ADMIN', () => {
-    it('It should disapprove a request', (done) => {
+    it('It should resolve request', (done) => {
       chai.request(adminRoute)
-        .put('/requests/7/disapprove')
+        .put('/requests/7/resolve')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.equal(res.body.message, 'Request disapproved');
+          assert.equal(res.body.message, 'Request resolved');
           done();
         });
     });
-    it('It should not disapprove an unexisting request', (done) => {
+    it('It should not resolve an unexisting request', (done) => {
       chai.request(adminRoute)
         .put('/requests/6000/resolve')
         .end((err, res) => {
@@ -26,4 +26,4 @@ const adminDisapprove = () => {
     });
   });
 };
-export default adminDisapprove;
+export default adminResolve;
