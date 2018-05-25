@@ -13,5 +13,7 @@ adminRoute.route('/requests/:requestId/approve')
   .put(auth, adminController.approveRequest);
 adminRoute.route('/requests/:requestId/disapprove')
   .put(auth, adminController.disapproveRequest);
+adminRoute.route('/requests/:requestId/resolve')
+  .put(auth, adminController.resolveRequest);
 
 export default adminRoute;

@@ -103,6 +103,16 @@ export default class adminController {
     adminController.verifyIfAdmin(req, res, requestStatus);
   }
   /**
+   * This method approves a request when called by an admin.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} user
+   */
+  static resolveRequest(req, res) {
+    const requestStatus = 'resolved';
+    adminController.verifyIfAdmin(req, res, requestStatus);
+  }
+  /**
    * This method verifies if a user is admin.
    * @param {Object} req - client request Object
    * @param {Object} res - server response Object
