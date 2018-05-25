@@ -152,4 +152,40 @@ export default class adminController {
           });
       });
   }
+  /**
+   * This method makes a user admin.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} user
+   */
+  static makeAdmin(req, res) {
+    if (req.decoded.id !== 1) return res.status(403).json({ message: 'You are not an admin' });
+    pool.connect()
+      .then((client) => {
+        return client.query({ text: 'SELECT * FROM users WHERE id=$1', values: [parseInt(req.params.userId, 10)] })
+          .then((users) => {
+            if (!users.rows[0]) return res.status(404).json({ message: 'User not found' });
+            client.release();
+            pool.connect()
+              .then((client2) => {
+                return client2.query({
+                  text: 'UPDATE users SET role=$1 WHERE id=$2 RETURNING id, firstname, lastname, email, role',
+                  values: ['admin', users.rows[0].id]
+                })
+                  .then((result) => {
+                    client.release();
+                    res.status(200).json({ message: 'User role set to admin', data: result.rows[0] });
+                  })
+                  .catch((error) => {
+                    client.release();
+                    res.status(500).json(error.stack);
+                  });
+              });
+          })
+          .catch((error) => {
+            client.release();
+            res.status(500).json(error.stack);
+          });
+      });
+  }
 }

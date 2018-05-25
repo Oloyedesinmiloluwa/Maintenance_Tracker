@@ -32,7 +32,7 @@ const adminGetAll = () => {
       chai.request(userRoute)
         .post('/auth/login')
         .send({
-          email: 'regular1@yahoo.com', password: 'test'
+          email: 'regular3@yahoo.com', password: 'test'
         })
         .end((err, res) => {
           res.should.have.status(201);
