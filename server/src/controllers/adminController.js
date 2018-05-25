@@ -83,13 +83,33 @@ export default class adminController {
       });
   }
   /**
-   * This method makes a user admin.
+   * This method approves a request when called by an admin.
    * @param {Object} req - client request Object
    * @param {Object} res - Server response Object
    * @returns {Object} user
    */
   static approveRequest(req, res) {
     const requestStatus = 'approved';
+    adminController.verifyIfAdmin(req, res, requestStatus);
+  }
+  /**
+   * This method disapproves a request when called by an admin.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} user
+   */
+  static disapproveRequest(req, res) {
+    const requestStatus = 'disapproved';
+    adminController.verifyIfAdmin(req, res, requestStatus);
+  }
+  /**
+   * This method verifies if a user is admin.
+   * @param {Object} req - client request Object
+   * @param {Object} res - server response Object
+   * @param {String} requestStatus - new status of request
+   * @returns {Object} nothing
+   */
+  static verifyIfAdmin(req, res, requestStatus) {
     let flag = false;
     pool.connect()
       .then((client) => {
@@ -97,7 +117,9 @@ export default class adminController {
           .then((result) => {
             client.release();
             if (!result.rows[0]) return res.status(404).json({ message: 'Request not found' });
-            if (result.rows[0].status !== 'pending') return res.status(403).json({ message: 'Request has been acted upon' });
+            if (requestStatus === 'approved') {
+              if (result.rows[0].status !== 'pending') return res.status(403).json({ message: 'Request has been acted upon' });
+            }
             pool.connect()
               .then((client1) => {
                 return client1.query('SELECT * FROM users WHERE role=$1', ['admin'])
