@@ -2,8 +2,11 @@ import validator from 'validator';
 import { Pool } from 'pg';
 import config from '../config/config';
 
+let conString;
 const env = process.env.NODE_ENV || 'development';
-const pool = new Pool(config[env]);
+if (env === 'production') conString = { connectionString: process.env.DATABASE_URL, ssl: true };
+else conString = config[env];
+const pool = new Pool(conString);
 /**
  * Class representing the controller for the application.
  */
@@ -26,7 +29,7 @@ export default class requestController {
               res.status(200).json(requests.rows); })
             .catch((error) => {
               client.release();
-              res.status(400).json(error.stack);
+              res.status(500).json(error.stack);
             });
         });
       return;
@@ -39,7 +42,7 @@ export default class requestController {
             res.status(200).json(requests.rows); })
           .catch((error) => {
             client.release();
-            res.status(400).json(error.stack);
+            res.status(500).json(error.stack);
           });
       });
   }
@@ -62,7 +65,7 @@ export default class requestController {
             res.status(200).json(requests.rows[0]); })
           .catch((error) => {
             client.release();
-            res.status(400).json(error.stack);
+            res.status(500).json(error.stack);
           });
       });
   }
@@ -87,7 +90,7 @@ export default class requestController {
           })
           .catch((error) => {
             client.release();
-            res.status(400).json(error.stack);
+            res.status(500).json(error.stack);
           });
       });
   }
@@ -113,9 +116,10 @@ export default class requestController {
                   if (req.body[key]) selectedRequest[key] = req.body[key];
                 });
                 return client2.query({ text:
-          'UPDATE Requests SET title=$1,description=$2, category=$3, image=$4, status=$5, dated=$6 WHERE id=$7 RETURNING *',
-                values: [selectedRequest.title, selectedRequest.description, selectedRequest.category, selectedRequest.image,
-                  selectedRequest.status, selectedRequest.dated, parseInt(req.params.requestId, 10)]
+          'UPDATE Requests SET title=$1,description=$2, category=$3, image=$4, dated=$5 WHERE id=$6 RETURNING *',
+                values: [selectedRequest.title, selectedRequest.description,
+                  selectedRequest.category, selectedRequest.image, selectedRequest.dated,
+                  parseInt(req.params.requestId, 10)]
                 })
                   .then((result) => {
                     client.release();
@@ -123,13 +127,13 @@ export default class requestController {
                   })
                   .catch((error) => {
                     client.release();
-                    res.status(400).json(error.stack);
+                    res.status(500).json(error.stack);
                   });
               });
           })
           .catch((error) => {
             client.release();
-            res.status(400).json(error.stack);
+            res.status(500).json(error.stack);
           });
       });
   }

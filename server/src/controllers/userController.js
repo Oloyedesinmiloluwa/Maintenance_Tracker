@@ -3,8 +3,12 @@ import bcrypt from 'bcryptjs';
 import { Pool } from 'pg';
 import config from '../config/config';
 
+
+let conString;
 const env = process.env.NODE_ENV || 'development';
-const pool = new Pool(config[env]);
+if (env === 'production') conString = { connectionString: process.env.DATABASE_URL, ssl: true };
+else conString = config[env];
+const pool = new Pool(conString);
 /**
  * Class representing the controller for the application.
  */

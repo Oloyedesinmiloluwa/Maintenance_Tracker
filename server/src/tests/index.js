@@ -7,6 +7,7 @@ import updateRequest from './updateRequest';
 import createUser from './createUser';
 import loginUser from './loginUser';
 import adminGetAll from './adminGetAll';
+import adminApprove from './adminApprove';
 
 dotenv.config();
 chai.should();
@@ -16,6 +17,7 @@ describe('Test for Request API endpoints', () => {
   getRequest();
   postRequest();
   updateRequest();
+  adminApprove();
   createUser();
   adminGetAll();
 });
