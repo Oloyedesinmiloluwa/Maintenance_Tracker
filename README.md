@@ -4,13 +4,23 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/4776543d19681cf61613/maintainability)](https://codeclimate.com/github/Oloyedesinmiloluwa/Maintenance_Tracker/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4776543d19681cf61613/test_coverage)](https://codeclimate.com/github/Oloyedesinmiloluwa/Maintenance_Tracker/test_coverage)
 
-Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request.
+Maintenance Tracker App is an application that provides users with the ability to reach out to operations or repairs department regarding repair or maintenance requests and monitor the status of their request. To access the privileged endpoints token must be provided
 
 ## How it works 
 * Users can:
     * Get all their maintenance or repair requests
     * Create a request
-    * modify their request
+    * Modify their request
+    * Create account
+    * Login to their account
+* Admins can:
+    * Get all requests in the application
+    * Get a specified request
+    * mark a request as resolved
+    * mark a request as approved
+    * mark a request as disapproved
+* Super admin can:
+    * make an existing user an admin
     
 ## Technologies
   * Nodejs(ES6)
@@ -57,9 +67,45 @@ If you only want to access the completed work, you will find the link to the hos
   <tr>
       <td>GET</td>
       <td>/api/v1/users/requests?status={ status }</td>
-      <td>Get requests base on status</td>
+      <td>Get requests filter by status</td>
+  </tr>
+  <tr>
+      <td>GET</td>
+      <td>/api/v1/requests</td>
+      <td>Get all requests in the application</td>
+  </tr>
+  <tr>
+      <td>PUT</td>
+      <td>/api/v1/admin/{userId}/approve</td>
+      <td>Super admin makes a user an admin</td>
+  </tr>
+  <tr>
+      <td>PUT</td>
+      <td>/api/v1/requests/{requestId}/approve</td>
+      <td>Admin updates a request status as approved</td>
+  </tr>
+  <tr>
+      <td>PUT</td>
+      <td>/api/v1/requests/{requestId}/disapprove</td>
+      <td>Admin updates a request status as disapproved</td>
+  </tr>
+  <tr>
+      <td>PUT</td>
+      <td>/api/v1/requests/{requestId}/resolved</td>
+      <td>Admin updates a request status as resolved</td>
+  </tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/auth/login</td>
+      <td>Login a user</td>
+  </tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/auth/signup</td>
+      <td>Creates an account for a new user</td>
   </tr>
 </table>
 <br/>
 
 You can access the app here https://m-tracker.herokuapp.com
+You can also access the API documentation at https://m-tracker.herokuapp.com/api-docs

@@ -77,12 +77,13 @@ export default class requestController {
    */
   static addRequest(req, res) {
     if (req.body.category) req.body.category = req.body.category.toLowerCase();
+    const dateToday = new Date();
     pool.connect()
       .then((client) => {
         return client.query({ text:
           'INSERT INTO Requests(title,description, category, image, status, dated, userid) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
         values: [req.body.title, req.body.description, req.body.category, req.body.image,
-          'pending', req.body.dated, req.decoded.id]
+          'pending', dateToday, req.decoded.id]
         })
           .then((results) => {
             client.release();
@@ -116,9 +117,9 @@ export default class requestController {
                   if (req.body[key]) selectedRequest[key] = req.body[key];
                 });
                 return client2.query({ text:
-          'UPDATE Requests SET title=$1,description=$2, category=$3, image=$4, dated=$5 WHERE id=$6 RETURNING *',
+          'UPDATE Requests SET title=$1,description=$2, category=$3, image=$4 WHERE id=$5 RETURNING *',
                 values: [selectedRequest.title, selectedRequest.description,
-                  selectedRequest.category, selectedRequest.image, selectedRequest.dated,
+                  selectedRequest.category, selectedRequest.image,
                   parseInt(req.params.requestId, 10)]
                 })
                   .then((result) => {
