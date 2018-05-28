@@ -169,6 +169,50 @@ const createUser = () => {
           done();
         });
     });
+    it('It should not create account if firstname is more than 20 characters', (done) => {
+      chai.request(userRoute)
+        .post('/auth/signup')
+        .send({
+          firstName: 'hellohellohellohello1', lastName: 'Love', email: 'sinmi@yahoo.com', password: 'testtest' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('First name cannot be more than 20 characters');
+          done();
+        });
+    });
+    it('It should not create account if lastname is more than 20 characters', (done) => {
+      chai.request(userRoute)
+        .post('/auth/signup')
+        .send({
+          firstName: 'hello', lastName: 'Lovelovelovelovelove1', email: 'sinmi@yahoo.com', password: 'testtest' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('Last name cannot be more than 20 characters');
+          done();
+        });
+    });
+    it('It should not create account if email is more than 30 characters', (done) => {
+      chai.request(userRoute)
+        .post('/auth/signup')
+        .send({
+          firstName: 'hello', lastName: 'Love', email: 'sinmisinmisinmisinmi1@yahoo.com', password: 'testtest' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('Email cannot be more than 30 characters');
+          done();
+        });
+    });
+    it('It should not create account password more than 20 characters', (done) => {
+      chai.request(userRoute)
+        .post('/auth/signup')
+        .send({
+          firstName: 'hello', lastName: 'Love', email: 'sinmi@yahoo.com', password: 'testtesttesttesttesttest' })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('password cannot be more than 20 characters');
+          done();
+        });
+    });
   });
 };
 export default createUser;

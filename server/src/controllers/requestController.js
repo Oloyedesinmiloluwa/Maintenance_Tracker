@@ -1,12 +1,8 @@
 import validator from 'validator';
 import { Pool } from 'pg';
-import config from '../config/config';
+import { connectionString } from '../config/config';
 
-let conString;
-const env = process.env.NODE_ENV || 'development';
-if (env === 'production') conString = { connectionString: process.env.DATABASE_URL, ssl: true };
-else conString = config[env];
-const pool = new Pool(conString);
+const pool = new Pool(connectionString);
 /**
  * Class representing the controller for the application.
  */
@@ -18,14 +14,27 @@ export default class requestController {
    * @returns {Array} request
    */
   static getAll(req, res) {
+    let filter = '';
+    let presentQuery = '';
+    if (req.query.category) {
+      req.query.category = req.query.category.toLowerCase();
+      req.query.category = validator.trim(req.query.category);
+      filter = `WHERE category LIKE '${req.query.category}%'`;
+      presentQuery = 'in this category';
+    }
     if (req.query.status) {
       req.query.status = req.query.status.toLowerCase();
       req.query.status = validator.trim(req.query.status);
+      filter = `WHERE status LIKE '${req.query.status}%'`;
+      presentQuery = 'of this status';
+    }
+    if (req.query.status || req.query.category) {
       pool.connect()
         .then((client) => {
-          return client.query('SELECT * FROM Requests WHERE status=$1 AND userid=$2', [req.query.status, req.decoded.id])
+          return client.query(`SELECT * FROM Requests ${filter} AND userid=$1`, [req.decoded.id])
             .then((requests) => {
               client.release();
+              if (!requests.rows[0]) return res.status(400).json({ message: `No request ${presentQuery} found` });
               res.status(200).json(requests.rows); })
             .catch((error) => {
               client.release();
@@ -39,6 +48,7 @@ export default class requestController {
         return client.query({ text: 'SELECT * FROM Requests WHERE userid= $1', values: [req.decoded.id] })
           .then((requests) => {
             client.release();
+            if (requests.rows.length === 0) return res.status(400).json({ message: 'You have not made any request yet' });
             res.status(200).json(requests.rows); })
           .catch((error) => {
             client.release();
@@ -54,8 +64,6 @@ export default class requestController {
    * @returns {Object} request
    */
   static getARequest(req, res) {
-    const id = parseInt(req.params.requestId, 10);
-    if (!id || id < 0 || id !== Number(req.params.requestId)) return res.status(400).json({ message: 'Invalid ID' });
     pool.connect()
       .then((client) => {
         return client.query({ text: 'SELECT * FROM Requests WHERE Id=$1 AND userid=$2', values: [parseInt(req.params.requestId, 10), req.decoded.id] })

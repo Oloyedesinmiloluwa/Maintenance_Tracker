@@ -107,6 +107,66 @@ const postRequest = () => {
           done();
         });
     });
+    it('It should not create Request if title is more than 20 characters', (done) => {
+      chai.request(requestRoute)
+        .post('/users/requests')
+        .send({
+          title: 'faultfaultfaultfault1',
+          description: 'there is fault',
+          category: 'electrical',
+          image: 1
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('Title cannot be more than 20 characters');
+          done();
+        });
+    });
+    it('It should not create Request if description is more than 250 characters', (done) => {
+      chai.request(requestRoute)
+        .post('/users/requests')
+        .send({
+          title: 'fault',
+          description: 'there is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is fault123',
+          category: 'electrical',
+          image: 1
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('Description length cannot be more than 250 characters');
+          done();
+        });
+    });
+    it('It should not create Request if category length is more than 20 characters', (done) => {
+      chai.request(requestRoute)
+        .post('/users/requests')
+        .send({
+          title: 'fault',
+          description: 'there is fault',
+          category: 'electricalelectrical1',
+          image: 1
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('Category length cannot be more than 20 characters');
+          done();
+        });
+    });
+    it('It should not create Request if image length is more than 20 characters', (done) => {
+      chai.request(requestRoute)
+        .post('/users/requests')
+        .send({
+          title: 'fault',
+          description: 'there is fault',
+          category: 'electrical',
+          image: 'theimage is where youcannot think of because this is just a test'
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('Image length cannot be more than 20 characters');
+          done();
+        });
+    });
   });
 };
 export default postRequest;
