@@ -24,6 +24,15 @@ const adminDisapprove = () => {
           done();
         });
     });
+    it('It should not process an invalid request id', (done) => {
+      chai.request(adminRoute)
+        .put('/requests/6uiui/disapprove')
+        .end((err, res) => {
+          res.should.have.status(400);
+          assert.equal(res.body.message, 'Invalid ID');
+          done();
+        });
+    });
   });
 };
 export default adminDisapprove;

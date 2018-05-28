@@ -1,14 +1,9 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { Pool } from 'pg';
-import config from '../config/config';
+import { connectionString } from '../config/config';
 
-
-let conString;
-const env = process.env.NODE_ENV || 'development';
-if (env === 'production') conString = { connectionString: process.env.DATABASE_URL, ssl: true };
-else conString = config[env];
-const pool = new Pool(conString);
+const pool = new Pool(connectionString);
 /**
  * Class representing the controller for the application.
  */
@@ -23,22 +18,37 @@ export default class userController {
     const hashedPassword = bcrypt.hashSync(req.body.password, 8);
     pool.connect()
       .then((client) => {
-        return client.query({ text:
-          'INSERT INTO users (firstname, lastname,email,password, role) VALUES ($1, $2, $3, $4, $5) RETURNING id, email',
-        values: [req.body.firstName, req.body.lastName, req.body.email, hashedPassword, 'user']
-        })
-          .then((result) => {
+        return client.query({ text: 'SELECT email FROM Users WHERE email=$1', values: [req.body.email] })
+          .then((requests) => {
             client.release();
-            const {
-              id, email
-            } = result.rows[0];
-            const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '1h' });
-            if (process.env.NODE_ENV === 'test') process.env.token = token;
-            return res.status(201).json({ message: 'Successfully created an account', token });
-          })
-          .catch((error) => {
-            client.release();
-            res.status(500).json(error.stack);
+            if (requests.rows[0]) {
+              if (requests.rows[0].email === req.body.email) return res.status(400).json({ message: 'User already exists' });
+            }
+            pool.connect()
+              .then((client2) => {
+                return client2.query({ text:
+          'INSERT INTO users (firstname, lastname,email,password, role) VALUES ($1, $2, $3, $4, $5) RETURNING id, email, firstname, lastname, role',
+                values: [req.body.firstName, req.body.lastName, req.body.email, hashedPassword, 'user']
+                })
+                  .then((result) => {
+                    client2.release();
+                    const {
+                      id, email
+                    } = result.rows[0];
+                    const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '1h' });
+                    if (process.env.NODE_ENV === 'test') process.env.token = token;
+                    delete result.rows[0].password;
+                    return res.status(201).json({ message: 'Successfully created an account', data: result.rows[0], token });
+                  })
+                  .catch((error) => {
+                    client2.release();
+                    res.status(500).json(error.stack);
+                  });
+              })
+              .catch((error) => {
+                client.release();
+                res.status(500).json(error.stack);
+              });
           });
       });
   }
@@ -64,7 +74,8 @@ export default class userController {
                 } = result.rows[0];
                 const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '1h' });
                 if (process.env.NODE_ENV === 'test') process.env.token = token;
-                return res.status(201).json({ message: 'Login successful', token });
+                delete result.rows[0].password;
+                return res.status(201).json({ message: 'Login successful', data: result.rows[0], token });
               })
               .catch(error => res.status(500).json(error));
           })

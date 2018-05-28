@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import requestController from '../controllers/requestController';
 import requestValidator from '../middlewares/requestValidator';
 import auth from '../middlewares/auth';
+import idValidator from '../middlewares/idValidator';
 
 const requestRoute = express();
 requestRoute.use(bodyParser.json());
@@ -11,6 +12,6 @@ requestRoute.route('/users/requests')
   .get(auth, requestController.getAll)
   .post(requestValidator.addRequest, auth, requestController.addRequest);
 requestRoute.route('/users/requests/:requestId')
-  .get(auth, requestController.getARequest)
-  .put(auth, requestValidator.modifyRequest, requestController.modifyRequest);
+  .get(auth, idValidator, requestController.getARequest)
+  .put(auth, idValidator, requestValidator.modifyRequest, requestController.modifyRequest);
 export default requestRoute;

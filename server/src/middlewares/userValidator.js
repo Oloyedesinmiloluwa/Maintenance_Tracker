@@ -1,5 +1,5 @@
-import validator from 'validator';
-import { isString } from 'util';
+import isStringValidator from './isStringValidator';
+import checkName from './checkName';
 
 /**
  * Class representing the validator for the application.
@@ -13,43 +13,19 @@ export default class userValidator {
    * @returns {Object} Success or failure message
    */
   static signUp(req, res, next) {
-    const keys = Object.keys(req.body);
-    let flag = false;
-    keys.forEach((key) => {
-      if (!isString(req.body[key])) {
-        flag = true;
-        return res.status(400).json({ message: `Invalid Format for ${key} field` });
-      }
-    });
-    if (flag) return;
+    if (req.body.firstName && req.body.firstName.length > 20) return res.status(400).json({ message: 'First name cannot be more than 20 characters' });
+    if (req.body.lastName && req.body.lastName.length > 20) return res.status(400).json({ message: 'Last name cannot be more than 20 characters' });
+    if (req.body.email && req.body.email.length > 30) return res.status(400).json({ message: 'Email cannot be more than 30 characters' });
+    if (req.body.password && req.body.password.length > 20) return res.status(400).json({ message: 'password cannot be more than 20 characters' });
+    if (isStringValidator(req, res) === null) return;
     if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password) {
       return res.status(400).json({ message: 'All fields are required' });
     }
     if (req.body.email.indexOf('@') === -1 || req.body.email.indexOf('.') === -1) {
       return res.status(400).json({ message: 'Invalid email address' });
     }
-    if (req.body.firstName && req.body.firstName.indexOf('-') !== -1) {
-      let test = req.body.firstName;
-      for (let i = 0; i < test.length; i += 1) {
-        test = test.replace('-', '');
-      }
-      if (!validator.isAlpha(test)) {
-        return res.status(400).json({ message: 'First name can only contain alphabelts and hyphen' });
-      }
-    } else if (!validator.isAlpha(req.body.firstName)) {
-      return res.status(400).json({ message: 'First name can only contain alphabelts and hyphen' });
-    }
-    if (req.body.lastName && req.body.lastName.indexOf('-') !== -1) {
-      let test = req.body.lastName;
-      for (let i = 0; i < test.length; i += 1) {
-        test = test.replace('-', '');
-      }
-      if (!validator.isAlpha(test)) {
-        return res.status(400).json({ message: 'Last name can only contain alphabelts and hyphen' });
-      }
-    } else if (!validator.isAlpha(req.body.lastName)) {
-      return res.status(400).json({ message: 'Last name can only contain alphabelts and hyphen' });
-    }
+    if (checkName(req.body.firstName) === null) return res.status(400).json({ message: 'First name can only contain alphabelts and hyphen' });
+    if (checkName(req.body.lastName) === null) return res.status(400).json({ message: 'Last name can only contain alphabelts and hyphen' });
     next();
   }
   /**
@@ -60,14 +36,7 @@ export default class userValidator {
    * @returns {Object} Success or failure message
    */
   static login(req, res, next) {
-    let flag = false;
-    Object.keys(req.body).forEach((key) => {
-      if (!isString(req.body[key])) {
-        flag = true;
-        return res.status(400).json({ message: `Invalid Format for ${key} field` });
-      }
-    });
-    if (flag) return;
+    if (isStringValidator(req, res) === null) return;
     if (!req.body.email) return res.status(400).json({ message: 'Email is required' });
     if (!req.body.password) return res.status(400).json({ message: 'Password is required' });
     next();

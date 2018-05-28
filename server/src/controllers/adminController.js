@@ -1,12 +1,7 @@
 import { Pool } from 'pg';
-import config from '../config/config';
+import { connectionString } from '../config/config';
 
-
-let conString;
-const env = process.env.NODE_ENV || 'development';
-if (env === 'production') conString = { connectionString: process.env.DATABASE_URL, ssl: true };
-else conString = config[env];
-const pool = new Pool(conString);
+const pool = new Pool(connectionString);
 /**
  * Class representing the controller for admin role in the application.
  */
@@ -39,10 +34,6 @@ export default class adminController {
                     res.status(500).json(error.stack);
                   });
               });
-          })
-          .catch((error) => {
-            client.release();
-            res.status(500).json(error.stack);
           });
       });
   }
@@ -75,10 +66,6 @@ export default class adminController {
                     res.status(500).json(error.stack);
                   });
               });
-          })
-          .catch((error) => {
-            client.release();
-            res.status(500).json(error.stack);
           });
       });
   }
@@ -181,10 +168,6 @@ export default class adminController {
                     res.status(500).json(error.stack);
                   });
               });
-          })
-          .catch((error) => {
-            client.release();
-            res.status(500).json(error.stack);
           });
       });
   }

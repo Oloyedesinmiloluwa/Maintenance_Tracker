@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { isString } from 'util';
+import isStringValidator from './isStringValidator';
 
 /**
  * Class representing the validator for the application.
@@ -19,15 +19,11 @@ export default class validateRequest {
     if (!req.body.description) {
       return res.status(400).json({ message: 'Request description required' });
     }
-    const keys = Object.keys(req.body);
-    let flag2 = false;
-    keys.forEach((key) => {
-      if (!isString(req.body[key])) {
-        flag2 = true;
-        return res.status(400).json({ message: `Invalid Format for ${key} field` });
-      }
-    });
-    if (flag2) return;
+    if (req.body.title && req.body.title.length > 20) return res.status(400).json({ message: 'Title cannot be more than 20 characters' });
+    if (req.body.description && req.body.description.length > 250) return res.status(400).json({ message: 'Description length cannot be more than 250 characters' });
+    if (req.body.category && req.body.category.length > 20) return res.status(400).json({ message: 'Category length cannot be more than 20 characters' });
+    if (req.body.image && req.body.image.length > 20) return res.status(400).json({ message: 'Image length cannot be more than 20 characters' });
+    if (isStringValidator(req, res) === null) return;
     if (req.body.title.indexOf(' ') !== -1 || req.body.title.indexOf('-') !== -1) {
       let test = req.body.title;
       for (let i = 0; i < test.length; i += 1) {
@@ -50,24 +46,7 @@ export default class validateRequest {
    * @returns {Object} success or fail
    */
   static modifyRequest(req, res, next) {
-    const id = parseInt(req.params.requestId, 10);
-    if (!id || id < 0 || id !== Number(req.params.requestId)) return res.status(400).json({ message: 'Invalid ID' });
-    let flag = false;
-    if (req.body.status) {
-      ['pending', 'approved', 'disapproved', 'resolved'].forEach((status) => {
-        if (req.body.status === status) flag = true;
-      });
-      if (!flag) res.status(400).json({ message: 'Status not valid' });
-    }
-    let flag2 = false;
-    const keys = Object.keys(req.body);
-    keys.forEach((key) => {
-      if (!isString(req.body[key])) {
-        flag2 = true;
-        return res.status(400).json({ message: `Invalid Format for ${key} field` });
-      }
-    });
-    if (flag2) return;
+    if (isStringValidator(req, res) === null) return;
     if (req.body.title && req.body.title.indexOf(' ') !== -1) {
       let test = req.body.title;
       for (let i = 0; i < test.length; i += 1) {

@@ -1,6 +1,6 @@
 import { Client } from 'pg';
 import bcryptjs from 'bcryptjs';
-import config from '../config/config';
+import { connectionString } from '../config/config';
 
 const hashedPassword = bcryptjs.hashSync('test', 8);
 
@@ -21,17 +21,12 @@ const seedRequestData6 = `INSERT INTO requests (title, description, category, im
 
 const query = `${seedRequestData1}${seedRequestData2}${seedRequestData3}${seedRequestData4}${seedRequestData5}${seedRequestData6}`;
 
-let conString;
-const env = process.env.NODE_ENV || 'development';
-if (env === 'production') conString = { connectionString: process.env.DATABASE_URL, ssl: true };
-else conString = config[env];
-
-const client = new Client(conString);
+const client = new Client(connectionString);
 client.connect();
 client.query(seedUserData)
   .then(() => {
     client.end();
-    const client1 = new Client(conString);
+    const client1 = new Client(connectionString);
     client1.connect();
     client1.query(query)
       .then(() => client1.end())

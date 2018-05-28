@@ -7,7 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 import requestRoute from './routes/requestRoute';
 import userRoute from './routes/userRoute';
 import adminRoute from './routes/adminRoute';
-import swaggerDocument from './swagger';
+import swaggerDocument from '../../swagger';
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 const app = express();
