@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit=no">
 <link href="css/main.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/font-awesome.min.css"/>
 <link href="css/normalize.css" rel="stylesheet" />
 </head>
 <body>
@@ -23,51 +22,58 @@
     <h1 class="text-center" id= "home-logo">M-tracker</h1>
     <h3 class="text-center">Make your repair request fast </h3>
   </div><br /><hr />
+  <p class="date-p-textarea text-center">Choose the category of fault to view</p>
     <div id="home-dropdown">
-      <p>Choose the category of fault to view</p>
         <form>
             <select name="dropdown">
             <option value="All" selected>All</option>
             <option value="Electrical">Electrical</option>
             <option value="Physical">Physical</option>
             <option value="Mechanical">Mechanical</option>
-            <option value="Today">Today</option>
-            <option value="Yesterday">Yesterday</option>
-            <option value="Last 7 days">Last 7 days</option>
-            <option value="Last month">Last month</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Software">Software</option>
+            </select>
+        </form>
+        <form>
+            <select name="dropdown">
+            <option value="All" selected>All</option>
             <option value="Approved">Approved</option>
             <option value="Disapproved">Disapproved</option>
             <option value="Resolved">Resolved</option>
             </select>
         </form>
       </div>
+      <form id="dateform">
+            <button>Get Requests from:</button>
+        <input type="date" name="dated"min= "2017-01-01" max="2099-12-31"><br>
+      </form>
     <p id="request-header">All requests</p>
 <div class="cards">
   <div class="card">
-        <a href="detail.html"><img src="image/repair2.png"></a>
+        <a href="detail.html"><img src="image/faulty ac.jpg"></a>
     <div class="card-content">
     <h3><a href="detail.html">Faulty AC&nbsp;&nbsp;<i class="fa fa-check"></i></a></h3>
       </div>
   </div>
 
   <div class="card">
-      <a href="detail.html"><img src="image/repair2.png"></a>
+      <a href="detail.html"><img src="image/faulty fan.jpg"></a>
       <div class="card-content">
-      <h3>Faulty Fan&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></h3>
+      <h3><a href="detail.html">Faulty Fan&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></a></h3>
         </div>
     </div>
 
     <div class="card">
-        <a href="detail.html"><img src="image/repair2.png"></a>
+        <a href="detail.html"><img src="image/chair.jpg"></a>
         <div class="card-content">
-        <h3>Damaged Table&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></h3>
+        <h3><a href="detail.html">Damaged Chair&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></a></h3>
           </div>
       </div>
 
       <div class="card">
-          <a href="detail.html"><img src="image/repair2.png"></a>
+          <a href="detail.html"><img src="image/mechanical fault.jpg"></a>
           <div class="card-content">
-          <h3>Damaged Chair&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></h3>
+          <h3><a href="detail.html">Mechanical fault&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></a></h3>
             </div>
         </div>
     
@@ -75,30 +81,30 @@
 
   <div class="cards">
       <div class="card">
-        <a href="detail.html"><img src="image/repair2.png"></a>
+        <a href="detail.html"><img src="image/electronic.jpg"></a>
         <div class="card-content">
-        <h3>Burnt cable&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></h3>
+        <h3><a href="detail.html">Faulty Computer&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></a></h3>
           </div>
       </div>
     
       <div class="card">
-          <a href="detail.html"><img src="image/repair2.png"></a>
+          <a href="detail.html"><img src="image/mechanical 2.jpg"></a>
           <div class="card-content">
-          <h3>Faulty Fan&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></h3>
+          <h3><a href="detail.html">Machine Fault&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></a></h3>
             </div>
         </div>
     
         <div class="card">
-            <a href="detail.html"><img src="image/repair2.png"></a>
+            <a href="detail.html"><img src="image/window.jpg"></a>
             <div class="card-content">
-            <h3>Broken Window&nbsp;&nbsp;<i class="fa fa-check"></i></h3>
+            <h3><a href="detail.html">Broken Window&nbsp;&nbsp;<i class="fa fa-check"></i></a></h3>
               </div>
           </div>
     
           <div class="card">
-              <a href="detail.html"><img src="image/repair2.png"></a>
+              <a href="detail.html"><img src="image/door.jpg"></a>
               <div class="card-content">
-              <h3>Damaged Door&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></h3>
+              <h3><a href="detail.html">Damaged Door&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></a></h3>
                 </div>
             </div>
         

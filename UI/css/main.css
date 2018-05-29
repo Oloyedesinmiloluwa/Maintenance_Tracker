@@ -18,11 +18,16 @@ hr {
 }
 #home-dropdown {
   color: black;
-  margin: 5%;
+  /* margin: 5%; */
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
 }
 #home-dropdown select {
-  background-color:#15437F;
-  color: white;
+  color:#15437F;
+  background: white;
+  border:solid  #0B2240 5px;
+  border-radius: 5px;
 }
 .welcome-div {
   height: 500px;
@@ -196,6 +201,9 @@ img {
   margin-right: 5%;
   background-color: #0B2240;
   color: white;
+  padding: 3px;
+  padding-left: 5px;
+  border-radius: 5px;
 }
 .description-btn {
   display: flex;
@@ -203,16 +211,33 @@ img {
 }
 .description-btn select, .description-btn button {
   margin-top: 20px;
+  margin-bottom: 5em;
   border-radius: 6px;
-  padding: 1%;
+  padding: 1% 2%;
   background-color: #0B2240;
   color: white;
+}
+#dateform {
+  display: flex;
+  justify-content: left;
+  margin-top: 6%;
+}
+[type="date"] {
+  color:#0B2240;
+  border-radius: 5px;
+  border-color:#15437F;
+}
+#dateform button {
+  background:#0B2240;
+  border-radius: 5px;
+  padding:5px;
+  color:white;
 }
 [class="fa fa-check"] {
   color: green;
 }
 [class="fa fa-thumbs-up"] {
-  color: yellow;
+  color: blue;
 }
 [class="fa fa-thumbs-down"] {
   color: red;
@@ -242,8 +267,7 @@ h3 a {
 textarea {
   border-radius: 10px;
   resize: none;
-  width: 80%;
-  margin-left: 10%; 
+  width: 99%;
 
 }
 .description-p-textarea, .date-p-textarea {
@@ -251,10 +275,12 @@ textarea {
   color: white;
   padding: 5px;
   border-radius:5px;
+  margin-bottom: 1%;
 }
 .date-div input, textarea {
   padding: 5px;
   border-radius:5px;
+  border-color:#15437F;
 }
 .textarea-div, .date-div {
   margin-left: 10%;
@@ -290,6 +316,10 @@ html, body {
 }
 #addrequest-h2 {
   margin-top: 5%;
+  margin-bottom: 2%;
+}
+#detail-card {
+  margin-top: 1%;
   margin-bottom: 2%;
 }
 footer {
