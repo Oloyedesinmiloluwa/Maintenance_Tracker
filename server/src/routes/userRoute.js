@@ -1,11 +1,10 @@
 import express from 'express';
-import bodyParser from 'body-parser';
+import expressValidator from 'express-validator';
 import userController from '../controllers/userController';
 import userValidator from '../middlewares/userValidator';
 
 const userRoute = express();
-userRoute.use(bodyParser.json());
-userRoute.use(bodyParser.urlencoded({ extended: false }));
+userRoute.use(expressValidator());
 userRoute.route('/auth/signup')
   .post(userValidator.signUp, userController.signUp);
 userRoute.route('/auth/login')

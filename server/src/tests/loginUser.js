@@ -1,16 +1,14 @@
 import chai, { assert } from 'chai';
 import chaiHttp from 'chai-http';
-import dotenv from 'dotenv';
-import userRoute from '../routes/userRoute';
+import app from '../index';
 
-dotenv.config();
 chai.should();
 chai.use(chaiHttp);
 const loginUser = () => {
   describe('/POST User', () => {
     it('It should sign in user', (done) => {
-      chai.request(userRoute)
-        .post('/auth/login')
+      chai.request(app)
+        .post('/api/v1/auth/login')
         .send({
           email: 'sinmiloluwasunday@yahoo.com', password: 'test'
         })
@@ -21,8 +19,8 @@ const loginUser = () => {
         });
     });
     it('It should not sign in user with an unexisting username ', (done) => {
-      chai.request(userRoute)
-        .post('/auth/login')
+      chai.request(app)
+        .post('/api/v1/auth/login')
         .send({
           email: '111@yahoo.com', password: 'test'
         })
@@ -33,8 +31,8 @@ const loginUser = () => {
         });
     });
     it('It should not sign in user with a wrong password ', (done) => {
-      chai.request(userRoute)
-        .post('/auth/login')
+      chai.request(app)
+        .post('/api/v1/auth/login')
         .send({
           email: 'sinmiloluwasunday@yahoo.com', password: 'testko'
         })
@@ -45,8 +43,8 @@ const loginUser = () => {
         });
     });
     it('It should not sign in user if missing email field', (done) => {
-      chai.request(userRoute)
-        .post('/auth/login')
+      chai.request(app)
+        .post('/api/v1/auth/login')
         .send({
           email: '', password: 'test'
         })
@@ -57,8 +55,8 @@ const loginUser = () => {
         });
     });
     it('It should not sign in user if missing password field', (done) => {
-      chai.request(userRoute)
-        .post('/auth/login')
+      chai.request(app)
+        .post('/api/v1/auth/login')
         .send({
           email: 'sinmi@yahoo.com', password: ''
         })
@@ -69,10 +67,11 @@ const loginUser = () => {
         });
     });
     it('It should not sign in user if email field is not a string', (done) => {
-      chai.request(userRoute)
-        .post('/auth/login')
+      chai.request(app)
+        .post('/api/v1/auth/login')
         .send({
-          firstName: 'joe', lastName: 'Love', email: 5 , password: 'test' })
+          firstName: 'joe', lastName: 'Love', email: 5, password: 'test'
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Invalid Format for email field');
@@ -80,10 +79,11 @@ const loginUser = () => {
         });
     });
     it('It should not sign in user if password field is not a string', (done) => {
-      chai.request(userRoute)
-        .post('/auth/login')
+      chai.request(app)
+        .post('/api/v1/auth/login')
         .send({
-          firstName: 'hello', lastName: 'Love', email: 'sinmi@yahoo.com', password: false })
+          firstName: 'hello', lastName: 'Love', email: 'sinmi@yahoo.com', password: false
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Invalid Format for password field');

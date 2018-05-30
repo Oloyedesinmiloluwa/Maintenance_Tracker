@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { connectionString } from '../config/config';
 
-const pool = new Pool(connectionString);
+const clientPool = new Pool(connectionString);
 /**
  * Class representing the controller for admin role in the application.
  */
@@ -14,7 +14,7 @@ export default class adminController {
    */
   static getAll(req, res) {
     let flag = false;
-    pool.connect()
+    clientPool.connect()
       .then((client) => {
         return client.query('SELECT * FROM users WHERE role=$1', ['admin'])
           .then((users) => {
@@ -23,12 +23,13 @@ export default class adminController {
               if (user.email === req.decoded.email) flag = true;
             });
             if (!flag) return res.status(403).json({ message: 'You are not an admin' });
-            pool.connect()
+            clientPool.connect()
               .then((client2) => {
                 return client2.query('SELECT * FROM Requests')
                   .then((requests) => {
                     client2.release();
-                    res.status(200).json(requests.rows); })
+                    res.status(200).json(requests.rows);
+                  })
                   .catch((error) => {
                     client2.release();
                     res.status(500).json(error.stack);
@@ -45,13 +46,13 @@ export default class adminController {
    * @returns {Object} updated request
    */
   static modifyStatus(req, res, requestStatus) {
-    pool.connect()
+    clientPool.connect()
       .then((client) => {
         return client.query({ text: 'SELECT * FROM requests WHERE id=$1', values: [parseInt(req.params.requestId, 10)] })
           .then((request) => {
             if (!request.rows[0]) return res.status(404).json({ message: 'Request not found' });
             client.release();
-            pool.connect()
+            clientPool.connect()
               .then((client2) => {
                 return client2.query({
                   text: 'UPDATE requests SET status=$1 WHERE id=$2 RETURNING *',
@@ -108,7 +109,7 @@ export default class adminController {
    */
   static verifyIfAdmin(req, res, requestStatus) {
     let flag = false;
-    pool.connect()
+    clientPool.connect()
       .then((client) => {
         return client.query('SELECT * FROM requests WHERE id=$1', [parseInt(req.params.requestId, 10)])
           .then((result) => {
@@ -117,7 +118,7 @@ export default class adminController {
             if (requestStatus === 'approved') {
               if (result.rows[0].status !== 'pending') return res.status(403).json({ message: 'Request has been acted upon' });
             }
-            pool.connect()
+            clientPool.connect()
               .then((client1) => {
                 return client1.query('SELECT * FROM users WHERE role=$1', ['admin'])
                   .then((users) => {
@@ -147,13 +148,13 @@ export default class adminController {
    */
   static makeAdmin(req, res) {
     if (req.decoded.id !== 1) return res.status(403).json({ message: 'You are not an admin' });
-    pool.connect()
+    clientPool.connect()
       .then((client) => {
         return client.query({ text: 'SELECT * FROM users WHERE id=$1', values: [parseInt(req.params.userId, 10)] })
           .then((users) => {
             if (!users.rows[0]) return res.status(404).json({ message: 'User not found' });
             client.release();
-            pool.connect()
+            clientPool.connect()
               .then((client2) => {
                 return client2.query({
                   text: 'UPDATE users SET role=$1 WHERE id=$2 RETURNING id, firstname, lastname, email, role',

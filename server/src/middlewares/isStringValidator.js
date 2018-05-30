@@ -8,6 +8,6 @@ const isStringValidator = (req, res) => {
       return res.status(400).json({ message: `Invalid Format for ${key} field` });
     }
   });
-  if (flag) return null;
+  if (flag) return true;
 };
 export default isStringValidator;

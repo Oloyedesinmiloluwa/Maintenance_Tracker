@@ -1,16 +1,14 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import dotenv from 'dotenv';
-import requestRoute from '../routes/requestRoute';
+import app from '../index';
 
-dotenv.config();
 chai.should();
 chai.use(chaiHttp);
 const updateRequest = () => {
   describe('/PUT Request', () => {
     it('It should modify a Request', (done) => {
-      chai.request(requestRoute)
-        .put('/users/requests/3')
+      chai.request(app)
+        .put('/api/v1/users/requests/3')
         .send({
           title: 'Faulty Fan',
           description: 'We have two faulty fans now'
@@ -22,8 +20,8 @@ const updateRequest = () => {
         });
     });
     it('It should NOT process an invalid Request ID', (done) => {
-      chai.request(requestRoute)
-        .put('/users/requests/tuuy')
+      chai.request(app)
+        .put('/api/v1/users/requests/tuuy')
         .send({
           title: 'Faulty fan',
           description: 'we have faults',
@@ -35,8 +33,8 @@ const updateRequest = () => {
         });
     });
     it('It should NOT process a non-existing Request ID', (done) => {
-      chai.request(requestRoute)
-        .put('/users/requests/9000000')
+      chai.request(app)
+        .put('/api/v1/users/requests/9000000')
         .send({
           title: 'Bad fault',
           description: 'we have no fault actually just testing',
@@ -48,8 +46,8 @@ const updateRequest = () => {
         });
     });
     it('It should NOT update if status is approved', (done) => {
-      chai.request(requestRoute)
-        .put('/users/requests/1')
+      chai.request(app)
+        .put('/api/v1/users/requests/1')
         .send({
           title: 'faulty request',
           description: 'we have a fault',
