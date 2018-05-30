@@ -4,10 +4,11 @@ import http from 'http';
 import logger from 'morgan';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
+import expressValidator from 'express-validator';
 import requestRoute from './routes/requestRoute';
 import userRoute from './routes/userRoute';
 import adminRoute from './routes/adminRoute';
-import swaggerDocument from '../../swagger';
+import swaggerDocument from '../../swagger.json';
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 const app = express();
@@ -19,6 +20,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1/', requestRoute);
 app.use('/api/v1/', userRoute);
 app.use('/api/v1/', adminRoute);
+app.use(expressValidator());
 app.all('*', (req, res) => res.status(404).send({
   message: 'You are not in the right place, pls input a valid endpoint',
 }));

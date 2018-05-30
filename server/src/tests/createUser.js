@@ -1,18 +1,17 @@
 import chai, { assert } from 'chai';
 import chaiHttp from 'chai-http';
-import dotenv from 'dotenv';
-import userRoute from '../routes/userRoute';
+import app from '../index';
 
-dotenv.config();
 chai.should();
 chai.use(chaiHttp);
 const createUser = () => {
   describe('/POST User', () => {
     it('It should add new user', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'Grace', lastName: 'Love', email: 'regular1@yahoo.com', password: 'test' })
+          firstName: 'Grace', lastName: 'Love', email: 'regular1@yahoo.com ', password: 'test'
+        })
         .end((err, res) => {
           res.should.have.status(201);
           assert.equal(res.body.message, 'Successfully created an account');
@@ -20,10 +19,11 @@ const createUser = () => {
         });
     });
     it('It should add new user with hyphen present in firstname', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'Mike-bamiloye', lastName: 'Love', email: 'regular2@yahoo.com', password: 'test' })
+          firstName: 'Mike-bamiloye', lastName: 'Love', email: 'regular2@yahoo.com', password: 'test'
+        })
         .end((err, res) => {
           res.should.have.status(201);
           assert.equal(res.body.message, 'Successfully created an account');
@@ -31,10 +31,11 @@ const createUser = () => {
         });
     });
     it('It should add new user with hyphen present in lastname', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'grace', lastName: 'Love-mercy', email: 'regular3@yahoo.com', password: 'test' })
+          firstName: 'grace', lastName: 'Love-mercy', email: 'regular3@yahoo.com', password: 'test'
+        })
         .end((err, res) => {
           res.should.have.status(201);
           assert.equal(res.body.message, 'Successfully created an account');
@@ -42,8 +43,8 @@ const createUser = () => {
         });
     });
     it('It should not add user if missing firstname field', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
           lastName: 'Love', firstName: '', email: 'sinmi@yahoo.com', password: 'test'
         })
@@ -54,8 +55,8 @@ const createUser = () => {
         });
     });
     it('It should not add user if missing lastname field', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
           lastName: '', firstName: 'hello', email: 'sinmi@yahoo.com', password: 'test'
         })
@@ -66,8 +67,8 @@ const createUser = () => {
         });
     });
     it('It should not add user if missing email field', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
           lastName: 'Love', firstName: 'hello', email: '', password: 'test'
         })
@@ -78,8 +79,8 @@ const createUser = () => {
         });
     });
     it('It should not add user if missing password field', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
           lastName: 'Love', firstName: 'hi', email: 'sinmi@yahoo.com', password: ''
         })
@@ -90,8 +91,8 @@ const createUser = () => {
         });
     });
     it('It should not create user with invalid email', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
           firstName: 'Grace', lastName: 'Love', email: 'sinmiyahoo.com', password: 'test'
         })
@@ -102,8 +103,8 @@ const createUser = () => {
         });
     });
     it('It should not create user with if first name is not valid', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
           firstName: 'Grace$$#@!', lastName: 'Love', email: 'sinmi@yahoo.com', password: 'test'
         })
@@ -114,8 +115,8 @@ const createUser = () => {
         });
     });
     it('It should not create user with if last name is not valid', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
           firstName: 'praise', lastName: '11%$', email: 'sinmi@yahoo.com', password: 'test'
         })
@@ -126,10 +127,11 @@ const createUser = () => {
         });
     });
     it('It should not create account if firstname field is not a string', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 1, lastName: 'Love', email: 'sinmi@yahoo.com', password: 'test' })
+          firstName: 1, lastName: 'Love', email: 'sinmi@yahoo.com', password: 'test'
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Invalid Format for firstName field');
@@ -137,10 +139,11 @@ const createUser = () => {
         });
     });
     it('It should not create account if lastName field is not a string', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'joe', lastName: false , email: 'sinmi@yahoo.com', password: 'test' })
+          firstName: 'joe', lastName: false, email: 'sinmi@yahoo.com', password: 'test'
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Invalid Format for lastName field');
@@ -148,10 +151,11 @@ const createUser = () => {
         });
     });
     it('It should not create account if email field is not a string', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'joe', lastName: 'Love', email: 5 , password: 'test' })
+          firstName: 'joe', lastName: 'Love', email: 5, password: 'test'
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Invalid Format for email field');
@@ -159,10 +163,11 @@ const createUser = () => {
         });
     });
     it('It should not create account if password field is not a string', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'hello', lastName: 'Love', email: 'sinmi@yahoo.com', password: false })
+          firstName: 'hello', lastName: 'Love', email: 'sinmi@yahoo.com', password: false
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Invalid Format for password field');
@@ -170,10 +175,11 @@ const createUser = () => {
         });
     });
     it('It should not create account if firstname is more than 20 characters', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'hellohellohellohello1', lastName: 'Love', email: 'sinmi@yahoo.com', password: 'testtest' })
+          firstName: 'hellohellohellohellot', lastName: 'Love', email: 'sinmi@yahoo.com', password: 'testtest'
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('First name cannot be more than 20 characters');
@@ -181,10 +187,11 @@ const createUser = () => {
         });
     });
     it('It should not create account if lastname is more than 20 characters', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'hello', lastName: 'Lovelovelovelovelove1', email: 'sinmi@yahoo.com', password: 'testtest' })
+          firstName: 'hello', lastName: 'Lovelovelovelovelover', email: 'sinmi@yahoo.com', password: 'testtest'
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Last name cannot be more than 20 characters');
@@ -192,10 +199,11 @@ const createUser = () => {
         });
     });
     it('It should not create account if email is more than 30 characters', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'hello', lastName: 'Love', email: 'sinmisinmisinmisinmi1@yahoo.com', password: 'testtest' })
+          firstName: 'hello', lastName: 'Love', email: 'sinmisinmisinmisinmi1@yahoo.com', password: 'testtest'
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Email cannot be more than 30 characters');
@@ -203,13 +211,14 @@ const createUser = () => {
         });
     });
     it('It should not create account password more than 20 characters', (done) => {
-      chai.request(userRoute)
-        .post('/auth/signup')
+      chai.request(app)
+        .post('/api/v1/auth/signup')
         .send({
-          firstName: 'hello', lastName: 'Love', email: 'sinmi@yahoo.com', password: 'testtesttesttesttesttest' })
+          firstName: 'hello', lastName: 'Love', email: 'sinmi@yahoo.com', password: 'testtesttesttesttesttest'
+        })
         .end((err, res) => {
           res.should.have.status(400);
-          res.body.message.should.be.eql('password cannot be more than 20 characters');
+          res.body.message.should.be.eql('Password cannot be more than 20 characters');
           done();
         });
     });
