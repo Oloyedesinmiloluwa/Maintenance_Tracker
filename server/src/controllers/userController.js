@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import { Pool } from 'pg';
 import { connectionString } from '../config/config';
 
-const pool = new Pool(connectionString);
+const clientPool = new Pool(connectionString);
 /**
  * Class representing the controller for the application.
  */
@@ -16,7 +16,7 @@ export default class userController {
    */
   static signUp(req, res) {
     const hashedPassword = bcrypt.hashSync(req.body.password, 8);
-    pool.connect()
+    clientPool.connect()
       .then((client) => {
         return client.query({ text: 'SELECT email FROM Users WHERE email=$1', values: [req.body.email] })
           .then((requests) => {
@@ -24,7 +24,7 @@ export default class userController {
             if (requests.rows[0]) {
               if (requests.rows[0].email === req.body.email) return res.status(400).json({ message: 'User already exists' });
             }
-            pool.connect()
+            clientPool.connect()
               .then((client2) => {
                 return client2.query({ text:
           'INSERT INTO users (firstname, lastname,email,password, role) VALUES ($1, $2, $3, $4, $5) RETURNING id, email, firstname, lastname, role',
@@ -59,7 +59,7 @@ export default class userController {
    * @returns {Object} Success or failure message
    */
   static login(req, res) {
-    pool.connect()
+    clientPool.connect()
       .then((client) => {
         return client.query({ text: 'SELECT * FROM users WHERE email=$1', values: [req.body.email] })
           .then((result) => {

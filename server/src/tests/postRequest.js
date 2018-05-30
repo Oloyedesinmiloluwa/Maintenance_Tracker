@@ -1,16 +1,14 @@
 import chai, { assert } from 'chai';
 import chaiHttp from 'chai-http';
-import dotenv from 'dotenv';
-import requestRoute from '../routes/requestRoute';
+import app from '../index';
 
-dotenv.config();
 chai.should();
 chai.use(chaiHttp);
 const postRequest = () => {
   describe('/POST Request', () => {
     it('It should create a Request', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'Broken wall',
           description: 'every wall in the room is broken',
@@ -23,8 +21,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if missing title', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: '',
           description: 'every wall in the room is broken',
@@ -37,8 +35,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if missing description', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'Broken fence',
           description: '',
@@ -51,8 +49,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if title field is not a string', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 1,
           description: 'we have a fault',
@@ -65,8 +63,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if description field is not a string', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'fault',
           description: true,
@@ -79,8 +77,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if category field is not a string', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'fault',
           description: 'there is fault',
@@ -93,8 +91,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if image field is not a string', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'fault',
           description: 'there is fault',
@@ -108,8 +106,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if title is more than 20 characters', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'faultfaultfaultfault1',
           description: 'there is fault',
@@ -123,8 +121,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if description is more than 250 characters', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'fault',
           description: 'there is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is faultthere is fault123',
@@ -138,8 +136,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if category length is more than 20 characters', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'fault',
           description: 'there is fault',
@@ -153,8 +151,8 @@ const postRequest = () => {
         });
     });
     it('It should not create Request if image length is more than 20 characters', (done) => {
-      chai.request(requestRoute)
-        .post('/users/requests')
+      chai.request(app)
+        .post('/api/v1/users/requests')
         .send({
           title: 'fault',
           description: 'there is fault',

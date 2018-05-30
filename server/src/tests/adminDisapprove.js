@@ -1,14 +1,14 @@
 import chai, { assert } from 'chai';
 import chaiHttp from 'chai-http';
-import adminRoute from '../routes/adminRoute';
+import app from '../index';
 
 chai.should();
 chai.use(chaiHttp);
 const adminDisapprove = () => {
   describe('/PUT ADMIN', () => {
     it('It should disapprove a request', (done) => {
-      chai.request(adminRoute)
-        .put('/requests/7/disapprove')
+      chai.request(app)
+        .put('/api/v1/requests/7/disapprove')
         .end((err, res) => {
           res.should.have.status(200);
           assert.equal(res.body.message, 'Request disapproved');
@@ -16,8 +16,8 @@ const adminDisapprove = () => {
         });
     });
     it('It should not disapprove an unexisting request', (done) => {
-      chai.request(adminRoute)
-        .put('/requests/6000/resolve')
+      chai.request(app)
+        .put('/api/v1/requests/6000/resolve')
         .end((err, res) => {
           res.should.have.status(404);
           assert.equal(res.body.message, 'Request not found');
@@ -25,8 +25,8 @@ const adminDisapprove = () => {
         });
     });
     it('It should not process an invalid request id', (done) => {
-      chai.request(adminRoute)
-        .put('/requests/6uiui/disapprove')
+      chai.request(app)
+        .put('/api/v1/requests/6uiui/disapprove')
         .end((err, res) => {
           res.should.have.status(400);
           assert.equal(res.body.message, 'Invalid ID');

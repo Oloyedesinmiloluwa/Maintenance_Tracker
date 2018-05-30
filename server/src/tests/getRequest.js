@@ -1,14 +1,14 @@
 import chai, { assert } from 'chai';
 import chaiHttp from 'chai-http';
-import requestRoute from '../routes/requestRoute';
+import app from '../index';
 
 chai.should();
 chai.use(chaiHttp);
 const getRequest = () => {
   describe('/GET Request', () => {
     it('It should get all requests', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests')
+      chai.request(app)
+        .get('/api/v1/users/requests')
         .end((err, res) => {
           res.should.have.status(200);
           assert.isArray(res.body, 'The response is type Array');
@@ -16,8 +16,8 @@ const getRequest = () => {
         });
     });
     it('It should filter request by status approved', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests?status=approved')
+      chai.request(app)
+        .get('/api/v1/users/requests?status= approved')
         .end((err, res) => {
           res.should.have.status(200);
           assert.isArray(res.body, 'The response is type Array');
@@ -27,8 +27,8 @@ const getRequest = () => {
         });
     });
     it('It should filter request by status disapproved', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests?status=disapproved')
+      chai.request(app)
+        .get('/api/v1/users/requests?status=disapproved')
         .end((err, res) => {
           res.should.have.status(200);
           assert.isArray(res.body, 'The response is type Array');
@@ -38,8 +38,8 @@ const getRequest = () => {
         });
     });
     it('It should filter request by status resolved', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests?status=resolved')
+      chai.request(app)
+        .get('/api/v1/users/requests?status=resolved')
         .end((err, res) => {
           res.should.have.status(200);
           assert.isArray(res.body, 'The response is type Array');
@@ -48,9 +48,20 @@ const getRequest = () => {
           done();
         });
     });
+    it('It should filter request by category electrical', (done) => {
+      chai.request(app)
+        .get('/api/v1/users/requests?category=electrical')
+        .end((err, res) => {
+          res.should.have.status(200);
+          assert.isArray(res.body, 'The response is type Array');
+          assert.equal(res.body[0].category, 'electrical');
+          assert.notEqual(res.body[1].category, 'mechanical');
+          done();
+        });
+    });
     it('It should get a single Business', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests/1')
+      chai.request(app)
+        .get('/api/v1/users/requests/1')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.id.should.eql(1);
@@ -59,8 +70,8 @@ const getRequest = () => {
         });
     });
     it('It should return Not found for an invalid Id', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests/900000')
+      chai.request(app)
+        .get('/api/v1/users/requests/900000')
         .end((err, res) => {
           res.should.have.status(404);
           res.body.message.should.eql('Request not found');
@@ -68,8 +79,8 @@ const getRequest = () => {
         });
     });
     it('It should NOT process an invalid Request ID', (done) => {
-      chai.request(requestRoute)
-        .get('/users/requests/tuuy')
+      chai.request(app)
+        .get('/api/v1/users/requests/tuuy')
         .end((err, res) => {
           res.should.have.status(400);
           res.body.message.should.be.eql('Invalid ID');

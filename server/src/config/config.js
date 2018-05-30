@@ -21,8 +21,8 @@ export const config = {
     use_env_variable: 'DATABASE_URL'
   }
 };
-let conString;
+let setConnectionString;
 const env = process.env.NODE_ENV || 'development';
-if (env === 'production') conString = { connectionString: process.env.DATABASE_URL, ssl: true };
-else conString = config[env];
-export const connectionString = conString;
+if (env === 'production') setConnectionString = { connectionString: process.env.DATABASE_URL, ssl: true };
+else setConnectionString = config[env];
+export const connectionString = setConnectionString;

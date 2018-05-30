@@ -7,10 +7,10 @@ const checkName = (name) => {
       test = test.replace('-', '');
     }
     if (!validator.isAlpha(test)) {
-      return null;
+      return true;
     }
   } else if (!validator.isAlpha(name)) {
-    return null;
+    return true;
   }
-}
+};
 export default checkName;
