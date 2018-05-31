@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>M-Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit=no">
+<link href="assets/css/main.css" rel="stylesheet" />
+<link href="assets/css/normalize.css" rel="stylesheet" />
+</head>
+<body>
+    <nav role="navigation" class="navContainer">
+        <ul class="nav navItem navStart">
+            <li><a href="index.html">M-Tracker</a></li>
+        </ul>
+        <ul class="nav navContainer navEnd">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="addrequest.html">Add Request</a></li>
+            <li><a href="signin.html">Sign in</a></li>
+        </ul>
+    </nav>
+    <h1 class="text-center" id= "logo">M-tracker</h1>
+    <h3 class="text-center">Please provide your details to create account</h3>
+<div class="container">
+    <p id = "messageText" ></p>
+    <form>
+      <ul class="flex-outer">
+        <li>
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" name="firstName" placeholder="First name">
+        </li>
+        <li>
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" placeholder="Last name">
+        </li>
+        <li>
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Email">
+        </li>
+        <li>
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Password">
+        </li>
+        
+        
+        <li>
+          <button type="submit" id= "submitButton">Sign up</button>
+        </li>
+      </ul>
+    </form>
+  </div>
+  <script src="signup.js"></script>
+</body>
+</html>
