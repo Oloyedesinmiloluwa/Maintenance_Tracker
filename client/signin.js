@@ -17,7 +17,7 @@ button.addEventListener('click', (event) => {
     .then((data) => {
       if (data.message === 'Login successful') {
         window.location.href = 'index.html';
-        sessionStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token);
       } else {
         messageText.textContent = data.message;
       }
