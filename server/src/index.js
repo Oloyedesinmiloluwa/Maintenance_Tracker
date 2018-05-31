@@ -17,6 +17,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/client/', express.static('client'));
 app.use('/api/v1/', requestRoute);
 app.use('/api/v1/', userRoute);
 app.use('/api/v1/', adminRoute);
