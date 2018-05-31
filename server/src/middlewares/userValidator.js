@@ -26,7 +26,7 @@ export default class userValidator {
    */
   static signUp(req, res, next) {
     let error = false;
-    if (isStringValidator(req, res)) error = true; // change to true or false;
+    if (isStringValidator(req, res)) error = true;
     else if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password) {
       res.status(400).json({ message: 'All fields are required' });
       error = true;
@@ -39,14 +39,17 @@ export default class userValidator {
     }
     if (error) return;
     userValidator.trimRequestBody(req);
-    req.checkBody('firstName', 'First name cannot be more than 20 characters').isLength({ max: 20 });
-    req.checkBody('lastName', 'Last name cannot be more than 20 characters').isLength({ max: 20 });
+    req.body.email = req.body.email.toLowerCase();
+    req.checkBody('firstName', 'First name cannot be less than 3 or more than 20 characters').isLength({ max: 20, min: 3 });
+    req.checkBody('lastName', 'Last name cannot be less than 3 or more than 20 characters').isLength({ max: 20, min: 3 });
     req.checkBody('email', 'Email cannot be more than 30 characters').isLength({ max: 30 });
-    req.checkBody('password', 'Password cannot be more than 20 characters').isLength({ max: 20 });
+    req.checkBody('password', 'Password cannot be less than 3 or more than 20 characters').isLength({ max: 20, min: 3 });
     req.check('email').isEmail().withMessage('Invalid email address');
     const errors = req.validationErrors();
     if (errors) {
-      res.status(400).json({ message: errors[0].msg });
+      if (errors[0].msg === 'Invalid email address') {
+        res.status(422).json({ message: errors[0].msg });
+      } else res.status(400).json({ message: errors[0].msg });
       return;
     }
     next();
@@ -63,6 +66,7 @@ export default class userValidator {
     if (!req.body.email) return res.status(400).json({ message: 'Email is required' });
     if (!req.body.password) return res.status(400).json({ message: 'Password is required' });
     req.body.email = validator.trim(req.body.email);
+    req.body.email = req.body.email.toLowerCase();
     next();
   }
 }

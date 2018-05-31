@@ -24,6 +24,40 @@ export default class validateRequest {
     next();
   }
   /**
+   * This validates the length of request input fields.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} suceess or failure
+   */
+  static validateLength(req, res) {
+    let error = false;
+    if (req.body.title && req.body.title.length > 20) {
+      res.status(400).json({ message: 'Title cannot be more than 20 characters' });
+      error = true;
+    }
+    if (req.body.title && req.body.title.length < 5) {
+      res.status(400).json({ message: 'Title cannot be less than 5 characters' });
+      error = true;
+    }
+    if (req.body.description && req.body.description.length > 250) {
+      res.status(400).json({ message: 'Description length cannot be more than 250 characters' });
+      error = true;
+    }
+    if (req.body.description && req.body.description.length < 20) {
+      res.status(400).json({ message: 'Description length cannot be less than 20 characters' });
+      error = true;
+    }
+    if (req.body.category && req.body.category.length > 20) {
+      res.status(400).json({ message: 'Category length cannot be more than 20 characters' });
+      error = true;
+    }
+    if (req.body.image && req.body.image.length > 20) {
+      res.status(400).json({ message: 'Image length cannot be more than 20 characters' });
+      error = true;
+    }
+    if (error) return true;
+  }
+  /**
    * This validates a new request if it is in the right format.
    * @param {Object} req - client request Object
    * @param {Object} res - Server response Object
@@ -40,22 +74,7 @@ export default class validateRequest {
       res.status(400).json({ message: 'Request description required' });
       error = true;
     }
-    if (req.body.title && req.body.title.length > 20) {
-      res.status(400).json({ message: 'Title cannot be more than 20 characters' });
-      error = true;
-    }
-    if (req.body.description && req.body.description.length > 250) {
-      res.status(400).json({ message: 'Description length cannot be more than 250 characters' });
-      error = true;
-    }
-    if (req.body.category && req.body.category.length > 20) {
-      res.status(400).json({ message: 'Category length cannot be more than 20 characters' });
-      error = true;
-    }
-    if (req.body.image && req.body.image.length > 20) {
-      res.status(400).json({ message: 'Image length cannot be more than 20 characters' });
-      error = true;
-    }
+    if (validateRequest.validateLength(req, res)) error = true;
     if (isStringValidator(req, res)) error = true;
 
     if (req.body.title.indexOf(' ') !== -1 || req.body.title.indexOf('-') !== -1) {
@@ -84,6 +103,7 @@ export default class validateRequest {
    */
   static modifyRequest(req, res, next) {
     let error = false;
+    if (validateRequest.validateLength(req, res)) error = true;
     if (isStringValidator(req, res)) error = true;
     if (req.body.title && req.body.title.indexOf(' ') !== -1) {
       let test = req.body.title;

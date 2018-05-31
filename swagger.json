@@ -9,11 +9,11 @@
   "basePath": "/api/v1/",
   "tags": [
     {
-      "name": "requests",
-      "description": "API for requests in the system"
-    }, {
       "name": "User",
       "description": "API for users in the system"
+    }, {
+      "name": "requests",
+      "description": "API for requests in the system"
     }
   ],
   "schemes": [
@@ -115,7 +115,7 @@
           "201": {
             "description": "New request is created",
             "schema": {
-              "$ref": "#/definitions/requests"
+              "$ref": "#/definitions/requestResponse"
             }
           },
           "400": {
@@ -135,7 +135,13 @@
           {
             "name": "status",
             "in": "query",
-            "description": "Filter requests by status",
+            "description": "You can filter requests by status. It accepts these values- \"approved\", \"disapproved\", \"resolved\"",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "You can filter requests by category of fault. E.g \"Electrical\", \"Mechanical\", \"Software\"",
             "type": "string"
           },
           {
@@ -183,7 +189,7 @@
            "200": {
             "description": "Returns the specified request",
             "schema": {
-              "$ref": "#/definitions/request"
+              "$ref": "#/definitions/requestResponse"
             }
           },
           "404": {
@@ -205,7 +211,7 @@
             "in": "body",
             "description": "The new details of request",
             "schema": {
-              "$ref": "#/definitions/request"
+              "$ref": "#/definitions/requestResponse"
             }
           },
           {
@@ -419,10 +425,38 @@
         }
       }
     },
+    "requestResponse": {
+      "properties": {
+        "id": {
+          "type":"integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "integer"
+        },
+        "dated": {
+          "type": "string"
+        }
+      }
+    },
     "requests": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/request"
+        "$ref": "#/definitions/requestResponse"
       }
     },
     "user": {
@@ -448,6 +482,10 @@
         "password": {
           "type": "string",
           "uniqueitems": true
+        },
+        "role": {
+          "type": "string",
+          "default": "user"
         }
       }
     }
