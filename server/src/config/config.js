@@ -3,10 +3,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 export const config = {
   development: {
-    user: 'postgres',
+    user: process.env.testUserName,
     database: 'postgres',
     host: '127.0.0.1',
-    password: 'JESUS',
+    password: process.env.devPassword,
     port: process.env.conPort,
   },
   test:
