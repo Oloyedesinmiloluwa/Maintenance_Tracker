@@ -14,7 +14,7 @@ const updateRequest = () => {
           description: 'We have two faulty fans now'
         })
         .end((err, res) => {
-          res.should.have.status(201);
+          res.should.have.status(200);
           res.body.message.should.be.eql('Request Updated Successfully');
           done();
         });
@@ -50,7 +50,7 @@ const updateRequest = () => {
         .put('/api/v1/users/requests/1')
         .send({
           title: 'faulty request',
-          description: 'we have a fault',
+          description: 'we have a fault we have a fault we have a fault',
         })
         .end((err, res) => {
           res.should.have.status(403);

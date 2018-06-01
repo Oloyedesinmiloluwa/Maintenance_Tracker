@@ -4,7 +4,6 @@ import http from 'http';
 import logger from 'morgan';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
-import expressValidator from 'express-validator';
 import requestRoute from './routes/requestRoute';
 import userRoute from './routes/userRoute';
 import adminRoute from './routes/adminRoute';
@@ -16,16 +15,19 @@ dotenv.config();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.all('/', (req, res) => res.status(200).send({
+  message: 'Welcome to M-Tracker.com, we handle repair or maintenance request the finest and fastest way',
+}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/client/', express.static('client'));
+app.use('/home/', express.static('client'));
 app.use('/api/v1/', requestRoute);
 app.use('/api/v1/', userRoute);
 app.use('/api/v1/', adminRoute);
-app.use(expressValidator());
+
 app.all('*', (req, res) => res.status(404).send({
   message: 'You are not in the right place, pls input a valid endpoint',
 }));
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
-module.exports = app;
+export default app;

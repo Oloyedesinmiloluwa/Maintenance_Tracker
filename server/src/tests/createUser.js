@@ -97,7 +97,7 @@ const createUser = () => {
           firstName: 'Grace', lastName: 'Love', email: 'sinmiyahoo.com', password: 'test'
         })
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(422);
           res.body.message.should.be.eql('Invalid email address');
           done();
         });
@@ -182,7 +182,19 @@ const createUser = () => {
         })
         .end((err, res) => {
           res.should.have.status(400);
-          res.body.message.should.be.eql('First name cannot be more than 20 characters');
+          res.body.message.should.be.eql('First name cannot be less than 3 or more than 20 characters');
+          done();
+        });
+    });
+    it('It should not create account if firstname is less than 3 characters', (done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          firstName: 'h', lastName: 'Love', email: 'sinmi@yahoo.com', password: 'testtest'
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.message.should.be.eql('First name cannot be less than 3 or more than 20 characters');
           done();
         });
     });
@@ -194,7 +206,7 @@ const createUser = () => {
         })
         .end((err, res) => {
           res.should.have.status(400);
-          res.body.message.should.be.eql('Last name cannot be more than 20 characters');
+          res.body.message.should.be.eql('Last name cannot be less than 3 or more than 20 characters');
           done();
         });
     });
@@ -218,7 +230,7 @@ const createUser = () => {
         })
         .end((err, res) => {
           res.should.have.status(400);
-          res.body.message.should.be.eql('Password cannot be more than 20 characters');
+          res.body.message.should.be.eql('Password cannot be less than 3 or more than 20 characters');
           done();
         });
     });

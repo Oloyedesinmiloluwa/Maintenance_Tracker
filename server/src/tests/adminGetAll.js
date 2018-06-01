@@ -13,7 +13,7 @@ const adminGetAll = () => {
           email: 'sinmiloluwasunday@yahoo.com', password: 'test'
         })
         .end((err, res) => {
-          res.should.have.status(201);
+          res.should.have.status(200);
           assert.equal(res.body.message, 'Login successful');
           done();
         });
@@ -34,7 +34,7 @@ const adminGetAll = () => {
           email: 'regular3@yahoo.com', password: 'test'
         })
         .end((err, res) => {
-          res.should.have.status(201);
+          res.should.have.status(200);
           assert.equal(res.body.message, 'Login successful');
           done();
         });

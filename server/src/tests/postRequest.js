@@ -53,7 +53,7 @@ const postRequest = () => {
         .post('/api/v1/users/requests')
         .send({
           title: 1,
-          description: 'we have a fault',
+          description: 'every wall in the room is broken',
           category: 'electrical'
         })
         .end((err, res) => {
@@ -81,7 +81,7 @@ const postRequest = () => {
         .post('/api/v1/users/requests')
         .send({
           title: 'fault',
-          description: 'there is fault',
+          description: 'every wall in the room is broken',
           category: true
         })
         .end((err, res) => {
@@ -95,7 +95,7 @@ const postRequest = () => {
         .post('/api/v1/users/requests')
         .send({
           title: 'fault',
-          description: 'there is fault',
+          description: 'every wall in the room is broken there is fault',
           category: 'electrical',
           image: 1
         })
@@ -110,7 +110,7 @@ const postRequest = () => {
         .post('/api/v1/users/requests')
         .send({
           title: 'faultfaultfaultfault1',
-          description: 'there is fault',
+          description: 'every wall in the room is broken there is fault',
           category: 'electrical',
           image: 1
         })
@@ -140,7 +140,7 @@ const postRequest = () => {
         .post('/api/v1/users/requests')
         .send({
           title: 'fault',
-          description: 'there is fault',
+          description: 'every wall in the room is broken there is fault',
           category: 'electricalelectrical1',
           image: 1
         })
@@ -155,7 +155,7 @@ const postRequest = () => {
         .post('/api/v1/users/requests')
         .send({
           title: 'fault',
-          description: 'there is fault',
+          description: 'every wall in the room is broken there is fault',
           category: 'electrical',
           image: 'theimage is where youcannot think of because this is just a test'
         })

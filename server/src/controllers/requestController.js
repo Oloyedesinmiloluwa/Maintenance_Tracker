@@ -29,7 +29,7 @@ export default class requestController {
           return client.query(`SELECT * FROM Requests ${filter} AND userid=$1`, [req.decoded.id])
             .then((requests) => {
               client.release();
-              if (!requests.rows[0]) return res.status(400).json({ message: `No request ${presentQuery} found` });
+              if (!requests.rows[0]) return res.status(200).json({ message: `No request ${presentQuery} found` });
               res.status(200).json(requests.rows); })
             .catch((error) => {
               client.release();
@@ -43,7 +43,7 @@ export default class requestController {
         return client.query({ text: 'SELECT * FROM Requests WHERE userid= $1', values: [req.decoded.id] })
           .then((requests) => {
             client.release();
-            if (requests.rows.length === 0) return res.status(400).json({ message: 'You have not made any request yet' });
+            if (requests.rows.length === 0) return res.status(200).json({ message: 'You have not made any request yet' });
             res.status(200).json(requests.rows); })
           .catch((error) => {
             client.release();
@@ -82,19 +82,28 @@ export default class requestController {
     if (req.body.category) req.body.category = req.body.category.toLowerCase();
     const dateToday = new Date();
     clientPool.connect()
-      .then((client) => {
-        return client.query({ text:
-          'INSERT INTO Requests(title,description, category, image, status, dated, userid) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-        values: [req.body.title, req.body.description, req.body.category, req.body.image,
-          'pending', dateToday, req.decoded.id]
-        })
-          .then((results) => {
-            client.release();
-            res.status(201).json({ message: 'Request Added Successfully', Data: results.rows[0]});
-          })
-          .catch((error) => {
-            client.release();
-            res.status(500).json(error.stack);
+      .then((client1) => {
+        return client1.query({ text: 'SELECT description FROM requests WHERE description=$1', values: [req.body.description] })
+          .then((requests) => {
+            client1.release();
+            if (!requests.rows[0]) {
+              clientPool.connect()
+                .then((client) => {
+                  return client.query({ text:
+                  'INSERT INTO Requests(title,description, category, image, status, dated, userid) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+                  values: [req.body.title, req.body.description, req.body.category, req.body.image,
+                    'pending', dateToday, req.decoded.id]
+                  })
+                    .then((results) => {
+                      client.release();
+                      res.status(201).json({ message: 'Request Added Successfully', Data: results.rows[0]});
+                    })
+                    .catch((error) => {
+                      client.release();
+                      res.status(500).json(error.stack);
+                    });
+                });
+            } else return res.status(200).json({ message: 'Request already exists' });
           });
       });
   }
@@ -127,7 +136,7 @@ export default class requestController {
                 })
                   .then((result) => {
                     client.release();
-                    res.status(201).json({ message: 'Request Updated Successfully', data: result.rows[0] });
+                    res.status(200).json({ message: 'Request Updated Successfully', data: result.rows[0] });
                   })
                   .catch((error) => {
                     client.release();

@@ -22,7 +22,7 @@ export default class userController {
           .then((requests) => {
             client.release();
             if (requests.rows[0]) {
-              if (requests.rows[0].email === req.body.email) return res.status(400).json({ message: 'User already exists' });
+              if (requests.rows[0].email === req.body.email) return res.status(200).json({ message: 'User already exists' });
             }
             clientPool.connect()
               .then((client2) => {
@@ -75,7 +75,7 @@ export default class userController {
                 const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '1h' });
                 if (process.env.NODE_ENV === 'test') process.env.token = token;
                 delete result.rows[0].password;
-                return res.status(201).json({ message: 'Login successful', data: result.rows[0], token });
+                return res.status(200).json({ message: 'Login successful', data: result.rows[0], token });
               })
               .catch(error => res.status(500).json(error));
           })

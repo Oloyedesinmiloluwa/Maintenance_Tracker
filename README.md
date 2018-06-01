@@ -71,6 +71,11 @@ If you only want to access the completed work, you will find the link to the hos
   </tr>
   <tr>
       <td>GET</td>
+      <td>/api/v1/users/requests?category={ category }</td>
+      <td>Get requests filter by category</td>
+  </tr>
+  <tr>
+      <td>GET</td>
       <td>/api/v1/requests</td>
       <td>Get all requests in the application</td>
   </tr>
@@ -91,7 +96,7 @@ If you only want to access the completed work, you will find the link to the hos
   </tr>
   <tr>
       <td>PUT</td>
-      <td>/api/v1/requests/{requestId}/resolved</td>
+      <td>/api/v1/requests/{requestId}/resolve</td>
       <td>Admin updates a request status as resolved</td>
   </tr>
   <tr>
