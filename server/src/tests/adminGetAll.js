@@ -23,7 +23,7 @@ const adminGetAll = () => {
         .get('/api/v1/requests')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.isArray(res.body, 'The response is type Array');
+          assert.isArray(res.body.data, 'The response is type Array');
           done();
         });
     });
