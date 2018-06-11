@@ -18,12 +18,10 @@
         </ul>
     </nav>
     <h2 id="addrequest-h2" class="text-center">Have you got a fault? Tell us about it</h2>
-    <div class="cards show-detail-card">
-        <div class="card">
+    <div class="show-detail-card">
           <img src="image/repair2.png">
           <div class="card-content">
             </div>
-        </div>
         </div>
         <div id="file-div">
             <label> Choose File ...
@@ -31,17 +29,31 @@
             </label>
         
       </div>
+      <div class="category-div">
+      <p class="category-p-textarea">Title</p><input id = "title-input" placeholder="Title"</input>
+      </div>
       <div class="textarea-div">
       <p class="description-p-textarea">Description</p>
-      <textarea rows="9" cols="25" placeholder="...write detail description of the fault"></textarea>
+      <textarea id="description-input" rows="9" cols="25" placeholder="...write detailed description of the fault"></textarea>
       </div>
-      <div class="date-div">
-      <p class="date-p-textarea">Date</p>
-      <input type="text" placeholder="dd-mm-yyyy"/>
+      <div class="category-div">
+      <p class="category-p-textarea">Category</p>
+      <form>
+            <select id="category-input" name="dropdown">
+            <option value="General" selected>General</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Physical">Physical</option>
+            <option value="Mechanical">Mechanical</option>
+            <option value="Electronic">Electronic</option>
+            <option value="Software">Software</option>
+            </select>
+        </form>
     </div>
     <div id="request-btn">
         <button>Submit</button>
       </div>
+      <p id = "messageText" ></p>
   </body>
   </html>
   <footer><p class="text-center">&copy; M-tracker.com</p></footer>
+  
