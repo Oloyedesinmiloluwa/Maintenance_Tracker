@@ -17,15 +17,17 @@
             <li><a href="signin.html">Sign in</a></li>
         </ul>
     </nav>
-    <h1 class="text-center" id= "logo">M-tracker</h1>
-    <h3 class="text-center">Please provide your details to create account</h3>
+    <h1 class="text-center" id= "logo">M-Tracker</h1>
+    <p class="text-center" id="welcome-text">We handle repair or maintenance request the finest and fastest way</p>
+    <div class="form-container">
+    <h3 class="text-center" id ="login-text">Create an account with us</h3>
 <div class="container">
-    <p id = "messageText" ></p>
     <form>
       <ul class="flex-outer">
+          <p id = "messageText" ></p>
         <li>
           <label for="first-name">First Name</label>
-          <input type="text" id="first-name" name="firstName" placeholder="First name">
+          <input type="text" id="first-name" placeholder="First name">
         </li>
         <li>
           <label for="last-name">Last Name</label>
@@ -42,11 +44,13 @@
         
         
         <li>
-          <button type="submit" id= "submitButton">Sign up</button>
+          <button id="submitButton" type="submit">Sign up</button>
         </li>
       </ul>
     </form>
   </div>
+  </div>
+  <p class="text-center">All rights reserved. M-tracker &copy;2018</p>
   <script src="signup.js"></script>
 </body>
 </html>

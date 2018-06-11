@@ -96,7 +96,7 @@ export default class requestController {
                   })
                     .then((results) => {
                       client.release();
-                      res.status(201).json({ message: 'Request Added Successfully', Data: results.rows[0]});
+                      res.status(201).json({ message: 'Request Added Successfully', data: results.rows[0]});
                     })
                     .catch((error) => {
                       client.release();
