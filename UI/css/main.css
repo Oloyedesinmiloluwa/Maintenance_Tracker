@@ -226,8 +226,11 @@ body {
   height: auto;
 }
 .show-detail-card img {
-  border: solid 1px rgb(73, 73, 182);
+  border: solid 1px  #0B2240;
   border-radius:5px;
+}
+.display-card {
+  margin: 5%;
 }
 .description-card {
   margin:0 10%;
