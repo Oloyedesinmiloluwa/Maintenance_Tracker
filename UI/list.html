@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>M-Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="css/main.css" rel="stylesheet" />
+<link href="css/normalize.css" rel="stylesheet" />
+</head>
+<body>
+    <nav role="navigation" class="navContainer">
+      <ul class="nav navItem navStart">
+        <li>
+          <a href="index.html">M-Tracker</a>
+        </li>
+      </ul>
+      <ul class="nav navContainer navEnd">
+        <li>
+          <a href="index.html">Home</a>
+        </li>
+        <li>
+          <a href="addrequest.html">Add Request</a>
+        </li>
+        <li>
+          <a href="signup.html">Sign up</a>
+        </li>
+      </ul>
+    </nav>
+    <p class="text-center" id="request-header">All Requests</p>
+    <div id="sort-by">
+        <ul class="status-item status-start">
+            <li>
+                <form id="sort-date">
+                    <button>From:</button>
+                <input type="date" name="dated"min="2017-01-01" max="2099-12-31"><br>
+              </form>
+            </li>
+          </ul>
+          <ul class="status-container status-end">
+            <li>
+                <button>Sort by:</button>               
+            </li>
+            <li>
+                <form>
+                    <select name="dropdown">
+                    <option value="" selected>status</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Disapproved">Disapproved</option>
+                    <option value="Resolved">Resolved</option>
+                    </select>
+                </form>
+            </li>
+            <li>
+                <form>
+                    <select name="dropdown">
+                    <option value="" selected>category</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Physical">Physical</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="Electronic">Electronic</option>
+                    <option value="Software">Software</option>
+                    </select>
+                </form>
+            </li>
+          </ul>
+      </div>
+    <table>
+      <tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>
+      <tr><td><a href="detail.html">Faulty fan</a></td><td>The ceiling fan is not working do something please...</td><td>Electrical</td><td>2018-06-01</td><td>Approved</td></tr>
+      <tr><td><a href="detail.html">Faulty fan</a></td><td>The ceiling fan is not working do something please. there will always be a way...</td><td>Electrical</td><td>2018-06-01</td><td>Pending</td></tr>
+      <tr><td><a href="detail.html">Faulty fan</a></td><td>The ceiling fan is not working do something please...</td><td>Mechanical</td><td>2018-06-01</td><td>Resolved</td></tr>
+    </table>
+  </body>
+  </html>
+  

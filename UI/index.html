@@ -13,111 +13,57 @@
             <li><a href="index.html">M-Tracker</a></li>
         </ul>
         <ul class="nav navContainer navEnd">
-            <li><a href="addrequest.html">Add Request</a></li>
             <li><a href="signin.html">Sign in</a></li>
             <li><a href="signup.html">Sign up</a></li>
         </ul>
     </nav>
     <div class="welcome-div">
-    <h1 class="text-center" id= "home-logo">M-tracker</h1>
+    <h1 class="text-center" id= "home-logo">M-Tracker</h1>
     <h3 class="text-center">Make your repair request fast </h3>
-  </div><br /><hr />
-  <p class="date-p-textarea text-center">Choose the category of fault to view</p>
-    <div id="home-dropdown">
-        <form>
-            <select name="dropdown">
-            <option value="All" selected>All</option>
-            <option value="Electrical">Electrical</option>
-            <option value="Physical">Physical</option>
-            <option value="Mechanical">Mechanical</option>
-            <option value="Electronic">Electronic</option>
-            <option value="Software">Software</option>
-            </select>
-        </form>
-        <form>
-            <select name="dropdown">
-            <option value="All" selected>All</option>
-            <option value="Approved">Approved</option>
-            <option value="Disapproved">Disapproved</option>
-            <option value="Resolved">Resolved</option>
-            </select>
-        </form>
-      </div>
-      <form id="dateform">
-            <button>Get Requests from:</button>
-        <input type="date" name="dated"min= "2017-01-01" max="2099-12-31"><br>
-      </form>
-    <p id="request-header">All requests</p>
+  </div><br />
+  <p class="text-center" id="how-it-works">~ How it works ~</p>
 <div class="cards">
   <div class="card">
-        <a href="detail.html"><img src="image/faulty ac.jpg"></a>
-    <div class="card-content">
-    <h3><a href="detail.html">Faulty AC&nbsp;&nbsp;<i class="fa fa-check"></i></a></h3>
-      </div>
-  </div>
-
-  <div class="card">
-      <a href="detail.html"><img src="image/faulty fan.jpg"></a>
+    <div class="mini-card-text"><i class="fa fa-eye"></i></div>
       <div class="card-content">
-      <h3><a href="detail.html">Faulty Fan&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></a></h3>
+      <h3><a href="detail.html">You see<br />a fault</a></h3>
         </div>
     </div>
 
     <div class="card">
-        <a href="detail.html"><img src="image/chair.jpg"></a>
+        <div class="mini-card-text"><i class="fa fa-envelope"></i></div>
         <div class="card-content">
-        <h3><a href="detail.html">Damaged Chair&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></a></h3>
+        <h3><a href="detail.html">You make<br />a request</a></h3>
           </div>
       </div>
 
       <div class="card">
-          <a href="detail.html"><img src="image/mechanical fault.jpg"></a>
+        <div class="mini-card-text"><i class="fa fa-envelope-open"></i></div>
           <div class="card-content">
-          <h3><a href="detail.html">Mechanical fault&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></a></h3>
+          <h3><a href="detail.html">We see<br />the request</a></h3>
             </div>
         </div>
-    
-  </div>
-
-  <div class="cards">
-      <div class="card">
-        <a href="detail.html"><img src="image/electronic.jpg"></a>
-        <div class="card-content">
-        <h3><a href="detail.html">Faulty Computer&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></a></h3>
-          </div>
-      </div>
-    
-      <div class="card">
-          <a href="detail.html"><img src="image/mechanical 2.jpg"></a>
-          <div class="card-content">
-          <h3><a href="detail.html">Machine Fault&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></a></h3>
-            </div>
-        </div>
-    
         <div class="card">
-            <a href="detail.html"><img src="image/window.jpg"></a>
+            <div class="mini-card-text"><i class="fa fa-gavel"></i></div>
             <div class="card-content">
-            <h3><a href="detail.html">Broken Window&nbsp;&nbsp;<i class="fa fa-check"></i></a></h3>
+            <h3><a href="detail.html">We act<br />on it</a></h3>
               </div>
           </div>
-    
-          <div class="card">
-              <a href="detail.html"><img src="image/door.jpg"></a>
-              <div class="card-content">
-              <h3><a href="detail.html">Damaged Door&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></a></h3>
-                </div>
-            </div>
-        
-      </div>
-      <hr />
-      <!-- <ul class="footer-media">
-        <li>Follow us</li>
-        <li><i class="fa fa-facebook-square"></i></li>
-        <li><i class="fa fa-twitter-square"></i></li>
-        <li><i class="fa fa-linkedin-square"></i></li>
-        <li><i class="fa fa-instagram-square"></i></li>
-        <li><i class="fa fa-youtube-square"></i></li>
-    </ul> -->
+  </div>
+  <p class="text-center" id="status-header">~ Monitor Your Request ~</p>
+  <div class="status-div">
+        <p class="text-center underline">Your request can either be</p>
+  <ul class="status">
+        <li>Pending&nbsp;&nbsp;<i class="fa fa-pause"></i></li>
+        <li>Approved&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i></li>
+    </ul>
+    <ul class="status">
+        <li>Disapproved&nbsp;&nbsp;<i class="fa fa-thumbs-down"></i></li>
+        <li>Resolved&nbsp;&nbsp;<i class="fa fa-check"></i></li>
+    </ul>
+</div> 
+<p class="text-center styled-text" >....We handle repair or maintenance request the finest and fastest way</p>
+<div id="get-started"><a href="list.html">GET STARTED</a></div>
 </body>
 </html>
 <footer><p class="text-center">&copy; M-tracker.com</p></footer>
