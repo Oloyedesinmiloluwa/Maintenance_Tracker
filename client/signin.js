@@ -2,7 +2,7 @@ const button = document.getElementById('fit-footer');
 button.addEventListener('click', (event) => {
   const emailInput = document.getElementById('email');
   const passwordInput = document.getElementById('password');
-  const messageText = document.querySelector('p');
+  const messageText = document.querySelector('#messageText');
   const inputData = {
     email: emailInput.value,
     password: passwordInput.value
@@ -16,7 +16,7 @@ button.addEventListener('click', (event) => {
     .then((response) => { return response.json(); })
     .then((data) => {
       if (data.message === 'Login successful') {
-        window.location.href = 'index.html';
+        window.location.href = 'list.html';
         localStorage.setItem('token', data.token);
       } else {
         messageText.textContent = data.message;

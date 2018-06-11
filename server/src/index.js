@@ -15,11 +15,11 @@ dotenv.config();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', express.static('client'));
 app.all('/', (req, res) => res.status(200).send({
   message: 'Welcome to M-Tracker.com, we handle repair or maintenance request the finest and fastest way',
 }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/home/', express.static('client'));
 app.use('/api/v1/', requestRoute);
 app.use('/api/v1/', userRoute);
 app.use('/api/v1/', adminRoute);
