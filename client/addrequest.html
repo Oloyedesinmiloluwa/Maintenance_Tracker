@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>M-Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit=no">
+<link href="assets/css/main.css" rel="stylesheet" />
+<link href="assets/css/normalize.css" rel="stylesheet" />
+</head>
+<body>
+    <nav role="navigation" class="navContainer">
+        <ul class="nav navItem navStart">
+            <li><a href="index.html">M-Tracker</a></li>
+        </ul>
+        <ul class="nav navContainer navEnd">
+            <li><a href="list.html">View Request</a></li>
+            <li><a href="signup.html">Sign up</a></li>
+        </ul>
+    </nav>
+    <h2 id="addrequest-h2" class="text-center">Have you got a fault? Tell us about it</h2>
+    <div class="show-detail-card">
+          <img src="assets/image/repair2.png">
+          <div class="card-content">
+            </div>
+        </div>
+        <div id="file-div">
+            <label> Choose File ...
+                <input type="file" id="File" accept="image/*" >
+            </label>
+        
+      </div>
+      <div class="category-div">
+      <p class="category-p-textarea">Title</p><input id = "title-input" placeholder="Title"</input>
+      </div>
+      <div class="textarea-div">
+      <p class="description-p-textarea">Description</p>
+      <textarea id="description-input" rows="9" cols="25" placeholder="...write detailed description of the fault"></textarea>
+      </div>
+      <div class="category-div">
+      <p class="category-p-textarea">Category</p>
+      <form>
+            <select id="category-input" name="dropdown">
+            <option value="general" selected>General</option>
+            <option value="electrical">Electrical</option>
+            <option value="physical">Physical</option>
+            <option value="mechanical">Mechanical</option>
+            <option value="electronic">Electronic</option>
+            <option value="software">Software</option>
+            </select>
+        </form>
+    </div>
+    <p id = "messageText" ></p>
+    <div id="request-btn">
+        <button>Submit</button>
+      </div>
+      <script src="addrequest.js"></script>
+  </body>
+  </html>
+  <footer><p class="text-center">&copy; M-tracker.com</p></footer>

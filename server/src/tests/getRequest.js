@@ -11,7 +11,7 @@ const getRequest = () => {
         .get('/api/v1/users/requests')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.isArray(res.body, 'The response is type Array');
+          assert.isArray(res.body.data, 'The response is type Array');
           done();
         });
     });
@@ -20,9 +20,9 @@ const getRequest = () => {
         .get('/api/v1/users/requests?status= approved')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.isArray(res.body, 'The response is type Array');
-          assert.equal(res.body[0].status, 'approved');
-          assert.notEqual(res.body[1].status, 'disapproved');
+          assert.isArray(res.body.data, 'The response is type Array');
+          assert.equal(res.body.data[0].status, 'approved');
+          assert.notEqual(res.body.data[1].status, 'disapproved');
           done();
         });
     });
@@ -31,9 +31,9 @@ const getRequest = () => {
         .get('/api/v1/users/requests?status=disapproved')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.isArray(res.body, 'The response is type Array');
-          assert.equal(res.body[0].status, 'disapproved');
-          assert.notEqual(res.body[1].status, 'approved');
+          assert.isArray(res.body.data, 'The response is type Array');
+          assert.equal(res.body.data[0].status, 'disapproved');
+          assert.notEqual(res.body.data[1].status, 'approved');
           done();
         });
     });
@@ -42,9 +42,9 @@ const getRequest = () => {
         .get('/api/v1/users/requests?status=resolved')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.isArray(res.body, 'The response is type Array');
-          assert.equal(res.body[0].status, 'resolved');
-          assert.notEqual(res.body[1].status, 'approved');
+          assert.isArray(res.body.data, 'The response is type Array');
+          assert.equal(res.body.data[0].status, 'resolved');
+          assert.notEqual(res.body.data[1].status, 'approved');
           done();
         });
     });
@@ -53,9 +53,9 @@ const getRequest = () => {
         .get('/api/v1/users/requests?category=electrical')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.isArray(res.body, 'The response is type Array');
-          assert.equal(res.body[0].category, 'electrical');
-          assert.notEqual(res.body[1].category, 'mechanical');
+          assert.isArray(res.body.data, 'The response is type Array');
+          assert.equal(res.body.data[0].category, 'electrical');
+          assert.notEqual(res.body.data[1].category, 'mechanical');
           done();
         });
     });
@@ -64,8 +64,8 @@ const getRequest = () => {
         .get('/api/v1/users/requests/1')
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.id.should.eql(1);
-          assert.isObject(res.body, 'The response is object');
+          res.body.data.id.should.eql(1);
+          assert.isObject(res.body.data, 'The response is object');
           done();
         });
     });

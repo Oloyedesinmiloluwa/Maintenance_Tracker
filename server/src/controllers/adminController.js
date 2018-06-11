@@ -28,7 +28,7 @@ export default class adminController {
                 return client2.query('SELECT * FROM Requests')
                   .then((requests) => {
                     client2.release();
-                    res.status(200).json(requests.rows);
+                    res.status(200).json({ data: requests.rows });
                   })
                   .catch((error) => {
                     client2.release();
