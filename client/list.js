@@ -17,7 +17,7 @@ window.addEventListener('load', (event) => {
     return;
   }
   navLinks[3].textContent = 'Sign Out';
-  fetch('http://localhost:8000/api/v1/users/requests', {
+  fetch('https://m-tracker.herokuapp.com/api/v1/users/requests', {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
@@ -26,8 +26,8 @@ window.addEventListener('load', (event) => {
   })
     .then(response => response.json())
     .then((response) => {
-      if (response[0]) {
-        response.forEach((request) => {
+      if (response.data[0]) {
+        response.data.forEach((request) => {
           table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${request.dated}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
         });
       } else {

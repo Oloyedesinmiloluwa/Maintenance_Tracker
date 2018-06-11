@@ -30,7 +30,7 @@ export default class requestController {
             .then((requests) => {
               client.release();
               if (!requests.rows[0]) return res.status(200).json({ message: `No request ${presentQuery} found` });
-              res.status(200).json(requests.rows); })
+              res.status(200).json({ data: requests.rows }); })
             .catch((error) => {
               client.release();
               res.status(500).json(error.stack);
@@ -44,7 +44,7 @@ export default class requestController {
           .then((requests) => {
             client.release();
             if (requests.rows.length === 0) return res.status(200).json({ message: 'You have not made any request yet' });
-            res.status(200).json(requests.rows); })
+            res.status(200).json({ data: requests.rows }); })
           .catch((error) => {
             client.release();
             res.status(500).json(error.stack);
@@ -65,7 +65,8 @@ export default class requestController {
           .then((requests) => {
             if (!requests.rows[0]) return res.status(404).json({ message: 'Request not found' });
             client.release();
-            res.status(200).json(requests.rows[0]); })
+            res.status(200).json({ data: requests.rows[0] });
+          })
           .catch((error) => {
             client.release();
             res.status(500).json(error.stack);
