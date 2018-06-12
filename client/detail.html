@@ -13,11 +13,12 @@
             <li><a href="index.html">M-Tracker</a></li>
         </ul>
         <ul class="nav navContainer navEnd">
-            <li><a href="addrequest.html">Add Request</a></li>
-            <li><a href="signin.html">Sign in</a></li>
-            <li><a href="signup.html">Sign up</a></li>
+            <li><a href="addrequest.html">Add New</a></li>
+            <li><a href="list.html">View</a></li>
+            <li><a href="index.html">Sign Out</a></li>
         </ul>
     </nav>
+    <p id="userWelcomeText"><i class="fa fa-user-circle"></i>&nbsp;Logged in as</p>
     <div id="detail-card" class="show-detail-card">
       <div class="display-card">
         <img src="assets/image/repair2.png">
@@ -29,13 +30,14 @@
         <p class="description-label">Description:</p> <p id="description-label" class="description-p">No description found</p>
         <p class="description-label">Category:</p> <p id="category-label" class="description-p">General</p>
         <p class="description-label">Date:</p><p id="date-label" class="description-p">No date found</p>
+        <p id = "messageText" ></p>
         <div class="description-btn">
         <select>
-            <option value="Approve">Approve</option>
-            <option value="Disapprove">Disapprove</option>
-            <option value="Resolve">Resolve</option>
+            <option value="approve">Approve</option>
+            <option value="disapprove">Disapprove</option>
+            <option value="resolve">Resolve</option>
         </select>
-        <button id="edit-btn" >Edit</button>
+        <button id="edit-btn" >Edit Request</button>
       </div>
       <script src="detail.js" ></script>
   </body>

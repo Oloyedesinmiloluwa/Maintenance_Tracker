@@ -214,7 +214,7 @@ body {
   margin-left: 3%;
   margin-top: 3%;
   margin-bottom: 2%;
-  color: rgb(52, 61, 145);
+  color:#15437F;
   font-weight: bold;
   font-size: 150%;
 }
@@ -239,9 +239,17 @@ body {
   flex: 0 1 500px;
   background-color: #0B2240;
 }
+#userWelcomeText{
+  text-align: right;
+  padding: 5px 40px;
+  font-size: 85%;
+}
 .description-p {
   margin: 10px 5%;
-  text-align: justify;
+  text-align: left;
+}
+#description-label {
+  margin-right: 5%;
 }
 .description-label {
   margin-left: 5%;
@@ -275,8 +283,8 @@ body {
   padding:5px;
   color:white;
 }
-#sort-date button:hover, .status-container button:hover {
-  background-color: rgb(169, 71, 214);
+#sort-date button:hover, #request-btn:hover .status-container button:hover {
+  background-color: #15437F;
 }
 [class="fa fa-check"] {
   color: green;
@@ -353,6 +361,9 @@ textarea {
 }
 .status li {
 margin: 1em 0;
+}
+button:hover {
+  background-color: rgb(83, 136, 206);
 }
 .description-p-textarea, .category-p-textarea, .title-p-textarea {
   background-color: #0B2240;
@@ -506,6 +517,19 @@ footer {
   #sort-by {
     flex-wrap: wrap;
     font-size: 80%;
+    margin-top: 7%;
+  }
+  #sort-by [type="date"] { 
+  height: 12px;
+  }
+  #sort-by select, #sort-by button {
+    margin-top: 7px;
+  }
+  [type="date"] {
+    /* height: 50%; */
+  }
+  table {
+    margin-top: 8%;
   }
   tr th:nth-child(2), tr td:nth-child(2), tr th:nth-child(3), tr td:nth-child(3) {
     display: none;
