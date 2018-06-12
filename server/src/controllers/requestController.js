@@ -13,20 +13,23 @@ export default class requestController {
    * @returns {Array} request
    */
   static getAll(req, res) {
-    let filter = '';
+    let filter = {};
     let presentQuery = '';
     if (req.query.category) {
-      filter = `WHERE category LIKE '${req.query.category}%'`;
+      filter.categoryQuery = `category LIKE '${req.query.category}%'`;
+      filter.fullQuery = filter.categoryQuery;
       presentQuery = 'in this category';
     }
     if (req.query.status) {
-      filter = `WHERE status LIKE '${req.query.status}%'`;
+      filter.statusQuery = `status LIKE '${req.query.status}%'`;
+      filter.fullQuery = filter.statusQuery;
       presentQuery = 'of this status';
     }
     if (req.query.status || req.query.category) {
+      if (req.query.status && req.query.category) filter.fullQuery = `${filter.statusQuery} AND ${filter.categoryQuery}`;
       clientPool.connect()
         .then((client) => {
-          return client.query(`SELECT * FROM Requests ${filter} AND userid=$1`, [req.decoded.id])
+          return client.query(`SELECT * FROM Requests WHERE ${filter.fullQuery} AND userid=$1`, [req.decoded.id])
             .then((requests) => {
               client.release();
               if (!requests.rows[0]) return res.status(200).json({ message: `No request ${presentQuery} found` });

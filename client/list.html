@@ -44,30 +44,32 @@
             </li>
             <li>
                 <form>
-                    <select name="dropdown">
+                    <select name="status-dropdown">
                     <option value="" selected>status</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Disapproved">Disapproved</option>
-                    <option value="Resolved">Resolved</option>
+                    <option value="">All</option>
+                    <option value="approved">approved</option>
+                    <option value="disapproved">disapproved</option>
+                    <option value="resolved">resolved</option>
+                    <option value="pending">pending</option>
                     </select>
                 </form>
             </li>
             <li>
                 <form>
-                    <select name="dropdown">
+                    <select name="category-dropdown">
                     <option value="" selected>category</option>
-                    <option value="Electrical">Electrical</option>
-                    <option value="Physical">Physical</option>
-                    <option value="Mechanical">Mechanical</option>
-                    <option value="Electronic">Electronic</option>
-                    <option value="Software">Software</option>
+                    <option value="">All</option>
+                    <option value="Electrical">electrical</option>
+                    <option value="Physical">physical</option>
+                    <option value="Mechanical">mechanical</option>
+                    <option value="Electronic">electronic</option>
+                    <option value="Software">software</option>
                     </select>
                 </form>
             </li>
           </ul>
       </div>
     <table>
-      <tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>
     </table>
     
     <script src="list.js"></script>

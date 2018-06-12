@@ -7,6 +7,9 @@ const setStatus = (status) => {
 const navLinks = document.querySelectorAll('ul a');
 const table = document.querySelector('table');
 const userWelcomeText = document.querySelector('#userWelcomeText');
+const filterButton = document.querySelector('.status-container button');
+const statusDropDown = document.getElementsByName('status-dropdown')[0];
+const categoryDropDown = document.getElementsByName('category-dropdown')[0];
 navLinks[3].addEventListener('click', (event) => {
   event.target.href = 'index.html';
   localStorage.setItem('token', null);
@@ -18,7 +21,7 @@ window.addEventListener('load', (event) => {
     window.location.href = 'signin.html';
     return;
   }
-  userWelcomeText.innerHTML += ` ${localStorage.getItem('userName')}`;
+  userWelcomeText.innerHTML += `${localStorage.getItem('userName')}`;
   navLinks[3].textContent = 'Sign Out';
   fetch('https://m-tracker.herokuapp.com/api/v1/users/requests', {
     method: 'GET',
@@ -30,6 +33,7 @@ window.addEventListener('load', (event) => {
     .then(response => response.json())
     .then((response) => {
       if (response.data) {
+        table.innerHTML = '<tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>';
         response.data.forEach((request) => {
           table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${request.dated}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
         });
@@ -42,10 +46,34 @@ window.addEventListener('load', (event) => {
       }
     });
 });
-
+filterButton.addEventListener('click', (event) => {
+  console.log(statusDropDown.value);
+  fetch(`https://m-tracker.herokuapp.com/api/v1/users/requests?status=${statusDropDown.value}&category=${categoryDropDown.value}`, {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      'x-access-token': localStorage.getItem('token')
+    },
+  })
+    .then(response => response.json())
+    .then((response) => {
+      if (response.data) {
+        table.innerHTML = '<tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>';
+        response.data.forEach((request) => {
+          table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${request.dated}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
+        });
+      } else if (response.message === 'Authentication failed') {
+        document.body.innerHTML = 'You are not logged in....';
+        window.location.href = 'signin.html';
+      }
+      else {
+        table.innerHTML = '<p class="card-no-result text-center">No result found. Please find the add request button up there to add a new request</p>';
+      }
+    });
+});
 table.addEventListener('click', (event) => {
   event.preventDefault();
-  if ( event.target.matches('a')) {
+  if (event.target.matches('a')) {
     localStorage.setItem('requestId', event.target.id);
     window.location.href = 'detail.html';
   }
