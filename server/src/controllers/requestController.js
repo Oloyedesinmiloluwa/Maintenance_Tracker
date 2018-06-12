@@ -64,7 +64,16 @@ export default class requestController {
   static getARequest(req, res) {
     clientPool.connect()
       .then((client) => {
-        return client.query({ text: 'SELECT * FROM Requests WHERE Id=$1 AND userid=$2', values: [parseInt(req.params.requestId, 10), req.decoded.id] })
+        let queryObject = {
+          text: 'SELECT * FROM Requests WHERE Id=$1 AND userid=$2',
+          values: [parseInt(req.params.requestId, 10), req.decoded.id]
+        };
+        if (req.decoded.role === 'admin') {
+          queryObject = {
+            text: 'SELECT * FROM Requests WHERE Id=$1',
+            values: [parseInt(req.params.requestId, 10)] };
+        }
+        return client.query(queryObject)
           .then((requests) => {
             if (!requests.rows[0]) return res.status(404).json({ message: 'Request not found' });
             client.release();
@@ -87,7 +96,7 @@ export default class requestController {
     const dateToday = new Date();
     clientPool.connect()
       .then((client1) => {
-        return client1.query({ text: 'SELECT description FROM requests WHERE description=$1', values: [req.body.description] })
+        return client1.query({ text: 'SELECT description FROM requests WHERE description=$1 AND status=$2', values: [req.body.description, 'pending'] })
           .then((requests) => {
             client1.release();
             if (!requests.rows[0]) {

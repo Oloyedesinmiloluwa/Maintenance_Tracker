@@ -21,9 +21,11 @@ window.addEventListener('load', (event) => {
     window.location.href = 'signin.html';
     return;
   }
-  userWelcomeText.innerHTML += `${localStorage.getItem('userName')}`;
+  userWelcomeText.innerHTML += ` ${localStorage.getItem('userName')}`;
   navLinks[3].textContent = 'Sign Out';
-  fetch('https://m-tracker.herokuapp.com/api/v1/users/requests', {
+  let url = 'https://m-tracker.herokuapp.com/api/v1/users/requests';
+  if (localStorage.getItem('userRole') === 'admin') url =  'https://m-tracker.herokuapp.com/api/v1/requests';
+  fetch(url, {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
@@ -47,7 +49,6 @@ window.addEventListener('load', (event) => {
     });
 });
 filterButton.addEventListener('click', (event) => {
-  console.log(statusDropDown.value);
   fetch(`https://m-tracker.herokuapp.com/api/v1/users/requests?status=${statusDropDown.value}&category=${categoryDropDown.value}`, {
     method: 'GET',
     headers: {
