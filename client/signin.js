@@ -14,12 +14,15 @@ button.addEventListener('click', (event) => {
     body: JSON.stringify(inputData)
   })
     .then((response) => { return response.json(); })
-    .then((data) => {
-      if (data.message === 'Login successful') {
+    .then((response) => {
+      if (response.message === 'Login successful') {
+        localStorage.setItem('userRole', response.data.role);
+        localStorage.setItem('userName', response.data.firstname);
+        if (response.data.role === 'admin') localStorage.setItem('userName', 'Admin');
         window.location.href = 'list.html';
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', response.token);
       } else {
-        messageText.textContent = data.message;
+        messageText.textContent = response.message;
       }
     });
 });

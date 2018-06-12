@@ -35,7 +35,7 @@ export default class userController {
                     const {
                       id, email
                     } = result.rows[0];
-                    const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '1h' });
+                    const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '24h' });
                     if (process.env.NODE_ENV === 'test') process.env.token = token;
                     delete result.rows[0].password;
                     return res.status(201).json({ message: 'Successfully created an account', data: result.rows[0], token });
@@ -72,7 +72,7 @@ export default class userController {
                 const {
                   id, email
                 } = result.rows[0];
-                const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '1h' });
+                const token = jwt.sign({ id, email }, process.env.secret_key, { expiresIn: '24h' });
                 if (process.env.NODE_ENV === 'test') process.env.token = token;
                 delete result.rows[0].password;
                 return res.status(200).json({ message: 'Login successful', data: result.rows[0], token });

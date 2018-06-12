@@ -1,10 +1,10 @@
-let button = document.getElementById('submitButton');
-let messageText = document.getElementById('messageText');
+const button = document.getElementById('submitButton');
+const messageText = document.getElementById('messageText');
 button.addEventListener('click', (event) => {
-  let firstNameInput = document.getElementById('first-name');
-  let lastNameInput = document.getElementById('last-name');
-  let emailInput = document.getElementById('email');
-  let passwordInput = document.getElementById('password');
+  const firstNameInput = document.getElementById('first-name');
+  const lastNameInput = document.getElementById('last-name');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
   const inputData = {
     firstName: firstNameInput.value,
     lastName: lastNameInput.value,
@@ -18,13 +18,15 @@ button.addEventListener('click', (event) => {
     body: JSON.stringify(inputData)
   })
     .then((response) => { return response.json(); })
-    .then((data) => {
-      if (data.message === 'Successfully created an account') {
-        window.location.href = 'index.html';
-        localStorage.setItem('token', data.token);
-        console.log(localStorage.getItem('token'));
+    .then((response) => {
+      if (response.message === 'Successfully created an account') {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('userRole', response.data.role);
+        localStorage.setItem('userName', response.data.firstname);
+        if (response.data.role === 'admin') localStorage.setItem('userName', 'Admin');
+        window.location.href = 'list.html';
       }
       else
-        messageText.textContent = data.message;
+        messageText.textContent = response.message;
     });
 });
