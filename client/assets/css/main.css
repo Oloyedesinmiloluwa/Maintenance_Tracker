@@ -417,6 +417,8 @@ th {
   text-align: center;
   border: solid #0B2240;
   border-radius: 6px;
+  padding-right: 4px;
+  padding-left: 4px;
 }
 tr {
   text-align: justify;
