@@ -15,7 +15,7 @@ export default class adminController {
    */
   static getAll(req, res) {
     let flag = false;
-    if (req.query.status || req.query.category) {
+    if (req.query.status || req.query.category || req.query.dated) {
       requestController.getAllFilter(req, res);
       return;
     }

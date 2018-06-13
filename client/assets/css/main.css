@@ -49,6 +49,7 @@ hr {
   display: block;
   padding: 0 1em;
   color: white;
+  font-weight: bold;
 }
 .navContainer {
   display: flex;
@@ -83,7 +84,7 @@ hr {
 
 
 body {
-  font: normal 18px/1.5 "Fira Sans", "Helvetica Neue", sans-serif;
+  font: normal 18px/1.5 "Segoe UI", "Arial", "Helvetica Neue", sans-serif;
   background: #fff;
   color: #15437F;
   padding: 0 0 50px 0;
@@ -277,6 +278,9 @@ body {
   border-radius: 5px;
   border-color:#15437F;
 }
+#sort-by [type="date"] { 
+  height: 20px;
+  }
 #sort-date button, .status-container button {
   background:#0B2240;
   border-radius: 5px;
@@ -423,11 +427,14 @@ th {
 tr {
   text-align: justify;
 }
+td:first-letter {
+  text-transform: uppercase;
+}
 tr th:nth-child(1) {
   width: 15%;
 }
 tr th:nth-child(2) {
-  width: 50%;
+  width: 60%;
 }
 tr td:nth-child(1) {
   white-space: nowrap;
@@ -435,7 +442,7 @@ tr td:nth-child(1) {
 tr td:nth-child(2) {
   white-space: nowrap;
 }
-tr td:nth-child(5) {
+tr td:nth-child(3), tr td:nth-child(4), tr td:nth-child(5) {
   text-align: center;
 }
 tr td:nth-child(4) {
@@ -526,9 +533,6 @@ footer {
   }
   #sort-by select, #sort-by button {
     margin-top: 7px;
-  }
-  [type="date"] {
-    /* height: 50%; */
   }
   table {
     margin-top: 8%;

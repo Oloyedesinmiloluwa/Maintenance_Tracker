@@ -13,7 +13,7 @@ export default class requestController {
    * @returns {Array} request
    */
   static getAll(req, res) {
-    if (req.query.status || req.query.category) {
+    if (req.query.status || req.query.category || req.query.dated) {
       requestController.getAllFilter(req, res);
       return;
     }
@@ -38,28 +38,36 @@ export default class requestController {
    */
   static getAllFilter(req, res) {
     const filter = {};
-    let presentQuery = '';
-    if (req.query.category) {
-      filter.categoryQuery = `category LIKE '${req.query.category}%'`;
-      filter.filterQuery = filter.categoryQuery;
-      presentQuery = 'in this category';
-    }
-    if (req.query.status) {
-      filter.statusQuery = `status LIKE '${req.query.status}%'`;
-      filter.filterQuery = filter.statusQuery;
-      presentQuery = 'of this status';
-    } 
-    if (req.query.status && req.query.category) filter.filterQuery = `${filter.statusQuery} AND ${filter.categoryQuery}`;
-    filter.fullQueryObject = { text: `SELECT * FROM Requests WHERE ${filter.filterQuery} AND userid=$1`, values: [req.decoded.id] };
-    if (req.decoded.role === 'admin') {
-      filter.fullQueryObject = { text: `SELECT * FROM Requests WHERE ${filter.filterQuery}` };
+    let queryMessage = '';
+    if (!req.query.dated) {
+      if (req.query.category) {
+        filter.categoryQuery = `category LIKE '${req.query.category}%'`;
+        filter.filterQuery = filter.categoryQuery;
+        queryMessage = 'in this category';
+      }
+      if (req.query.status) {
+        filter.statusQuery = `status LIKE '${req.query.status}%'`;
+        filter.filterQuery = filter.statusQuery;
+        queryMessage = 'of this status';
+      } 
+      if (req.query.status && req.query.category) filter.filterQuery = `${filter.statusQuery} AND ${filter.categoryQuery}`;
+      filter.fullQueryObject = { text: `SELECT * FROM Requests WHERE ${filter.filterQuery} AND userid=$1`, values: [req.decoded.id] };
+      if (req.decoded.role === 'admin') {
+        filter.fullQueryObject = { text: `SELECT * FROM Requests WHERE ${filter.filterQuery}` };
+      }
+    } else
+    {
+      filter.fullQueryObject = { text: 'SELECT * FROM Requests WHERE dated >= $1 AND userid=$2', values: [req.query.dated, req.decoded.id] };
+      if (req.decoded.role === 'admin') {
+        filter.fullQueryObject = { text: 'SELECT * FROM Requests WHERE dated >= $1', values: [req.query.dated] };
+      }
     }
     clientPool.connect()
       .then((client) => {
         return client.query(filter.fullQueryObject)
           .then((requests) => {
             client.release();
-            if (!requests.rows[0]) return res.status(200).json({ message: `No request ${presentQuery} found` });
+            if (!requests.rows[0]) return res.status(200).json({ message: `No request ${queryMessage} found` });
             res.status(200).json({ data: requests.rows }); })
           .catch((error) => {
             client.release();
@@ -117,11 +125,11 @@ export default class requestController {
                   return client.query({ text:
                   'INSERT INTO Requests(title,description, category, image, status, dated, userid) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
                   values: [req.body.title, req.body.description, req.body.category, req.body.image,
-                    'pending', dateToday, req.decoded.id]
+                    'pending', dateToday.toLocaleDateString(), req.decoded.id]
                   })
                     .then((results) => {
                       client.release();
-                      res.status(201).json({ message: 'Request Added Successfully', data: results.rows[0]});
+                      res.status(201).json({ message: 'Request Added Successfully', data: results.rows[0] });
                     })
                     .catch((error) => {
                       client.release();

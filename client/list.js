@@ -8,8 +8,14 @@ const navLinks = document.querySelectorAll('ul a');
 const table = document.querySelector('table');
 const userWelcomeText = document.querySelector('#userWelcomeText');
 const filterButton = document.querySelector('.status-container button');
+const dateButton = document.querySelector('#sort-date button');
+const dateInput = document.querySelector('[type="date"]');
 const statusDropDown = document.getElementsByName('status-dropdown')[0];
 const categoryDropDown = document.getElementsByName('category-dropdown')[0];
+dateButton.addEventListener('click', (event) => { 
+  event.preventDefault();
+  fetchFilteredRequest(`https://m-tracker.herokuapp.com/api/v1/users/requests?dated=${dateInput.value}`);
+});
 navLinks[3].addEventListener('click', (event) => {
   event.target.href = 'index.html';
   localStorage.setItem('token', null);
@@ -37,7 +43,8 @@ window.addEventListener('load', (event) => {
       if (response.data) {
         table.innerHTML = '<tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>';
         response.data.forEach((request) => {
-          table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${request.dated}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
+          const date = new Date(request.dated);
+          table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${date.toLocaleDateString()}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
         });
       } else if(response.message === 'Authentication failed') {
         document.body.innerHTML = 'You are not logged in....';
@@ -48,8 +55,8 @@ window.addEventListener('load', (event) => {
       }
     });
 });
-filterButton.addEventListener('click', (event) => {
-  fetch(`https://m-tracker.herokuapp.com/api/v1/users/requests?status=${statusDropDown.value}&category=${categoryDropDown.value}`, {
+const fetchFilteredRequest = (url) => {
+  fetch(url, {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
@@ -61,7 +68,8 @@ filterButton.addEventListener('click', (event) => {
       if (response.data) {
         table.innerHTML = '<tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>';
         response.data.forEach((request) => {
-          table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${request.dated}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
+          const date = new Date(request.dated);
+          table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${date.toLocaleDateString()}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
         });
       } else if (response.message === 'Authentication failed') {
         document.body.innerHTML = 'You are not logged in....';
@@ -71,6 +79,9 @@ filterButton.addEventListener('click', (event) => {
         table.innerHTML = '<p class="card-no-result text-center">No result found. Please find the add request button up there to add a new request</p>';
       }
     });
+}
+filterButton.addEventListener('click', (event) => {
+  fetchFilteredRequest(`https://m-tracker.herokuapp.com/api/v1/users/requests?status=${statusDropDown.value}&category=${categoryDropDown.value}`);
 });
 table.addEventListener('click', (event) => {
   event.preventDefault();
