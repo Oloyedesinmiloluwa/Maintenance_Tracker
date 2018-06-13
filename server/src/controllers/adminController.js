@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+import requestController from './requestController';
 import { connectionString } from '../config/config';
 
 const clientPool = new Pool(connectionString);
@@ -14,6 +15,10 @@ export default class adminController {
    */
   static getAll(req, res) {
     let flag = false;
+    if (req.query.status || req.query.category) {
+      requestController.getAllFilter(req, res);
+      return;
+    }
     clientPool.connect()
       .then((client) => {
         return client.query('SELECT * FROM users WHERE role=$1', ['admin'])

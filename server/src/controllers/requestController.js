@@ -13,32 +13,8 @@ export default class requestController {
    * @returns {Array} request
    */
   static getAll(req, res) {
-    let filter = {};
-    let presentQuery = '';
-    if (req.query.category) {
-      filter.categoryQuery = `category LIKE '${req.query.category}%'`;
-      filter.fullQuery = filter.categoryQuery;
-      presentQuery = 'in this category';
-    }
-    if (req.query.status) {
-      filter.statusQuery = `status LIKE '${req.query.status}%'`;
-      filter.fullQuery = filter.statusQuery;
-      presentQuery = 'of this status';
-    }
     if (req.query.status || req.query.category) {
-      if (req.query.status && req.query.category) filter.fullQuery = `${filter.statusQuery} AND ${filter.categoryQuery}`;
-      clientPool.connect()
-        .then((client) => {
-          return client.query(`SELECT * FROM Requests WHERE ${filter.fullQuery} AND userid=$1`, [req.decoded.id])
-            .then((requests) => {
-              client.release();
-              if (!requests.rows[0]) return res.status(200).json({ message: `No request ${presentQuery} found` });
-              res.status(200).json({ data: requests.rows }); })
-            .catch((error) => {
-              client.release();
-              res.status(500).json(error.stack);
-            });
-        });
+      requestController.getAllFilter(req, res);
       return;
     }
     clientPool.connect()
@@ -54,7 +30,43 @@ export default class requestController {
           });
       });
   }
-
+  /**
+   * This filters requests
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} requests
+   */
+  static getAllFilter(req, res) {
+    const filter = {};
+    let presentQuery = '';
+    if (req.query.category) {
+      filter.categoryQuery = `category LIKE '${req.query.category}%'`;
+      filter.filterQuery = filter.categoryQuery;
+      presentQuery = 'in this category';
+    }
+    if (req.query.status) {
+      filter.statusQuery = `status LIKE '${req.query.status}%'`;
+      filter.filterQuery = filter.statusQuery;
+      presentQuery = 'of this status';
+    } 
+    if (req.query.status && req.query.category) filter.filterQuery = `${filter.statusQuery} AND ${filter.categoryQuery}`;
+    filter.fullQueryObject = { text: `SELECT * FROM Requests WHERE ${filter.filterQuery} AND userid=$1`, values: [req.decoded.id] };
+    if (req.decoded.role === 'admin') {
+      filter.fullQueryObject = { text: `SELECT * FROM Requests WHERE ${filter.filterQuery}` };
+    }
+    clientPool.connect()
+      .then((client) => {
+        return client.query(filter.fullQueryObject)
+          .then((requests) => {
+            client.release();
+            if (!requests.rows[0]) return res.status(200).json({ message: `No request ${presentQuery} found` });
+            res.status(200).json({ data: requests.rows }); })
+          .catch((error) => {
+            client.release();
+            res.status(500).json(error.stack);
+          });
+      });
+  }
   /**
    * This method gets a single request.
    * @param {Object} req - client request Object
