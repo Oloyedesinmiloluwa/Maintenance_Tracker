@@ -23,11 +23,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1/', requestRoute);
 app.use('/api/v1/', userRoute);
 app.use('/api/v1/', adminRoute);
-
 app.all('*', (req, res) => res.status(404).send({
   message: 'You are not in the right place, pls input a valid endpoint',
 }));
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
+console.info(`server running at port ${port}`);
 export default app;

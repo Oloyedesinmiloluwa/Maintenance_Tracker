@@ -42,7 +42,7 @@ window.addEventListener('load', (event) => {
         descriptionText.textContent = response.data.description;
         categoryText.textContent = response.data.category;
         dateText.textContent = response.data.dated;
-        requestImage.src = `assets/image/${response.data.image}`;
+        requestImage.src = response.data.image || 'assets/image/repair2.png';
         localStorage.setItem('requestBufferTitle', response.data.title);
         localStorage.setItem('requestBufferDescription', response.data.description);
         localStorage.setItem('requestBufferCategory', response.data.category);

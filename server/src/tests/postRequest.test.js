@@ -157,11 +157,11 @@ const postRequest = () => {
           title: 'fault',
           description: 'every wall in the room is broken there is fault',
           category: 'electrical',
-          image: 'theimage is where youcannot think of because this is just a test'
+          image: 'theimage is where youcannot think of because this is just a test this is just a test theimage is where youcannot think of because this is just a test theimage is where youcannot think of because this is just a test'
         })
         .end((err, res) => {
           res.should.have.status(400);
-          res.body.message.should.be.eql('Image length cannot be more than 20 characters');
+          res.body.message.should.be.eql('Image length cannot be more than 200 characters');
           done();
         });
     });

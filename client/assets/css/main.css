@@ -5,7 +5,7 @@
 #logo {
   text-shadow: 4px 4px 8px rgb(46, 139, 216);
   color: #0B2240;
-  margin-top: 15%;
+  margin-top: 5%;
 }
 #messageText {
   color: red;
@@ -97,7 +97,7 @@ body {
 }
 .form-container {
   border: solid 3px #15437F;
-  margin: 5% 25%;
+  margin: 3% 25%;
   padding: 2% 0;
   border-radius: 2%;
   background: #15437F;
@@ -123,7 +123,24 @@ body {
 .container * {
   box-sizing: border-box;
 }
-
+.loader {
+  margin: 20px auto;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #15437F;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 .flex-outer {
   list-style-type: none;
   padding: 0;
@@ -138,7 +155,7 @@ body {
 }
 
 .flex-outer > li {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .flex-outer li label {
@@ -161,6 +178,7 @@ body {
   padding: 15px;
   border: solid 2px #15437F;
   border-radius: 8px;
+  height: 45px;
 }
 
 .flex-outer li button {
@@ -229,6 +247,8 @@ body {
 .show-detail-card img {
   border: solid 1px #0B2240;
   border-radius:5px;
+  max-width: 256px;
+  max-height: 256px;
 }
 .display-card {
   margin: 5%;
@@ -287,7 +307,7 @@ body {
   padding:5px;
   color:white;
 }
-#sort-date button:hover, #request-btn:hover .status-container button:hover {
+#sort-date button:hover, .status-container button:hover {
   background-color: #15437F;
 }
 [class="fa fa-check"] {
@@ -339,6 +359,14 @@ h3 a {
   display: table;
   color: #0B2240;
   margin-bottom: 1em;
+}
+#file-div label:hover {
+  color: #fff;
+  background: #0B2240;
+}
+#file-div [type="submit"] {
+  background: #0B2240;
+  color: white;
 }
 
 [type="file"] {
@@ -489,6 +517,9 @@ color: red;
   width: 20%;
   background-color: #0B2240;
   color: white;
+}
+#request-btn button:hover {
+  background-color: rgb(125, 171, 235);
 }
 .footer-media {
   display: flex;

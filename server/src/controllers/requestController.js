@@ -106,6 +106,20 @@ export default class requestController {
       });
   }
   /**
+   * This uploads a request image to local.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} Image with success message or failure message
+   */
+  static uploadToLocal(req, res) {
+    if (req.files) {
+      req.files.request.mv('./client/assets/image/request.jpg', (err) => {
+        if (err) return res.status(500).send(err);
+        res.status(200).json({ data: req.files.request, message: 'File uploaded!' });
+      }); }
+    else res.status(400).json({ message: 'No image found' });
+  }
+  /**
    * This adds a request to the database.
    * @param {Object} req - client request Object
    * @param {Object} res - Server response Object
@@ -113,6 +127,7 @@ export default class requestController {
    */
   static addRequest(req, res) {
     if (req.body.category) req.body.category = req.body.category.toLowerCase();
+    // if (req.body.image) req.body.image = await requestController.uploadToCloudinary(req, res);
     const dateToday = new Date();
     clientPool.connect()
       .then((client1) => {

@@ -64,7 +64,7 @@ export default class userController {
         return client.query({ text: 'SELECT * FROM users WHERE email=$1', values: [req.body.email] })
           .then((result) => {
             client.release();
-            if (!result.rows[0]) return res.status(401).json({ message: 'Invalid Email' });
+            if (!result.rows[0]) return res.status(401).json({ message: 'No account with this email address' });
             bcrypt
               .compare(req.body.password, result.rows[0].password)
               .then((response) => {
