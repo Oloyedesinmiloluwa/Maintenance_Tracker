@@ -51,8 +51,8 @@ export default class validateRequest {
       res.status(400).json({ message: 'Category length cannot be more than 20 characters' });
       error = true;
     }
-    if (req.body.image && req.body.image.length > 20) {
-      res.status(400).json({ message: 'Image length cannot be more than 20 characters' });
+    if (req.body.image && req.body.image.length > 200) {
+      res.status(400).json({ message: 'Image length cannot be more than 200 characters' });
       error = true;
     }
     if (error) return true;

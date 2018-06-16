@@ -26,7 +26,7 @@ const loginUser = () => {
         })
         .end((err, res) => {
           res.should.have.status(401);
-          assert.equal(res.body.message, 'Invalid Email');
+          assert.equal(res.body.message, 'No account with this email address');
           done();
         });
     });

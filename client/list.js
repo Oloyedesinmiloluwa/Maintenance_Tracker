@@ -12,6 +12,7 @@ const dateButton = document.querySelector('#sort-date button');
 const dateInput = document.querySelector('[type="date"]');
 const statusDropDown = document.getElementsByName('status-dropdown')[0];
 const categoryDropDown = document.getElementsByName('category-dropdown')[0];
+const loader = document.querySelector('.loader');
 dateButton.addEventListener('click', (event) => { 
   event.preventDefault();
   fetchFilteredRequest(`https://m-tracker.herokuapp.com/api/v1/users/requests?dated=${dateInput.value}`);
@@ -41,6 +42,7 @@ window.addEventListener('load', (event) => {
     .then(response => response.json())
     .then((response) => {
       if (response.data) {
+        loader.style.display = 'none';
         table.innerHTML = '<tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>';
         response.data.forEach((request) => {
           const date = new Date(request.dated);
