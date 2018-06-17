@@ -123,6 +123,10 @@ body {
 .container * {
   box-sizing: border-box;
 }
+.counter {
+  margin: 0 10%;
+  color: rgb(44, 133, 160);
+}
 .loader {
   margin: 20px auto;
   border: 5px solid #f3f3f3;

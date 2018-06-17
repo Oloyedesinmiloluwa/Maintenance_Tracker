@@ -7,11 +7,28 @@ const userWelcomeText = document.querySelector('#userWelcomeText');
 const fileUpload = document.getElementById('file-upload');
 const requestImage = document.querySelector('.show-detail-card img');
 const navLinks = document.querySelectorAll('ul a');
+const counterTexts = document.querySelectorAll('.counter');
 let isEditRequest = false;
 let imagePath = '';
 navLinks[2].addEventListener('click', (event) => {
   localStorage.setItem('token', null);
   localStorage.setItem('userName', ' ');
+});
+titleInput.addEventListener('keypress', () => {
+  messageText.textContent = '';
+});
+descriptionInput.addEventListener('keypress', () => {
+  messageText.textContent = '';
+});
+titleInput.addEventListener('input', () => {
+  if (titleInput.value.length < 21) {
+    counterTexts[0].textContent = `${titleInput.value.length}/20 max characters`;
+  } else counterTexts[0].textContent = 'Max Exceeded';
+});
+descriptionInput.addEventListener('input', () => {
+  if (descriptionInput.value.length < 251) {
+    counterTexts[1].textContent = `${descriptionInput.value.length}/250 max characters`;
+  } else counterTexts[1].textContent = 'Max Exceeded';
 });
 fileUpload.addEventListener('change', (event) => {
   event.preventDefault();
@@ -33,7 +50,7 @@ fileUpload.addEventListener('change', (event) => {
       }
     });
 });
-window.addEventListener('load', (event) => { 
+window.addEventListener('load', (event) => {
   navLinks[2].textContent = 'Sign Out';
   navLinks[2].href = 'index.html';
   userWelcomeText.innerHTML += ` ${localStorage.getItem('userName')}`;
