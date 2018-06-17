@@ -13,7 +13,9 @@ const dateInput = document.querySelector('[type="date"]');
 const statusDropDown = document.getElementsByName('status-dropdown')[0];
 const categoryDropDown = document.getElementsByName('category-dropdown')[0];
 const loader = document.querySelector('.loader');
-dateButton.addEventListener('click', (event) => { 
+dateButton.addEventListener('click', (event) => {
+  table.innerHTML = '';
+  loader.style.display = 'block';
   event.preventDefault();
   fetchFilteredRequest(`https://m-tracker.herokuapp.com/api/v1/users/requests?dated=${dateInput.value}`);
 });
@@ -41,11 +43,12 @@ window.addEventListener('load', (event) => {
   })
     .then(response => response.json())
     .then((response) => {
+      loader.style.display = 'none';      
       if (response.data) {
-        loader.style.display = 'none';
         table.innerHTML = '<tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>';
         response.data.forEach((request) => {
           const date = new Date(request.dated);
+          if (request.description.length > 80) request.description = `${request.description.slice(0, 79)}...`;
           table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${date.toLocaleDateString()}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
         });
       } else if(response.message === 'Authentication failed') {
@@ -67,10 +70,12 @@ const fetchFilteredRequest = (url) => {
   })
     .then(response => response.json())
     .then((response) => {
+      loader.style.display = 'none';
       if (response.data) {
         table.innerHTML = '<tr><th>Title</th><th>Description</th><th>Category</th><th>Date</th><th>Status</th></tr>';
         response.data.forEach((request) => {
           const date = new Date(request.dated);
+          if (request.description.length > 80) request.description = `${request.description.slice(0, 79)}...`;
           table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${date.toLocaleDateString()}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
         });
       } else if (response.message === 'Authentication failed') {
@@ -83,6 +88,8 @@ const fetchFilteredRequest = (url) => {
     });
 }
 filterButton.addEventListener('click', (event) => {
+  table.innerHTML = '';
+  loader.style.display = 'block';
   fetchFilteredRequest(`https://m-tracker.herokuapp.com/api/v1/users/requests?status=${statusDropDown.value}&category=${categoryDropDown.value}`);
 });
 table.addEventListener('click', (event) => {
