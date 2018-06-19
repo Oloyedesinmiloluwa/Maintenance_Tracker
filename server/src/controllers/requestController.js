@@ -127,7 +127,6 @@ export default class requestController {
    */
   static addRequest(req, res) {
     if (req.body.category) req.body.category = req.body.category.toLowerCase();
-    // if (req.body.image) req.body.image = await requestController.uploadToCloudinary(req, res);
     const dateToday = new Date();
     clientPool.connect()
       .then((client1) => {
@@ -191,6 +190,31 @@ export default class requestController {
                     res.status(500).json(error.stack);
                   });
               });
+          })
+          .catch((error) => {
+            client.release();
+            res.status(500).json(error.stack);
+          });
+      });
+  }
+  /**
+   * This deletes a request from database.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} success or failure message
+   */
+  static deleteRequest(req, res) {
+    clientPool.connect()
+      .then((client) => {
+        const queryObject = {
+          text: 'DELETE FROM Requests WHERE Id=$1 AND userid=$2',
+          values: [parseInt(req.params.requestId, 10), req.decoded.id]
+        };
+        return client.query(queryObject)
+          .then((response) => {
+            if (response.rowCount !== 1) return res.status(404).json({ message: 'Request does not exist' });
+            client.release();
+            res.status(200).json({ message: 'Request successfully deleted' });
           })
           .catch((error) => {
             client.release();

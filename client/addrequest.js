@@ -75,7 +75,7 @@ submitButton.addEventListener('click', (event) => {
   const inputData = {
     title: titleInput.value,
     description: descriptionInput.value,
-    category: categoryInput.value || 'unspecified',
+    category: categoryInput.value || 'general',
     image: imagePath
   };
   let url = 'https://m-tracker.herokuapp.com/api/v1/users/requests';
@@ -91,12 +91,16 @@ submitButton.addEventListener('click', (event) => {
     body: JSON.stringify(inputData)
   })
     .then((response) => { return response.json(); })
-    .then((data) => {
-      messageText.textContent = data.message;
-      if (data.message === 'Request Added Successfully') {
+    .then((response) => {
+      messageText.textContent = response.message;
+      if (response.message === 'Request Added Successfully') {
         window.location.href = 'list.html';
-      } else if (data.message === 'Request Updated Successfully') {
+      } else if (response.message === 'Request Updated Successfully') {
         window.location.href = 'detail.html';
+      }
+      else if (response.message === 'Authentication failed') {
+        document.body.innerHTML = 'You are not logged in....';
+        window.location.href = 'signin.html';
       }
       else messageText.style.color = 'red';
       isEditRequest = false;

@@ -13,6 +13,7 @@ const dateInput = document.querySelector('[type="date"]');
 const statusDropDown = document.getElementsByName('status-dropdown')[0];
 const categoryDropDown = document.getElementsByName('category-dropdown')[0];
 const loader = document.querySelector('.loader');
+
 dateButton.addEventListener('click', (event) => {
   table.innerHTML = '';
   loader.style.display = 'block';
@@ -26,14 +27,10 @@ navLinks[3].addEventListener('click', (event) => {
 });
 window.addEventListener('load', (event) => {
   event.preventDefault();
-  if (!localStorage.token) {
-    window.location.href = 'signin.html';
-    return;
-  }
   userWelcomeText.innerHTML += ` ${localStorage.getItem('userName')}`;
   navLinks[3].textContent = 'Sign Out';
   let url = 'https://m-tracker.herokuapp.com/api/v1/users/requests';
-  if (localStorage.getItem('userRole') === 'admin') url =  'https://m-tracker.herokuapp.com/api/v1/requests';
+  if (localStorage.getItem('userRole') === 'admin') url = 'https://m-tracker.herokuapp.com/api/v1/requests';
   fetch(url, {
     method: 'GET',
     headers: {
@@ -51,7 +48,7 @@ window.addEventListener('load', (event) => {
           if (request.description.length > 80) request.description = `${request.description.slice(0, 79)}...`;
           table.innerHTML += `<tr><td><a id=${request.id} href="#">${request.title}</a></td><td>${request.description}</td><td>${request.category}</td><td>${date.toLocaleDateString()}</td><td><i class="${setStatus(request.status)}"></i></td></tr>`;
         });
-      } else if(response.message === 'Authentication failed') {
+      } else if (response.message === 'Authentication failed') {
         document.body.innerHTML = 'You are not logged in....';
         window.location.href = 'signin.html';
       }
