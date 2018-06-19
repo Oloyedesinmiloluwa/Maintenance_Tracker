@@ -13,7 +13,11 @@ requestRoute.route('/users/requests')
   .post(requestValidator.addRequest, auth, uploadToCloudinary, requestController.addRequest);
 requestRoute.route('/users/requests/:requestId')
   .get(auth, idValidator, requestController.getARequest)
-  .put(auth, idValidator, requestValidator.modifyRequest, uploadToCloudinary, requestController.modifyRequest);
+  .put(
+    auth, idValidator, requestValidator.modifyRequest, uploadToCloudinary,
+    requestController.modifyRequest
+  )
+  .delete(auth, idValidator, requestController.deleteRequest);
 requestRoute.route('/upload')
   .post(auth, requestController.uploadToLocal);
 export default requestRoute;

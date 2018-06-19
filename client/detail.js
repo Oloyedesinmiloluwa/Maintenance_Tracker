@@ -3,6 +3,7 @@ const descriptionText = document.getElementById('description-label');
 const categoryText = document.getElementById('category-label');
 const dateText = document.getElementById('date-label');
 const editButton = document.getElementById('edit-btn');
+const deleteButton = document.getElementById('delete-btn');
 const requestImage = document.querySelector('.display-card img');
 const statusMenu = document.querySelector('select');
 const messageText = document.querySelector('#messageText');
@@ -25,6 +26,7 @@ window.addEventListener('load', (event) => {
   userWelcomeText.innerHTML += ` ${localStorage.getItem('userName')}`;
   if (localStorage.getItem('userRole') === 'admin') {
     editButton.textContent = 'Update Status';
+    deleteButton.style.display = 'none';
   } else {
     statusMenu.style.display = 'none';
   }
@@ -38,10 +40,11 @@ window.addEventListener('load', (event) => {
     .then(response => response.json())
     .then((response) => {
       if (response.data) {
+        const date = new Date(response.data.dated);
         titleText.innerHTML = `${response.data.title}&nbsp;&nbsp;<i class="${setStatus(response.data.status)}"></i>`;
         descriptionText.textContent = response.data.description;
         categoryText.textContent = response.data.category;
-        dateText.textContent = response.data.dated;
+        dateText.textContent = date.toLocaleDateString();
         requestImage.src = response.data.image || 'assets/image/repair2.png';
         localStorage.setItem('requestBufferTitle', response.data.title);
         localStorage.setItem('requestBufferDescription', response.data.description);
@@ -71,4 +74,19 @@ editButton.addEventListener('click', (event) => {
     localStorage.setItem('editRequest', 'started');
     window.location.href = 'addrequest.html';
   }
+});
+deleteButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  fetch(`https://m-tracker.herokuapp.com/api/v1/users/requests/${localStorage.getItem('requestId')}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+      'x-access-token': localStorage.getItem('token')
+    },
+  })
+    .then(response => response.json())
+    .then((response) => {
+      messageText.textContent = response.message;
+      if (response.message === 'Request successfully deleted') window.location.href = 'list.html';
+    });
 });

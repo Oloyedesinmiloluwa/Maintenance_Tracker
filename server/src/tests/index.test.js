@@ -10,6 +10,7 @@ import adminApprove from './adminApprove.test';
 import adminDisapprove from './adminDisapprove.test';
 import adminResolve from './adminResolve.test';
 import makeAdmin from './makeAdmin.test';
+import deleteRequest from './deleteRequest.test';
 
 chai.should();
 chai.use(chaiHttp);
@@ -21,6 +22,7 @@ describe('Test for Request API endpoints', () => {
   adminApprove();
   adminDisapprove();
   adminResolve();
+  deleteRequest();
   createUser();
   makeAdmin();
   adminGetAll();
