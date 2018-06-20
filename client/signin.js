@@ -1,4 +1,6 @@
 const button = document.getElementById('fit-footer');
+const baseUrl = 'https://m-tracker.herokuapp.com';
+
 button.addEventListener('click', (event) => {
   const emailInput = document.getElementById('email');
   const passwordInput = document.getElementById('password');
@@ -8,7 +10,7 @@ button.addEventListener('click', (event) => {
     password: passwordInput.value
   };
   event.preventDefault();
-  fetch('https://m-tracker.herokuapp.com/api/v1/auth/login', {
+  fetch(`${baseUrl}/api/v1/auth/login`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(inputData)

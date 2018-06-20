@@ -1,5 +1,7 @@
 const button = document.getElementById('submitButton');
 const messageText = document.getElementById('messageText');
+const baseUrl = 'https://m-tracker.herokuapp.com';
+
 button.addEventListener('click', (event) => {
   const firstNameInput = document.getElementById('first-name');
   const lastNameInput = document.getElementById('last-name');
@@ -12,7 +14,7 @@ button.addEventListener('click', (event) => {
     password: passwordInput.value
   };
   event.preventDefault();
-  fetch('https://m-tracker.herokuapp.com/api/v1/auth/signup', {
+  fetch(`${baseUrl}/api/v1/auth/signup`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(inputData)

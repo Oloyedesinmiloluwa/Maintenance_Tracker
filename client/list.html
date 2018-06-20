@@ -45,35 +45,40 @@
             <li>
                 <form>
                     <select name="status-dropdown">
-                    <option value="" selected>status</option>
                     <option value="">All</option>
                     <option value="approved">approved</option>
                     <option value="disapproved">disapproved</option>
                     <option value="resolved">resolved</option>
                     <option value="pending">pending</option>
+                    <option value="" selected>status</option>
                     </select>
                 </form>
             </li>
             <li>
                 <form>
                     <select name="category-dropdown">
-                    <option value="" selected>category</option>
                     <option value="">All</option>
-                    <option value="General">general</option>
-                    <option value="Electrical">electrical</option>
-                    <option value="Physical">physical</option>
-                    <option value="Mechanical">mechanical</option>
-                    <option value="Electronic">electronic</option>
-                    <option value="Software">software</option>
+                    <option value="general">general</option>
+                    <option value="electrical">electrical</option>
+                    <option value="physical">physical</option>
+                    <option value="mechanical">mechanical</option>
+                    <option value="electronic">electronic</option>
+                    <option value="software">software</option>
+                    <option value="" selected>category</option>
                     </select>
                 </form>
             </li>
           </ul>
       </div>
+      <p class = "text-center" id="filter-message"></p>
       <div class = "loader"></div>
     <table>
     </table>
-    
+    <p class="text-center" id="page-num"></p>
+    <div class="pagination">
+      <button disabled><i class="fa fa-arrow-circle-left"></i> Prev</button>
+      <button>Next <i class="fa fa-arrow-circle-right"></i> </button>
+    </div>
     <script src="list.js"></script>
   </body>
   </html>

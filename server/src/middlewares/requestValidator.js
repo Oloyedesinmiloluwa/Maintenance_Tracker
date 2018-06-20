@@ -17,9 +17,17 @@ export default class validateRequest {
     if (req.query.category) {
       req.query.category = queryValidator(req.query.category);
     }
-
     if (req.query.status) {
       req.query.status = queryValidator(req.query.status);
+    }
+    if (req.query.page) {
+      const page = parseInt(req.query.page, 10);
+      req.query.page = page;
+      if (page < 1 || Number(page) !== page) req.query.page = 1;
+      const limit = parseInt(req.query.limit, 10);
+      req.query.limit = limit;
+      if (!req.query.limit || limit < 1 || Number(limit) !== limit) req.query.limit = 30;
+      if (limit > 50) req.query.limit = 50;
     }
     next();
   }

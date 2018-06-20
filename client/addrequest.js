@@ -8,6 +8,7 @@ const fileUpload = document.getElementById('file-upload');
 const requestImage = document.querySelector('.show-detail-card img');
 const navLinks = document.querySelectorAll('ul a');
 const counterTexts = document.querySelectorAll('.counter');
+const baseUrl = 'https://m-tracker.herokuapp.com';
 let isEditRequest = false;
 let imagePath = '';
 navLinks[2].addEventListener('click', (event) => {
@@ -34,7 +35,7 @@ fileUpload.addEventListener('change', (event) => {
   event.preventDefault();
   const formData = new FormData();
   formData.append('request', fileUpload.files[0]);
-  fetch('https://m-tracker.herokuapp.com/api/v1/upload', {
+  fetch(`${baseUrl}/api/v1/upload`, {
     method: 'POST',
     body: formData,
     headers: { 'x-access-token': localStorage.getItem('token') }
@@ -78,10 +79,10 @@ submitButton.addEventListener('click', (event) => {
     category: categoryInput.value || 'general',
     image: imagePath
   };
-  let url = 'https://m-tracker.herokuapp.com/api/v1/users/requests';
+  let url = `${baseUrl}/api/v1/users/requests`;
   let httpMethod = 'POST';
   if (isEditRequest) {
-    url = `https://m-tracker.herokuapp.com/api/v1/users/requests/${localStorage.getItem('requestId')}`;
+    url = `${baseUrl}/api/v1/users/requests/${localStorage.getItem('requestId')}`;
     httpMethod = 'PUT';
   }
   event.preventDefault();

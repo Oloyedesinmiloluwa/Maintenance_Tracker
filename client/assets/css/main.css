@@ -81,8 +81,23 @@ hr {
 .text-center {
   text-align: center;
 }
-
-
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+.pagination button {
+  background-color: grey;
+  color: white;
+  padding: 1px 5px;
+  visibility: hidden;
+  margin: 8px 3px;
+  border-radius: 10px;
+}
+#filter-message {
+  background: rgb(168, 223, 233);
+  margin: 5% 20% 0 20%;
+  border-radius: 5px;
+}
 body {
   font: normal 18px/1.5 "Segoe UI", "Arial", "Helvetica Neue", sans-serif;
   background: #fff;
@@ -122,6 +137,9 @@ body {
 }
 .container * {
   box-sizing: border-box;
+}
+#page-num {
+  margin-top: 20%;
 }
 .counter {
   margin: 0 10%;
@@ -572,6 +590,9 @@ footer {
   }
   #sort-by select, #sort-by button {
     margin-top: 7px;
+  }
+  #page-num {
+    margin-top: 30%;
   }
   table {
     margin-top: 8%;

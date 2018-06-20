@@ -15,9 +15,14 @@ export default class adminController {
    */
   static getAll(req, res) {
     let flag = false;
+    let queryObject = { text: 'SELECT * FROM Requests' };
     if (req.query.status || req.query.category || req.query.dated) {
       requestController.getAllFilter(req, res);
       return;
+    }
+    if (req.query.page) {
+      req.query.offset = (req.query.page - 1) * req.query.limit;
+      queryObject = { text: 'SELECT * FROM Requests OFFSET $1 LIMIT $2', values: [ req.query.offset, req.query.limit] }
     }
     clientPool.connect()
       .then((client) => {
@@ -30,7 +35,7 @@ export default class adminController {
             if (!flag) return res.status(403).json({ message: 'You are not an admin' });
             clientPool.connect()
               .then((client2) => {
-                return client2.query('SELECT * FROM Requests')
+                return client2.query(queryObject)
                   .then((requests) => {
                     client2.release();
                     res.status(200).json({ data: requests.rows });
