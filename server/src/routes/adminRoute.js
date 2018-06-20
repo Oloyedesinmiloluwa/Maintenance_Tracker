@@ -1,11 +1,12 @@
 import express from 'express';
 import adminController from '../controllers/adminController';
+import requestValidator from '../middlewares/requestValidator';
 import auth from '../middlewares/auth';
 import idValidator from '../middlewares/idValidator';
 
 const adminRoute = express();
 adminRoute.route('/requests')
-  .get(auth, adminController.getAll);
+  .get(auth, requestValidator.getAll, adminController.getAll);
 adminRoute.route('/requests/:requestId/approve')
   .put(idValidator, auth, adminController.approveRequest);
 adminRoute.route('/requests/:requestId/disapprove')

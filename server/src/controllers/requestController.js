@@ -10,16 +10,21 @@ export default class requestController {
    * This gets all requests
    * @param {Object} req - client request Object
    * @param {Object} res - Server response Object
-   * @returns {Array} request
+   * @returns {Object} requests
    */
   static getAll(req, res) {
+    let queryObject = { text: 'SELECT * FROM Requests WHERE userid= $1', values: [req.decoded.id] };
     if (req.query.status || req.query.category || req.query.dated) {
       requestController.getAllFilter(req, res);
       return;
     }
+    if (req.query.page) {
+      req.query.offset = (req.query.page - 1) * req.query.limit;
+      queryObject = { text: 'SELECT * FROM Requests WHERE userid= $1 OFFSET $2 LIMIT $3', values: [req.decoded.id, req.query.offset, req.query.limit] }
+    }
     clientPool.connect()
       .then((client) => {
-        return client.query({ text: 'SELECT * FROM Requests WHERE userid= $1', values: [req.decoded.id] })
+        return client.query(queryObject)
           .then((requests) => {
             client.release();
             if (requests.rows.length === 0) return res.status(200).json({ message: 'You have not made any request yet' });

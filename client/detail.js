@@ -9,6 +9,8 @@ const statusMenu = document.querySelector('select');
 const messageText = document.querySelector('#messageText');
 const userWelcomeText = document.querySelector('#userWelcomeText');
 const navLinks = document.querySelectorAll('ul a');
+
+const baseUrl = 'https://m-tracker.herokuapp.com';
 const setStatus = (status) => {
   if (status === 'approved') return 'fa fa-thumbs-up';
   else if (status === 'disapproved') return 'fa fa-thumbs-down';
@@ -30,7 +32,7 @@ window.addEventListener('load', (event) => {
   } else {
     statusMenu.style.display = 'none';
   }
-  fetch(`https://m-tracker.herokuapp.com/api/v1/users/requests/${localStorage.getItem('requestId')}`, {
+  fetch(`${baseUrl}/api/v1/users/requests/${localStorage.getItem('requestId')}`, {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
@@ -59,7 +61,7 @@ window.addEventListener('load', (event) => {
 editButton.addEventListener('click', (event) => {
   event.preventDefault();
   if (localStorage.getItem('userRole') === 'admin') {
-    fetch(`https://m-tracker.herokuapp.com/api/v1/requests/${localStorage.getItem('requestId')}/${statusMenu.value}`, {
+    fetch(`${baseUrl}/api/v1/requests/${localStorage.getItem('requestId')}/${statusMenu.value}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json',
@@ -77,7 +79,7 @@ editButton.addEventListener('click', (event) => {
 });
 deleteButton.addEventListener('click', (event) => {
   event.preventDefault();
-  fetch(`https://m-tracker.herokuapp.com/api/v1/users/requests/${localStorage.getItem('requestId')}`, {
+  fetch(`${baseUrl}/api/v1/users/requests/${localStorage.getItem('requestId')}`, {
     method: 'DELETE',
     headers: {
       'content-type': 'application/json',
