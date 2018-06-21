@@ -5,7 +5,7 @@
 #logo {
   text-shadow: 4px 4px 8px rgb(46, 139, 216);
   color: #0B2240;
-  margin-top: 5%;
+  margin-top: 3%;
 }
 #messageText {
   color: red;
@@ -21,12 +21,12 @@ hr {
   margin: 0 5%;
   background: yellow;
 }
-#sort-by {
+#filter-by {
   margin: 0 3%;
   display: flex;
   justify-content: space-between;
 }
-#sort-by select {
+#filter-by select {
   color:#15437F;
   background: white;
   border:solid  #0B2240 6px;
@@ -112,8 +112,8 @@ body {
 }
 .form-container {
   border: solid 3px #15437F;
-  margin: 3% 25%;
-  padding: 2% 0;
+  margin: 2% 26%;
+  padding: .8% 0;
   border-radius: 2%;
   background: #15437F;
 }
@@ -142,7 +142,7 @@ body {
   margin-top: 20%;
 }
 .counter {
-  margin: 0 10%;
+  margin-left: 1%;
   color: rgb(44, 133, 160);
 }
 .loader {
@@ -185,6 +185,7 @@ body {
   font-weight: 900;
   letter-spacing: .09em;
   color: white;
+  font-size: 110%;
 }
 
 .flex-outer > li > label {
@@ -205,18 +206,20 @@ body {
 
 .flex-outer li button {
   margin-left: auto;
+  margin-top: 8px;
   padding: 8px 16px;
   border: none;
   background: #0B2240;
   color: #f2f2f2;
   letter-spacing: .09em;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 5%;
+  margin-bottom: 0;
   margin-top: 0;
   background: #0B2240;
 }
@@ -249,7 +252,10 @@ body {
 }
 .container form {
   margin-top: 3%;
-  margin-bottom: 20%;
+  margin-bottom: 15%;
+}
+#signup-form {
+  margin-bottom: 8%;
 }
 #request-header {
   margin-left: 3%;
@@ -287,21 +293,24 @@ body {
   padding: 5px 3%;
   font-size: 85%;
 }
+.addrequest-form {
+  margin: 0 15%;
+  border: solid 1px #0B2240;
+  border-radius: 5px;
+  background-color: rgb(240, 244, 248);
+}
 .description-p {
-  margin: 10px 5%;
+  margin: 10px 1%;
   text-align: left;
 }
-#description-label {
-  margin-right: 5%;
+.description-p:first-letter{
+  text-transform: uppercase;
 }
 .description-label {
-  margin-left: 5%;
-  margin-right: 5%;
   background-color: #0B2240;
   color: white;
   padding: 3px;
   padding-left: 5px;
-  border-radius: 5px;
 }
 .description-btn {
   display: flex;
@@ -320,16 +329,16 @@ body {
   border-radius: 5px;
   border-color:#15437F;
 }
-#sort-by [type="date"] { 
-  height: 20px;
+#filter-by [type="date"] { 
+  height: 30px;
   }
-#sort-date button, .status-container button {
+#filter-date button, .status-container button {
   background:#0B2240;
   border-radius: 5px;
   padding:5px;
   color:white;
 }
-#sort-date button:hover, .status-container button:hover {
+#filter-date button:hover, .status-container button:hover {
   background-color: #15437F;
 }
 [class="fa fa-check"] {
@@ -397,15 +406,24 @@ h3 a {
 textarea {
   border-radius: 10px;
   resize: none;
-  width: 99%;
+  width: 96%;
 
+}
+.lightly-dark-container {
+  padding: 3% 0;
+  background-color: #f7f7f7;
+}
+.lightly-darker-container {
+  background-color: #f1f1f1;
+  padding-top: 4%;
+  padding-bottom: 6%;
 }
 .status-div {
   color:  #15437F;
   border: solid rgb(135, 184, 248);
   border-radius: 10px;
   background-color: rgb(135, 184, 248);
-  margin: 0 20%  4%  20%;
+  margin: 0 20%  0  20%;
 }
 .status {
   display: flex;
@@ -423,23 +441,20 @@ button:hover {
   background-color: #0B2240;
   color: white;
   padding: 5px;
-  border-radius:5px;
   margin-bottom: 1%;
 }
-.category-div select, textarea, input {
+.category-div select, .textarea-div textarea,.category-div input {
   padding: 5px;
   border-radius:5px;
   border-color:#15437F;
-}
-.textarea-div, .category-div {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin: 0 1%;
 }
 .category-div {
 padding-bottom: 1%;
 }
 #get-started {
   margin: 5%;
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
   font-size: 170%;
@@ -515,17 +530,8 @@ tr th:nth-child(5) {
 table a:hover {
 color: red;
 }
-.listing1 ul li {
-  display: inline-flex;
-}
-.listing {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
 #how-it-works {
   padding: 5px;
-  margin-bottom: 3%;
   background-color: #15437F;
   color: white;
   font-size: 150%;
@@ -537,7 +543,8 @@ color: red;
   
 }
 #request-btn button {
-  margin: 10%;
+  margin: 5%;
+  margin-bottom: 10%;
   border-radius: 6px;
   padding: 1%;
   width: 20%;
@@ -563,12 +570,13 @@ html, body {
   height: 100%;
 }
 #addrequest-h2 {
-  margin-top: 5%;
+  margin-top: 1%;
   margin-bottom: 2%;
+  padding: 0 2%;
 }
 #detail-card {
   margin-top: 1%;
-  margin-bottom: 2%;
+  margin-bottom: .5%;
 }
 footer {
   background-color:#15437F;
@@ -580,15 +588,31 @@ footer {
   .nav a {
     font-size: 80%;
   }
-  #sort-by {
+  .addrequest-form {
+    margin: 0 7%;
+  }
+  #addrequest-h2 {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  .textarea-div textarea {
+    width: 92%;
+  }
+  #request-btn button {
+    margin-top: 20%;
+    margin-bottom: 20%;
+    font-size: 120%;
+    width: 40%;
+  }
+  #filter-by {
     flex-wrap: wrap;
     font-size: 80%;
     margin-top: 7%;
   }
-  #sort-by [type="date"] { 
-  height: 12px;
+  #filter-by [type="date"] { 
+  height: 24px;
   }
-  #sort-by select, #sort-by button {
+  #filter-by select, #filter-by button {
     margin-top: 7px;
   }
   #page-num {
@@ -630,7 +654,7 @@ footer {
     font-weight: bold;
   }
   .status-div {
-    margin: 0 10%  4%  10%;
+    margin: 0 10%  0  10%;
   }
   #get-started {
     font-size: 120%;
@@ -653,7 +677,7 @@ footer {
   .nav a {
     font-size: 68%;
   }
-  #sort-by {
+  #filter-by {
     font-size: 75%;
   }
   .form-container {
@@ -672,7 +696,7 @@ footer {
     font-weight: bold;
   }
   .status-div {
-    margin: 0 5%  4%  5%;
+    margin: 0 5%  0  5%;
   }
 }
 @media(min-width:580px) and (max-width: 700px) {
@@ -692,7 +716,7 @@ footer {
     font-weight: bold;
   }
   .status-div {
-    margin: 0 5%  4%  5%;
+    margin: 0 5%  0  5%;
   }
 }
 @media(min-width:768px) and (max-width: 850px) {
@@ -708,6 +732,6 @@ footer {
     font-weight: bold;
   }
   .status-div {
-    margin: 0 15%  4%  15%;
+    margin: 0 15%  0  15%;
   }
 }

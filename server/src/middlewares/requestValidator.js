@@ -1,11 +1,15 @@
 import validator from 'validator';
+import { Pool } from 'pg';
 import isStringValidator from './isStringValidator';
 import queryValidator from './queryValidator';
+import { connectionString } from '../config/config';
+
+const clientPool = new Pool(connectionString);
 
 /**
  * Class representing the validator for the application.
  */
-export default class validateRequest {
+export default class requestValidator {
   /**
    * This validates a get request.
    * @param {Object} req - client request Object
@@ -82,7 +86,7 @@ export default class validateRequest {
       res.status(400).json({ message: 'Request description required' });
       error = true;
     }
-    if (validateRequest.validateLength(req, res)) error = true;
+    if (requestValidator.validateLength(req, res)) error = true;
     if (isStringValidator(req, res)) error = true;
 
     if (req.body.title.indexOf(' ') !== -1 || req.body.title.indexOf('-') !== -1) {
@@ -109,9 +113,9 @@ export default class validateRequest {
    *  @param {Object} next - call next route handler
    * @returns {Object} success or fail
    */
-  static modifyRequest(req, res, next) {
+  static async modifyRequest(req, res, next) {
     let error = false;
-    if (validateRequest.validateLength(req, res)) error = true;
+    if (requestValidator.validateLength(req, res)) error = true;
     if (isStringValidator(req, res)) error = true;
     if (req.body.title && req.body.title.indexOf(' ') !== -1) {
       let test = req.body.title;
@@ -127,6 +131,33 @@ export default class validateRequest {
       error = true;
     }
     if (error) return;
+    const response = await requestValidator.checkIfApproved(req, res);
+    if (response.message) return res.status(response.status).json({ message: response.message });
+    req.body.selectedRequest = response;
     next();
+  }
+  /**
+   * This checks if request has been approved already
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @returns {Object} response message
+   */
+  static checkIfApproved(req, res) {
+    return clientPool.connect()
+      .then((client) => {
+        return client.query({ text: 'SELECT * FROM Requests WHERE Id=$1', values: [parseInt(req.params.requestId, 10)] })
+          .then((requests) => {
+            if (!requests.rows[0]) return { message: 'Request not found', status: 404 };
+            client.release();
+            const [selectedRequest] = requests.rows;
+            if (selectedRequest.status === 'approved') return { message: 'Request is already approved', status: 403 };
+            if (req.decoded.id !== selectedRequest.userid) return { message: 'You are not the author of this request', status: 403 };
+            return selectedRequest;
+          })
+          .catch((error) => {
+            client.release();
+            res.status(500).json(error.stack);
+          });
+      });
   }
 }

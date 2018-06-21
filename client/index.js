@@ -3,7 +3,7 @@ const navLinks = document.querySelectorAll('ul a');
 
 window.addEventListener('load', (event) => {
   event.preventDefault();
-  if (localStorage.getItem('token') !== 'null') {
+  if (localStorage.getItem('token')) {
     navLinks[1].innerHTML = `<i class="fa fa-user-circle"></i> Welcome ${localStorage.getItem('userName')}`;
     navLinks[1].href = 'list.html';
     navLinks[2].textContent = 'Sign Out';
@@ -13,6 +13,5 @@ window.addEventListener('load', (event) => {
   }
 });
 navLinks[2].addEventListener('click', (event) => {
-  localStorage.setItem('token', null);
-  localStorage.setItem('userName', ' ');
+  localStorage.clear();
 });

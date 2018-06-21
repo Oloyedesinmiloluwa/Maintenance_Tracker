@@ -28,7 +28,6 @@ button.addEventListener('click', (event) => {
         if (response.data.role === 'admin') localStorage.setItem('userName', 'Admin');
         window.location.href = 'list.html';
       }
-      else
-        messageText.textContent = response.message;
+      else messageText.textContent = response.message;
     });
 });

@@ -5,15 +5,19 @@ const categoryInput = document.getElementById('category-input');
 const messageText = document.querySelector('#messageText');
 const userWelcomeText = document.querySelector('#userWelcomeText');
 const fileUpload = document.getElementById('file-upload');
-const requestImage = document.querySelector('.show-detail-card img');
+const requestImage = document.getElementById('image');
 const navLinks = document.querySelectorAll('ul a');
 const counterTexts = document.querySelectorAll('.counter');
 const baseUrl = 'https://m-tracker.herokuapp.com';
 let isEditRequest = false;
 let imagePath = '';
+
+const redirect = () => {
+  document.body.innerHTML = 'You are not logged in....';
+  window.location.href = 'signin.html';
+}
 navLinks[2].addEventListener('click', (event) => {
-  localStorage.setItem('token', null);
-  localStorage.setItem('userName', ' ');
+  localStorage.clear();
 });
 titleInput.addEventListener('keypress', () => {
   messageText.textContent = '';
@@ -24,12 +28,12 @@ descriptionInput.addEventListener('keypress', () => {
 titleInput.addEventListener('input', () => {
   if (titleInput.value.length < 21) {
     counterTexts[0].textContent = `${titleInput.value.length}/20 max characters`;
-  } else counterTexts[0].textContent = 'Max Exceeded';
+  } else counterTexts[0].textContent = 'Max characters exceeded';
 });
 descriptionInput.addEventListener('input', () => {
   if (descriptionInput.value.length < 251) {
     counterTexts[1].textContent = `${descriptionInput.value.length}/250 max characters`;
-  } else counterTexts[1].textContent = 'Max Exceeded';
+  } else counterTexts[1].textContent = 'Max characters exceeded';
 });
 fileUpload.addEventListener('change', (event) => {
   event.preventDefault();
@@ -54,6 +58,10 @@ fileUpload.addEventListener('change', (event) => {
 window.addEventListener('load', (event) => {
   navLinks[2].textContent = 'Sign Out';
   navLinks[2].href = 'index.html';
+  if (!localStorage.getItem('token')) {
+    redirect();
+    return;
+  }
   userWelcomeText.innerHTML += ` ${localStorage.getItem('userName')}`;
   if (localStorage.getItem('editRequest') === 'started') {
     isEditRequest = true;
@@ -100,8 +108,12 @@ submitButton.addEventListener('click', (event) => {
         window.location.href = 'detail.html';
       }
       else if (response.message === 'Authentication failed') {
-        document.body.innerHTML = 'You are not logged in....';
-        window.location.href = 'signin.html';
+        redirect();
+      }
+      else if (response.message === 'Image failed to upload') {
+        messageText.textContent = response.message;
+        requestImage.src = 'assets/image/repair2.png';
+        imagePath = '';
       }
       else messageText.style.color = 'red';
       isEditRequest = false;

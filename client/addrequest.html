@@ -20,23 +20,24 @@
     <p id="userWelcomeText"><i class="fa fa-user-circle"></i>&nbsp;Logged in as</p>
     <h2 id="addrequest-h2" class="text-center">Have you got a fault? Tell us about it</h2>
     <div class="show-detail-card">
-          <img src="assets/image/repair2.png">
+          <img id="image" src="assets/image/repair2.png">
           <div class="card-content">
             </div>
         </div>
         <div id="file-div">
-            <label> Choose File ...
+            <label> Choose Image ...
                 <input type="file" id="file-upload" name="request" accept="image/*" >
             </label>
         
       </div>
+      <div class="addrequest-form">
       <div class="category-div">
       <p class="category-p-textarea">Title</p><input id = "title-input" placeholder="Title"</input>
       </div>
       <p class="counter"></p>
       <div class="textarea-div">
       <p class="description-p-textarea">Description</p>
-      <textarea id="description-input" rows="9" cols="25" placeholder="...write detailed description of the fault"></textarea>
+      <textarea id="description-input" rows="3" placeholder="...write detailed description of the fault"></textarea>
       </div>
       <p class="counter"></p>
       <div class="category-div">
@@ -52,6 +53,7 @@
             </select>
         </form>
     </div>
+</div>
     <p id = "messageText" ></p>
     <div id="request-btn">
         <button>Submit</button>
