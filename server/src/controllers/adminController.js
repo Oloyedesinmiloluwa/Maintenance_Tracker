@@ -14,7 +14,6 @@ export default class adminController {
    * @returns {Array} request
    */
   static getAll(req, res) {
-    let flag = false;
     let queryObject = { text: 'SELECT * FROM Requests' };
     if (req.query.status || req.query.category || req.query.dated) {
       requestController.getAllFilter(req, res);
@@ -26,25 +25,14 @@ export default class adminController {
     }
     clientPool.connect()
       .then((client) => {
-        return client.query('SELECT * FROM users WHERE role=$1', ['admin'])
-          .then((users) => {
+        return client.query(queryObject)
+          .then((requests) => {
             client.release();
-            users.rows.forEach((user) => {
-              if (user.email === req.decoded.email) flag = true;
-            });
-            if (!flag) return res.status(403).json({ message: 'You are not an admin' });
-            clientPool.connect()
-              .then((client2) => {
-                return client2.query(queryObject)
-                  .then((requests) => {
-                    client2.release();
-                    res.status(200).json({ data: requests.rows });
-                  })
-                  .catch((error) => {
-                    client2.release();
-                    res.status(500).json(error.stack);
-                  });
-              });
+            res.status(200).json({ data: requests.rows });
+          })
+          .catch((error) => {
+            client.release();
+            res.status(500).json(error.stack);
           });
       });
   }
@@ -55,7 +43,7 @@ export default class adminController {
    * @param {String} requestStatus -Status to set request to
    * @returns {Object} updated request
    */
-  static modifyStatus(req, res, requestStatus) {
+  static modifyStatus(req, res) {
     clientPool.connect()
       .then((client) => {
         return client.query({ text: 'SELECT * FROM requests WHERE id=$1', values: [parseInt(req.params.requestId, 10)] })
@@ -66,11 +54,11 @@ export default class adminController {
               .then((client2) => {
                 return client2.query({
                   text: 'UPDATE requests SET status=$1 WHERE id=$2 RETURNING *',
-                  values: [requestStatus, req.params.requestId]
+                  values: [req.body.status, req.params.requestId]
                 })
                   .then((result) => {
                     client2.release();
-                    res.status(200).json({ message: `Request ${requestStatus}`, data: result.rows[0] });
+                    res.status(200).json({ message: `Request ${req.body.status}`, data: result.rows[0] });
                   })
                   .catch((error) => {
                     client2.release();
@@ -81,83 +69,12 @@ export default class adminController {
       });
   }
   /**
-   * This method approves a request when called by an admin.
-   * @param {Object} req - client request Object
-   * @param {Object} res - Server response Object
-   * @returns {Object} user
-   */
-  static approveRequest(req, res) {
-    const requestStatus = 'approved';
-    adminController.verifyIfAdmin(req, res, requestStatus);
-  }
-  /**
-   * This method disapproves a request when called by an admin.
-   * @param {Object} req - client request Object
-   * @param {Object} res - Server response Object
-   * @returns {Object} user
-   */
-  static disapproveRequest(req, res) {
-    const requestStatus = 'disapproved';
-    adminController.verifyIfAdmin(req, res, requestStatus);
-  }
-  /**
-   * This method approves a request when called by an admin.
-   * @param {Object} req - client request Object
-   * @param {Object} res - Server response Object
-   * @returns {Object} user
-   */
-  static resolveRequest(req, res) {
-    const requestStatus = 'resolved';
-    adminController.verifyIfAdmin(req, res, requestStatus);
-  }
-  /**
-   * This method verifies if a user is admin.
-   * @param {Object} req - client request Object
-   * @param {Object} res - server response Object
-   * @param {String} requestStatus - new status of request
-   * @returns {Object} nothing
-   */
-  static verifyIfAdmin(req, res, requestStatus) {
-    let flag = false;
-    clientPool.connect()
-      .then((client) => {
-        return client.query('SELECT * FROM requests WHERE id=$1', [parseInt(req.params.requestId, 10)])
-          .then((result) => {
-            client.release();
-            if (!result.rows[0]) return res.status(404).json({ message: 'Request not found' });
-            if (requestStatus === 'approved') {
-              if (result.rows[0].status !== 'pending') return res.status(403).json({ message: 'Request has been acted upon' });
-            }
-            clientPool.connect()
-              .then((client1) => {
-                return client1.query('SELECT * FROM users WHERE role=$1', ['admin'])
-                  .then((users) => {
-                    client1.release();
-                    users.rows.forEach((user) => {
-                      if (user.email === req.decoded.email) flag = true;
-                    });
-                    if (!flag) return res.status(403).json({ message: 'You are not an admin' });
-                    adminController.modifyStatus(req, res, requestStatus);
-                  })
-                  .catch(() => {
-                    client1.release();
-                  });
-              });
-          })
-          .catch((error) => {
-            client.release();
-            res.status(500).json(error.stack);
-          });
-      });
-  }
-  /**
    * This method makes a user admin.
    * @param {Object} req - client request Object
    * @param {Object} res - Server response Object
    * @returns {Object} user
    */
   static makeAdmin(req, res) {
-    if (req.decoded.id !== 1) return res.status(403).json({ message: 'You are not an admin' });
     clientPool.connect()
       .then((client) => {
         return client.query({ text: 'SELECT * FROM users WHERE id=$1', values: [parseInt(req.params.userId, 10)] })
@@ -171,14 +88,18 @@ export default class adminController {
                   values: ['admin', users.rows[0].id]
                 })
                   .then((result) => {
-                    client.release();
+                    client2.release();
                     res.status(200).json({ message: 'User role set to admin', data: result.rows[0] });
                   })
                   .catch((error) => {
-                    client.release();
+                    client2.release();
                     res.status(500).json(error.stack);
                   });
               });
+          })
+          .catch((error) => {
+            client.release();
+            res.status(500).json(error.stack);
           });
       });
   }

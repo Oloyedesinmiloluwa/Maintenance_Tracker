@@ -18,8 +18,7 @@ const setStatus = (status) => {
   else if (status === 'pending') return 'fa fa-pause';
 };
 navLinks[3].addEventListener('click', (event) => {
-  localStorage.setItem('token', null);
-  localStorage.setItem('userName', ' ');
+  localStorage.clear();
 });
 window.addEventListener('load', (event) => {
   event.preventDefault();
@@ -71,6 +70,8 @@ editButton.addEventListener('click', (event) => {
       .then(response => response.json())
       .then((response) => {
         messageText.textContent = response.message;
+        messageText.style.color = 'green';
+        if (response.data) window.location.href = 'list.html';
       });
   } else {
     localStorage.setItem('editRequest', 'started');

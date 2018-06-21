@@ -8,7 +8,7 @@ const navLinks = document.querySelectorAll('ul a');
 const table = document.querySelector('table');
 const userWelcomeText = document.querySelector('#userWelcomeText');
 const filterButton = document.querySelector('.status-container button');
-const dateButton = document.querySelector('#sort-date button');
+const dateButton = document.querySelector('#filter-date button');
 const dateInput = document.querySelector('[type="date"]');
 const statusDropDown = document.getElementsByName('status-dropdown')[0];
 const categoryDropDown = document.getElementsByName('category-dropdown')[0];
@@ -102,8 +102,7 @@ dateButton.addEventListener('click', (event) => {
 });
 navLinks[3].addEventListener('click', (event) => {
   event.target.href = 'index.html';
-  localStorage.setItem('token', null);
-  localStorage.setItem('userName', ' ');
+  localStorage.clear();
 });
 window.addEventListener('load', (event) => {
   event.preventDefault();
@@ -149,8 +148,8 @@ window.addEventListener('load', (event) => {
 
 filterButton.addEventListener('click', (event) => {
   filterMessage.textContent = '';
-  if (statusDropDown.value || categoryDropDown.value) filterMessage.textContent = `Result sorted by ${statusDropDown.value}${categoryDropDown.value}`;
-  if (statusDropDown.value && categoryDropDown.value) filterMessage.textContent = `Result sorted by ${statusDropDown.value} & ${categoryDropDown.value}`;
+  if (statusDropDown.value || categoryDropDown.value) filterMessage.textContent = `Result filtered by ${statusDropDown.value}${categoryDropDown.value}`;
+  if (statusDropDown.value && categoryDropDown.value) filterMessage.textContent = `Result filtered by ${statusDropDown.value} & ${categoryDropDown.value}`;
   table.innerHTML = '';
   loader.style.display = 'block';
   nextButton.style.visibility = 'hidden';
