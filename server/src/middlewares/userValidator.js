@@ -1,6 +1,7 @@
 import validator from 'validator';
 import isStringValidator from './isStringValidator';
 import checkName from './checkName';
+import queryValidator from './queryValidator';
 
 /**
  * Class representing the validator for the application.
@@ -65,8 +66,36 @@ export default class userValidator {
     if (isStringValidator(req, res)) return;
     if (!req.body.email) return res.status(400).json({ message: 'Email is required' });
     if (!req.body.password) return res.status(400).json({ message: 'Password is required' });
-    req.body.email = validator.trim(req.body.email);
-    req.body.email = req.body.email.toLowerCase();
+    req.body.email = queryValidator(req.body.email);
+    next();
+  }
+  /**
+   * Validates and sanitizes user email input.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @param {Function} next - call next route handler
+   * @returns {Object} Success or failure message
+   */
+  static sendEmail(req, res, next) {
+    if (isStringValidator(req, res)) return;
+    if (req.body.email) {
+      req.body.email = queryValidator(req.body.email);
+    }
+    next();
+  }
+  /**
+   * Validates user's new password.
+   * @param {Object} req - client request Object
+   * @param {Object} res - Server response Object
+   * @param {Function} next - call next route handler
+   * @returns {Object} Success or failure message
+   */
+  static resetPassword(req, res, next) {
+    if (isStringValidator(req, res)) return;
+    if (!req.body.password) return res.status(400).json({ message: 'Password is required' });
+    if (req.body.password < 3 || req.body.password > 20) {
+      return res.status(400).json({ message: 'Password cannot be less than 3 or more than 20 characters' });
+    }
     next();
   }
 }

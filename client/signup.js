@@ -1,6 +1,6 @@
 const button = document.getElementById('submitButton');
 const messageText = document.getElementById('messageText');
-const baseUrl = 'https://m-tracker.herokuapp.com';
+const baseUrl = window.location.origin;
 
 button.addEventListener('click', (event) => {
   const firstNameInput = document.getElementById('first-name');

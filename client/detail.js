@@ -10,7 +10,7 @@ const messageText = document.querySelector('#messageText');
 const userWelcomeText = document.querySelector('#userWelcomeText');
 const navLinks = document.querySelectorAll('ul a');
 
-const baseUrl = 'https://m-tracker.herokuapp.com';
+const baseUrl = window.location.origin;
 const setStatus = (status) => {
   if (status === 'approved') return 'fa fa-thumbs-up';
   else if (status === 'disapproved') return 'fa fa-thumbs-down';

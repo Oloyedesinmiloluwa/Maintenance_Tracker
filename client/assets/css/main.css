@@ -16,10 +16,8 @@
   color: #0B2240;
   font-size: 300%;
 }
-hr {
+.red-text {
   color: red;
-  margin: 0 5%;
-  background: yellow;
 }
 #filter-by {
   margin: 0 3%;
@@ -41,6 +39,7 @@ hr {
 .nav {
   list-style: none;
   height: auto;
+  min-height: 25px;
   background-color:#15437F;
   padding: 1% 0 ;
 }
@@ -69,25 +68,74 @@ hr {
 .itemCenter {
   align-items: center;
 }
-.navColumn {
-  flex-direction: column;
-}
-.navSpaceBetween {
-  justify-content: space-between;
-}
-.navSpaceAround {
-  justify-content: space-around;
-}
 .text-center {
   text-align: center;
+}
+.social {
+  display: flex;
+  font-weight: bold;
+}
+#documentation {
+justify-content: flex-start;
+flex: 1;
+font-size: 110%;
+margin-left: 2%;
+color: white;
+text-decoration: none;
+}
+.social ul {
+  display: flex;
+  margin-right: 2%;
+  /* width: 80%; */
+  list-style: none;
+  justify-content: flex-end;
+  color: tomato;
+  font-size: 150%;
+}
+#social-label {
+  border: none;
+  background: transparent;
+  width: 120px;
+  font-size: 75%;
+  
+  color: white;
+}
+/* .social a {
+  justify-content: flex-start;
+} */
+.social li {
+  margin: 0 2%;
+  border: solid 2px tomato;
+  background: white;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  border-radius: 5px;
+}
+.social li a {
+  color: tomato;
+}
+.social i:hover {
+  color: rgb(116, 23, 7);
+  /* border: solid 2px rgb(206, 64, 39); */
+  /* color: white; */
+}
+.social li:hover {
+  border: solid 2px rgb(151, 33, 12);
+  /* color: white; */
+}
+.social i {
+  background: white;
 }
 .pagination {
   display: flex;
   justify-content: center;
+  margin-bottom: 5%;
 }
 .pagination button {
   background-color: grey;
   color: white;
+  border: solid 2px slateblue;
   padding: 1px 5px;
   visibility: hidden;
   margin: 8px 3px;
@@ -112,7 +160,7 @@ body {
 }
 .form-container {
   border: solid 3px #15437F;
-  margin: 2% 26%;
+  margin: 2% 27%;
   padding: .8% 0;
   border-radius: 2%;
   background: #15437F;
@@ -140,6 +188,8 @@ body {
 }
 #page-num {
   margin-top: 20%;
+  font-weight: bold;
+  color: tomato;
 }
 .counter {
   margin-left: 1%;
@@ -183,11 +233,92 @@ body {
 .flex-outer li label {
   padding: 8px;
   font-weight: 900;
-  letter-spacing: .09em;
+  letter-spacing: .02em;
   color: white;
   font-size: 110%;
 }
+.modal{
+  display: none;
+  position: fixed;
+  background-color: rgb(0, 0, 0, 0.4);
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  padding-top: 15%;
+  width: 100%;
+  height: 100%;
+}
+.modal-content {
+background-color: white;
+padding: 5%;
+padding-top: 0;
+width: 40%;
+min-width: 300px;
+margin: 0 auto;
+border-radius: 9px;
+}
+.text-dark {
+  color: #3f3f44;
+}
+#modal-btn:hover {
+  background-color: tomato;
+}
+.modal-content h4 {
+  margin-top: 8%;
+  margin-bottom: 4%;
+  color: tomato;
+}
+#modal-btn {
+  margin-top: 6%;
+  border-radius: 6px;
+  padding: 1% 2%;
+  background-color: #0B2240;
+  color: white;
+  float: right;
+}
+.clearfix {
+  overflow: auto;
+}
+.wrapper {
+  height: 100%;
+  overflow: auto;
+}
 
+.email-container{
+  border: solid 2px tomato;
+  padding: 0 5px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+.email-container input {
+  border: none;
+  border-left: solid 1px tomato;
+  font-size: 110%;
+  padding: 5px;
+  width: 85%;
+  height: 30px;
+}
+.email-container i {
+  font-size: 120%;
+}
+.close {
+  float: right;
+  font-size: 250%;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: tomato;
+}
+#forgot-pswd {
+  color: tomato;
+  margin-left: auto;
+  margin-right: 12%;
+}
+#forgot-pswd:hover {
+  color: rgb(182, 62, 62);
+}
 .flex-outer > li > label {
   flex: 1 0 120px;
   max-width: 220px;
@@ -454,14 +585,14 @@ padding-bottom: 1%;
 }
 #get-started {
   margin: 5%;
-  margin-bottom: 0;
+  margin-bottom: 30px;
   display: flex;
   justify-content: center;
   font-size: 170%;
 }
 #get-started a:hover {
   color: #0B2240;
-  background: white;
+  background:lightblue;
 }
 #get-started a {
   background: #0B2240;
@@ -469,6 +600,7 @@ padding-bottom: 1%;
   padding: 3px 20px;
   border-radius: 25px;
   text-decoration: none;
+  border: solid 3px #0B2240;
 }
 .underline {
   text-decoration: underline;
@@ -476,8 +608,9 @@ padding-bottom: 1%;
 table {
   display: block;
   justify-content: center;
-  margin: 7% 3%;
+  margin: 5% 3%;
   margin-top: 2%;
+  padding-bottom: 3%;
   overflow: auto;
 }
 td {
@@ -581,12 +714,31 @@ html, body {
 footer {
   background-color:#15437F;
   padding-bottom: 4%;
-  padding-top: 2%;
+  padding-top: 20px;
   color: white;
 }
 @media only screen and (max-width: 676px) {
   .nav a {
     font-size: 80%;
+  }
+  .social {
+    flex-wrap: wrap;
+  }
+  #documentation {
+    margin-bottom: 3%;
+    font-size: 95%;
+  }
+  .social li {
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+  }
+  #social-label p {
+    font-size: 95%;
+  }
+  #fix-footer p {
+    margin-top: 3%;
+    margin-bottom: 4%;
   }
   .addrequest-form {
     margin: 0 7%;
@@ -617,6 +769,9 @@ footer {
   }
   #page-num {
     margin-top: 30%;
+  }
+  .modal {
+    padding-top: 5%;
   }
   table {
     margin-top: 8%;

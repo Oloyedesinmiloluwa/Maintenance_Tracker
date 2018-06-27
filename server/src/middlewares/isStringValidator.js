@@ -1,13 +1,13 @@
 import { isString } from 'util';
 
 const isStringValidator = (req, res) => {
-  let flag = false;
+  let error = false;
   Object.keys(req.body).forEach((key) => {
     if (!isString(req.body[key])) {
-      flag = true;
+      error = true;
       return res.status(400).json({ message: `Invalid Format for ${key} field` });
     }
   });
-  if (flag) return true;
+  if (error) return true;
 };
 export default isStringValidator;

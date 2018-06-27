@@ -18,7 +18,7 @@ const nextButton = document.querySelectorAll('.pagination button')[1];
 const filterMessage = document.getElementById('filter-message');
 const pageNumber = document.getElementById('page-num');
 
-const baseUrl = 'https://m-tracker.herokuapp.com';
+const baseUrl = window.location.origin;
 let totalRequest;
 let pageCounter = 1;
 const limit = 20;
