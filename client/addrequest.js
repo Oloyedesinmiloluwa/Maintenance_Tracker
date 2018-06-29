@@ -8,7 +8,7 @@ const fileUpload = document.getElementById('file-upload');
 const requestImage = document.getElementById('image');
 const navLinks = document.querySelectorAll('ul a');
 const counterTexts = document.querySelectorAll('.counter');
-const baseUrl = 'https://m-tracker.herokuapp.com';
+const baseUrl = window.location.origin;
 let isEditRequest = false;
 let imagePath = '';
 

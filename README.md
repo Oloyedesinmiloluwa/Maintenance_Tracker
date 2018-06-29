@@ -13,6 +13,7 @@ Maintenance Tracker App is an application that provides users with the ability t
     * Modify their request
     * Create account
     * Login to their account
+    * Reset password via email
 * Admins can:
     * Get all requests in the application
     * Get a specified request
@@ -108,6 +109,16 @@ If you only want to access the completed work, you will find the link to the hos
       <td>POST</td>
       <td>/api/v1/auth/signup</td>
       <td>Creates an account for a new user</td>
+  </tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/users/password/reset</td>
+      <td>Sends email to user for password reset</td>
+  </tr>
+  <tr>
+      <td>PUT</td>
+      <td>/api/v1/users/password/reset</td>
+      <td>Resets user password</td>
   </tr>
 </table>
 <br/>

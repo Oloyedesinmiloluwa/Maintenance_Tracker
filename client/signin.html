@@ -4,6 +4,7 @@
 <title>M-Tracker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit=no">
 <link href="assets/css/main.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="assets/css/normalize.css" rel="stylesheet" />
 </head>
 <body>
@@ -26,19 +27,37 @@
       <ul class="flex-outer">
           <p id = "messageText" ></p>
         <li>
-          <label for="email">Email</label>
+          <label for="email">Email<span class="red-text">*</span></label>
           <input type="email" id="email" placeholder="Email">
         </li>
         <li>
-          <label for="password">Password</label>
+          <label for="password">Password<span class="red-text">*</span></label>
           <input type="password" id="password" placeholder="Password">
         </li>
         <li>
-          <button id="fit-footer" type="submit">Sign in</button>
+          <a href="" id="forgot-pswd"> Forgot your password ?</a>
+        </li>
+        <li>
+          <button id="signin-btn" type="submit">Sign in</button>
         </li>
       </ul>
     </form>
   </div>
+    </div>
+    <div class="modal">
+        <div class="modal-content clearfix"> 
+            <div class="close">&times;</div>
+            <h4>Password Recovery</h4> 
+      <p>Provide the email address you registered with</p>
+          <div class="email-container">
+            <form>
+             &nbsp;<i class="fa fa-user"></i>&nbsp; <input type="email" id="modal-email" placeholder="Email" autofocus>
+          </div>
+          <p class="text-center"><small> We will send you a link to reset your password</small></p>
+          <p id = "modal-messageText" class="text-center" ></p>
+          <button id="modal-btn" type="submit">Submit</button>
+        </form>
+      </div>
     </div>
     <p class="text-center">All rights reserved. M-tracker &copy;2018</p>
     <script src="signin.js"></script>
