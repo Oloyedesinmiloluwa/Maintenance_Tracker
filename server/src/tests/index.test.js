@@ -11,6 +11,7 @@ import adminDisapprove from './adminDisapprove.test';
 import adminResolve from './adminResolve.test';
 import makeAdmin from './makeAdmin.test';
 import deleteRequest from './deleteRequest.test';
+import testSendMail from './sendEmail.test';
 
 chai.should();
 chai.use(chaiHttp);
@@ -26,4 +27,5 @@ describe('Test for Request API endpoints', () => {
   createUser();
   makeAdmin();
   adminGetAll();
+  testSendMail();
 });
