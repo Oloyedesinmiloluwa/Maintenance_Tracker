@@ -23,19 +23,32 @@ Maintenance Tracker App is an application that provides users with the ability t
 * Super admin can:
     * make an existing user an admin
     
+## Prerequisite
+* PostgreSQL
+* Nodejs(ES6)
+
 ## Technologies
-  * Nodejs(ES6)
-  * Git
-  * NPM
-  * Express
-  * Babel
+* Git
+* NPM
+* Express
+* Babel
+
 ## Installation
   Ensure you have the technologies installed then you can clone this repository in your local machine.Afterwards, run <code> npm install </code> and run <code>npm run start:dev</code> for a quick start. Or you may build first, using <code>npm run build</code> then run <code>npm start</code>.
 If you only want to access the completed work, you will find the link to the hosted work at the bottom of this readme, you don't have to clone this repository!
 
+## Getting started
+    * Rename .env.sample file to .env
+    * Open .env file and assign values to the variables 
+
 ## Test
   Mocha is the testing framework together with chai assertion library
-  * You can run test after installation using <code>npm run test</code>   
+  
+  Change the values of these variables in your .env file, to your [mail trap](https://mailtrap.io/) account details.[
+      testUserEmail, testEmailHost, testEmailUserName,
+      testEmailPassword, testEmailPort, testEmaiSecure, testEmailRequireTLS
+    ]
+  * You can run test afterwards using <code>npm run test</code>
 
 <h3>ENDPOINTS</h3>
 <hr>
