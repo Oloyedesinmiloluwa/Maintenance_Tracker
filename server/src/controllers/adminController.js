@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+import nodemailer from 'nodemailer';
 import requestController from './requestController';
 import { connectionString } from '../config/config';
 
@@ -7,6 +8,61 @@ const clientPool = new Pool(connectionString);
  * Class representing the controller for admin role in the application.
  */
 export default class adminController {
+  /**
+   * This function is used to send emails
+   * @param {Object} userEmail - email address of request creator
+   * @param {Object} requestTitle - title of request
+   * @param {Object} requestDate - date of request creation
+   * @param {Object} requestStatus - status of request
+   * @returns {boolean} sentStatus
+   */
+  static sendMail(userEmail, requestTitle, requestDate, requestStatus) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let status;
+    if (
+      (arguments.length < 4 || arguments.length > 4) ||
+      (!re.test(String(userEmail).toLowerCase())) ||
+      (!(requestDate instanceof Date)) ||
+      (!(['approved', 'disapproved', 'resolved'].includes(requestStatus)))
+    ) {
+      return new Promise(a => a)
+        .then(() => false);
+    }
+    switch (requestStatus) {
+      case 'approved':
+        status = 'Maintenance approval';
+        break;
+      case 'disapproved':
+        status = 'Maintenance disapproval';
+        break;
+      default:
+        status = 'Maintenance resolution';
+    }
+    const eMailOptions = {
+      host: process.env.emailHost,
+      port: process.env.emailPort,
+      secure: Boolean(process.env.emailSecure),
+      requireTLS: Boolean(process.env.emailRequireTLS),
+      auth: {
+        user: process.env.emailAdd,
+        pass: process.env.emailPassword
+      }
+    };
+    const message = {
+      from: process.env.emailUserName,
+      to: userEmail,
+      subject: 'Regarding your maintenance request',
+      html: `
+      <h1>${status} notification</h1>
+      <p>Your maintenance request titled <b>${requestTitle}</b>, which you raised on ${requestDate.toDateString()} has been ${requestStatus}.</p>
+      `,
+      priority: 'normal'
+    };
+    const eMailTransporter = nodemailer.createTransport(eMailOptions);
+    return eMailTransporter.sendMail(message)
+      .then(() => true)
+      .catch(() => false);
+  }
   /**
    * This gets all requests
    * @param {Object} req - client request Object
@@ -58,6 +114,20 @@ export default class adminController {
                 })
                   .then((result) => {
                     client2.release();
+                    clientPool.connect().then(client3 => client3.query({
+                      text: 'SELECT requests.title,  requests.dated, requests.status, users.email FROM requests inner join users ON requests.userid = users.id where requests.id = $1',
+                      values: [parseInt(req.params.requestId, 10)]
+                    }).then((requestData) => {
+                      client3.release();
+                      const userEmail = requestData.rows[0].email;
+                      const requestTitle = requestData.rows[0].title;
+                      const requestDate = requestData.rows[0].dated;
+                      const requestStatus = requestData.rows[0].status;
+                      const sentEmailResponse = adminController.sendMail(userEmail, requestTitle, requestDate, requestStatus);
+                      sentEmailResponse
+                        .then(info => console.log('Info is: ', info))
+                        .catch(error => console.log('Error is: ', error));
+                    }));
                     res.status(200).json({ message: `Request ${req.body.status}`, data: result.rows[0] });
                   })
                   .catch((error) => {
