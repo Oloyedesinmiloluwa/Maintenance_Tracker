@@ -4,7 +4,8 @@
       "targets": {
         "node": "current"
       }
-    }]
+    }], ["react"]
   ],
-    "plugins": []
+    "plugins": ["transform-class-properties",
+      "transform-object-rest-spread"]
   }
