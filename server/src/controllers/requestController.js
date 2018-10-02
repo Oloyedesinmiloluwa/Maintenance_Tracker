@@ -118,7 +118,7 @@ export default class requestController {
    */
   static uploadToLocal(req, res) {
     if (req.files) {
-      req.files.request.mv('./client/assets/image/request.jpg', (err) => {
+      req.files.request.mv('./vanillaassets/image/request.jpg', (err) => {
         if (err) return res.status(500).send(err);
         res.status(200).json({ data: req.files.request, message: 'File uploaded!' });
       }); }

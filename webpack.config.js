@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, 'dist');
-const APP_DIR = path.resolve(__dirname, 'react');
+const APP_DIR = path.resolve(__dirname, 'client');
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: `${APP_DIR}/public/index.html`,
 });
