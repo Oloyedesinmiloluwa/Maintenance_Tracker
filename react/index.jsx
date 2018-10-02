@@ -17,7 +17,7 @@ const App = () => {
 
     return (
         <Provider store={store}>
-        <AppRouter />
+           <AppRouter />
         </Provider>
     )
 }

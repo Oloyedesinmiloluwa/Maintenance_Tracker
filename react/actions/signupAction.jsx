@@ -16,5 +16,3 @@ export default userData => (dispatch) => {
       return response;
     });
 };
-// const signupAction = userData => ({ type: 'CREATE_USER', userData });
-// export default signupAction;

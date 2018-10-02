@@ -1,16 +1,17 @@
-// const webpack = require('webpack');
-// const path = require('path');
-import path from 'path';
+const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
-const BUILD_DIR = path.resolve(__dirname, 'react/public');
+const BUILD_DIR = path.resolve(__dirname, 'dist');
 const APP_DIR = path.resolve(__dirname, 'react');
-
+const htmlWebpackPlugin = new HtmlWebPackPlugin({
+  template: `${APP_DIR}/public/index.html`,
+});
 const config = {
-  mode: 'development',
+  mode: 'production',
   entry: `${APP_DIR}/index.jsx`,
   output: {
-    // path: `${BUILD_DIR}`,
-    path: '/',
+    publicPath: '/',
+    path: `${BUILD_DIR}`,
     filename: 'bundle.js'
   },
   resolve: {
@@ -21,7 +22,6 @@ const config = {
       {
         test: /\.jsx?$/,
         include: APP_DIR,
-        // exclude: /node_modules/,
         loaders: ['babel-loader']
       },
       {
@@ -35,7 +35,8 @@ const config = {
         },
       },
     ]
-  }
+  },
+  plugins: [htmlWebpackPlugin]
 };
 
 module.exports = config;
