@@ -1,10 +1,11 @@
 {
-    "presets": [
-      ["env", {
-      "targets": {
-        "node": "current"
-      }
-    }]
-  ],
-    "plugins": []
-  }
+  "presets": [
+    ["env", {
+    "targets": {
+      "node": "current"
+    }
+  }], ["react"]
+],
+  "plugins": ["transform-class-properties",
+    "transform-object-rest-spread"]
+}

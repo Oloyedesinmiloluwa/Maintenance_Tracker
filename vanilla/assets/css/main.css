@@ -86,7 +86,6 @@ text-decoration: none;
 .social ul {
   display: flex;
   margin-right: 2%;
-  /* width: 80%; */
   list-style: none;
   justify-content: flex-end;
   color: tomato;
@@ -97,12 +96,8 @@ text-decoration: none;
   background: transparent;
   width: 120px;
   font-size: 75%;
-  
   color: white;
 }
-/* .social a {
-  justify-content: flex-start;
-} */
 .social li {
   margin: 0 2%;
   border: solid 2px tomato;
@@ -117,12 +112,9 @@ text-decoration: none;
 }
 .social i:hover {
   color: rgb(116, 23, 7);
-  /* border: solid 2px rgb(206, 64, 39); */
-  /* color: white; */
 }
 .social li:hover {
   border: solid 2px rgb(151, 33, 12);
-  /* color: white; */
 }
 .social i {
   background: white;
@@ -238,7 +230,6 @@ body {
   font-size: 110%;
 }
 .modal{
-  display: none;
   position: fixed;
   background-color: rgb(0, 0, 0, 0.4);
   z-index: 1;
