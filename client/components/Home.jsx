@@ -4,7 +4,7 @@ import Footer from './Footer';
 import helper from '../helpers';
 import Nav from '../components/Navigation';
 
-export default () => (
+const Home = () => (
     <div>
       <Nav Tab1={helper('')} Tab2= {helper('signin')} Tab3={helper('signup')} />
     <div className="welcome-div">
@@ -62,3 +62,4 @@ export default () => (
 <Footer />
   </div>
 );
+export default Home;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-  export default ({ Tab1, Tab2, Tab3 }) => (
+const Nav = ({ Tab1, Tab2, Tab3 }) => (
   <nav role="navigation" className="navContainer">
     <ul className="nav navItem navStart">
       <li><Link to="/">M-Tracker</Link></li>
@@ -12,4 +12,5 @@ import { Link } from 'react-router-dom';
       <li><Link to={ Tab3[0].path }>{ Tab3[0].text }</Link></li>
     </ul>
   </nav>
-    )
+);
+export default Nav;
