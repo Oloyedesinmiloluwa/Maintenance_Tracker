@@ -19,7 +19,9 @@ class RequestPage extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     }
     componentDidMount = () => {
-      this.props.loadRequests();
+      const { currentUser, loadRequests } = this.props
+      if (currentUser.detail.role !== 'admin') loadRequests(false);
+      else loadRequests(true);
       this.setState({ isLoading: false });
     }
     onClick = () => {

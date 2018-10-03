@@ -29,8 +29,9 @@ export const createRequest = request => (dispatch) => {
       return response;
     });
 };
-export const loadRequests = () => (dispatch) => {
-  return fetch(`${baseUrl}/api/v1/requests/`, {
+export const loadRequests = (isAdmin) => (dispatch) => {
+  const url = isAdmin ? `${baseUrl}/api/v1/requests/`: `${baseUrl}/api/v1/users/requests/`;
+  return fetch(url, {
     method: 'GET',
     headers: {
       'content-type': 'application/json',

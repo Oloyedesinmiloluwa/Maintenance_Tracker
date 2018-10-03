@@ -16,8 +16,10 @@ const AppRoute = props => (
                 <Route path="/" component={Home} exact/>
                 <Route path="/signin" component={Signin} />
                 <Route path="/signup" component={Signup} />
+                <AuthRoute path="/requests/:requestId/edit" isLoggedIn = {props.currentUser.isAuthenticated} component = {NewRequestPage} {...props}/>
                 <AuthRoute path="/requests/:requestId" exact isLoggedIn = {props.currentUser.isAuthenticated} component = {ManageDetailPage} {...props}/>
                 <AuthRoute path="/requests" exact isLoggedIn = {props.currentUser.isAuthenticated} component = {RequestPage} {...props}/>
+                <AuthRoute path="/requests/:requestId" exact isLoggedIn = {props.currentUser.isAuthenticated} component = {ManageDetailPage} {...props}/>
                 <AuthRoute path="/new-request" isLoggedIn = {props.currentUser.isAuthenticated} component = {NewRequestPage} {...props}/>
             </Switch>
         </div>
