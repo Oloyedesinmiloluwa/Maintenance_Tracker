@@ -6,15 +6,17 @@ import Signup from './SignupPage';
 import Home from './Home';
 import RequestPage from './RequestPage';
 import AuthRoute from './AuthRoute';
+import NewRequestPage from './NewRequestPage';
 
 const AppRoute = props => (
     <Router>
         <div>
             <Switch>
-                <Route path="/" component={Home} exact />
+                <AuthRoute path="/requests" exact isLoggedIn = {props.currentUser.isAuthenticated} component = {RequestPage} {...props}/>
+                <Route path="/" component={Home} exact/>
                 <Route path="/signin" component={Signin} />
                 <Route path="/signup" component={Signup} />
-                <AuthRoute path="/requests" exact isLoggedIn = {props.currentUser.isAuthenticated} component = {RequestPage} {...props}/>
+                <AuthRoute path="/new-request" isLoggedIn = {props.currentUser.isAuthenticated} component = {NewRequestPage} {...props}/>
             </Switch>
         </div>
     </Router>
