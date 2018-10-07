@@ -1,13 +1,12 @@
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import UserLogin from '../actions/loginAction'
-import helper from '../helpers';
-import Nav from './Navigation';
+import UserLogin from '../../actions/loginAction'
+import helper from '../../helpers';
+import Nav from '../common/Navigation';
 import SigninForm from './SigninForm';
-import { ForgotPasswordModal } from './ForgotPasswordModal';
-import emailAction from '../actions/emailAction';
+import ForgotPasswordModal from './ForgotPasswordModal';
+import emailAction from '../../actions/emailAction';
 
 class UserSignin extends React.Component {
     state = {

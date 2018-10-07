@@ -2,3 +2,5 @@ node_modules
 .nyc_output
 server/dist
 .env
+dist
+coverage

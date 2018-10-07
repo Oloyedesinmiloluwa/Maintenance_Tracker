@@ -72,7 +72,7 @@ export default class requestController {
         return client.query(filter.fullQueryObject)
           .then((requests) => {
             client.release();
-            if (!requests.rows[0]) return res.status(200).json({ message: `No request ${queryMessage} found` });
+            if (!requests.rows[0]) return res.status(200).json({ message: `No request ${queryMessage} found`, data: [] });
             res.status(200).json({ data: requests.rows }); })
           .catch((error) => {
             client.release();
@@ -118,7 +118,7 @@ export default class requestController {
    */
   static uploadToLocal(req, res) {
     if (req.files) {
-      req.files.request.mv('./vanillaassets/image/request.jpg', (err) => {
+      req.files.request.mv('./vanilla/assets/image/request.jpg', (err) => {
         if (err) return res.status(500).send(err);
         res.status(200).json({ data: req.files.request, message: 'File uploaded!' });
       }); }

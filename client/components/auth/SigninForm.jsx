@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default ({ handleChange, handleSubmit, showModal, email, password, error }) => (
+const SigninForm = ({
+  handleChange, handleSubmit, showModal, email, password, error
+}) => (
   <div className="form-container">
     <h3 className="text-center" id ="login-text">Provide your login details</h3>
   <div className="container">
@@ -39,3 +42,12 @@ export default ({ handleChange, handleSubmit, showModal, email, password, error 
   </div>
   </div>
 );
+SigninForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
+};
+export default SigninForm;

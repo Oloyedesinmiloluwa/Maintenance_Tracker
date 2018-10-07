@@ -6,14 +6,42 @@
   "scripts": {
     "webpack": "webpack",
     "dev": "webpack-dev-server --config webpack.config.js --open --hot --history-api-fallback",
-    "test": "npm run migrate&&npm run seed&&set NODE_ENV=test&& nyc mocha ./server/src/tests/index.test.js --compilers js:babel-register --require babel-polyfill --exit",
+    "test": "npm run migrate&&npm run seed&& NODE_ENV=test nyc mocha ./server/src/tests/index.test.js --compilers js:babel-register --require babel-polyfill --exit",
     "start:dev": "nodemon server/src/index.js --exec babel-node",
     "build": "babel ./server/src -d ./server/dist",
     "start": "node server/dist/index.js",
     "migrate": "babel-node server/src/model/db.js",
     "seed": "babel-node server/src/model/seed.js",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
-    "heroku-postbuild": "npm run build && npm run webpack"
+    "heroku-postbuild": "npm run build && npm run webpack",
+    "client-test": "jest ./client --coverage"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/client/tests/testSetup.js",
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/client/tests/_mocks_/fileMock.js",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "modulePaths": [
+      "src"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 40,
+        "functions": 30,
+        "lines": 50,
+        "statements": 50
+      }
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "shared"
+    ]
   },
   "repository": {
     "type": "git",
@@ -38,7 +66,6 @@
     "chai-http": "^3.0.0",
     "cloudinary": "^1.11.0",
     "dotenv": "^5.0.1",
-    "enzyme": "^3.5.0",
     "express": "^4.16.2",
     "express-fileupload": "^0.4.0",
     "express-validator": "^5.2.0",
@@ -46,6 +73,7 @@
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jsonwebtoken": "^8.2.1",
+    "jwt-decode": "^2.2.0",
     "mocha": "^5.0.2",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.7",
@@ -70,6 +98,8 @@
     "babel-preset-env": "^1.6.1",
     "coveralls": "^3.0.1",
     "css-loader": "^1.0.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -77,8 +107,13 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
     "i": "^0.3.6",
+    "jest": "^23.6.0",
+    "jest-fetch-mock": "^1.6.6",
+    "nock": "^10.0.0",
     "nodemon": "^1.17.4",
     "nyc": "^11.8.0",
+    "redux-mock-store": "^1.5.3",
+    "sinon": "^6.3.5",
     "style-loader": "^0.22.1",
     "webpack-cli": "^3.1.0"
   }

@@ -1,32 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => (
     <footer id="fix-footer">
     <div className="social">
-      <a id="documentation" href="api-docs">Documentation</a>
+      <Link id="documentation" to="api-docs">Documentation</Link>
       <ul>
         <li id="social-label">
           <p>Find us:</p>
         </li>
         <li>
-          <a href="#">
+          <Link to="#">
             <i className="fa fa-facebook-square"></i>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#">
+          <Link to="#">
             <i className="fa fa-twitter-square"></i>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#">
+          <Link to="#">
             <i className="fa fa-linkedin-square"></i>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#">
+          <Link to="#">
             <i className="fa fa-instagram"></i>
-          </a>
+          </Link>
         </li>
       </ul>
     </div>
