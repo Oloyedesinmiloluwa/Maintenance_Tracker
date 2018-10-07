@@ -48,7 +48,7 @@ fileUpload.addEventListener('change', (event) => {
     .then((response) => {
       if (response.message === 'File uploaded!') {
         requestImage.src = 'assets/image/request.jpg';
-        imagePath = 'vanillaassets/image/request.jpg';
+        imagePath = 'vanilla/assets/image/request.jpg';
       }
       else {
         messageText.textContent = response.message;

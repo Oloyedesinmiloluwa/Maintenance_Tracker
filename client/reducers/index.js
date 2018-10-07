@@ -6,6 +6,6 @@ const rootReducer = combineReducers({
   currentUser,
   requests,
   currentRequest,
-})
+});
 
 export default rootReducer;

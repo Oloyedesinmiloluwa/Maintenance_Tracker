@@ -119,7 +119,7 @@ window.addEventListener('load', (event) => {
   })
     .then(response => response.json())
     .then((response) => {
-      loader.style.display = 'none';      
+      loader.style.display = 'none';
       if (response.data) {
         totalRequest = response.data.length;
         if (totalRequest <= limit) {

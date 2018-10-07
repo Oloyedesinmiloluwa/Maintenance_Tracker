@@ -7,6 +7,11 @@ const userReducer = (state = {}, action) => {
         isAuthenticated: action.isAuthenticated || true,
         detail: action.user
       };
+    case actionType.UNSET_CURRENT_USER:
+      return {
+        isAuthenticated: false,
+        detail: {}
+      };
     default:
       return state;
   }

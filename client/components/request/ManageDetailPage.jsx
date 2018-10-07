@@ -1,28 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import DetailPage from './DetailPage';
 import { connect } from 'react-redux';
-import { getSingleRequest, actOnRequest, deleteRequest } from '../actions/requestAction';
-import Nav from './Navigation';
-import Footer from './Footer';
-import helper from '../helpers';
-import UserWelcomeText from './UserWelcomeText';
-class ManageDetailPage extends React.Component {
+import { getSingleRequest, actOnRequest, deleteRequest } from '../../actions/requestAction';
+import Nav from '../common/Navigation';
+import Footer from '../common/Footer';
+import helper from '../../helpers';
+import UserWelcomeText from '../common/UserWelcomeText';
+export class ManageDetailPage extends React.Component {
     state = {
         currentRequest: {},
         dropDownValue: 'approve',
         message: '',
+        color: ''
     };
 
     componentDidMount() {
-      if (this.props.currentRequest) this.setState({ currentRequest: this.props.currentRequest})
-  else this.props.getSingleRequest(this.props.match.params.requestId).then((response) => this.setState({ currentRequest: response.data }));
+      const { history, currentRequest, match } = this.props
+      if (currentRequest) this.setState({ currentRequest })
+  else this.props.getSingleRequest(match.params.requestId).then((response) => {
+    if (response.message === 'Authentication failed') return history.push('/signin');
+    this.setState({ currentRequest: response.data })
+  });
 }
     handleClick = (event) => {
+      this.setState({ message: 'Please wait...', color: 'lightblue' });
       const { currentUser, actOnRequestAction, deleteRequest, history} = this.props;
       const { currentRequest, dropDownValue } = this.state;
         if (currentUser.detail.role === 'admin') {
           actOnRequestAction(currentRequest.id, dropDownValue).then((response) => {
+            if (response.message === 'Authentication failed') return history.push('/signin');
           this.setState({ message: response.message });
           history.push('/requests');
           });
@@ -30,6 +36,7 @@ class ManageDetailPage extends React.Component {
         else if (event.target.textContent === 'Edit') return history.push(`/requests/${currentRequest.id}/edit`);
         else {
           deleteRequest(currentRequest.id, dropDownValue).then(response => {
+            if (response.message === 'Authentication failed') return history.push('/signin');
             this.setState({ message: response.message });
            history.push('/requests');
           })}
@@ -38,7 +45,7 @@ class ManageDetailPage extends React.Component {
         this.setState({ dropDownValue: event.target.value });
     }
     render() {
-      const { currentRequest, dropDownValue, message } = this.state
+      const { currentRequest, dropDownValue, message, color } = this.state
       const { currentUser } = this.props;
         return (
           <div>
@@ -49,6 +56,7 @@ class ManageDetailPage extends React.Component {
               handleClick={this.handleClick}
               handleChange={this.handleChange}
               message = {message}
+              color = {color}
               request={currentRequest}
               isAdmin={currentUser.detail.role === 'admin'}
             />
@@ -57,15 +65,13 @@ class ManageDetailPage extends React.Component {
         )
     }
 }
-ManageDetailPage.propTypes = {
 
-}
 const getOneRequest = (requests, id) => {
 const request = requests.filter((request) => request.id === parseInt(id));
 if (request) return request[0];
 else return null;
 }
-const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = (state, ownProps) => {
   let request;
   if (state.requests.length > 0) {
     request = getOneRequest(state.requests, ownProps.match.params.requestId);

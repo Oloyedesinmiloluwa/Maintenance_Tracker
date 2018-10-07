@@ -34,9 +34,9 @@ export default class userController {
                   .then((result) => {
                     client2.release();
                     const {
-                      id, email, role
+                      id, email, role, firstname, lastname
                     } = result.rows[0];
-                    const token = jwt.sign({ id, email, role }, process.env.secret_key, { expiresIn: '24h' });
+                    const token = jwt.sign({ id, email, role, firstname, lastname }, process.env.secret_key, { expiresIn: '24h' });
                     if (process.env.NODE_ENV === 'test') process.env.token = token;
                     delete result.rows[0].password;
                     return res.status(201).json({ message: 'Successfully created an account', data: result.rows[0], token });
@@ -71,9 +71,9 @@ export default class userController {
               .then((response) => {
                 if (!response) return res.status(401).json({ message: 'Invalid Password' });
                 const {
-                  id, email, role
+                  id, email, role, firstname, lastname
                 } = result.rows[0];
-                const token = jwt.sign({ id, email, role }, process.env.secret_key, { expiresIn: '24h' });
+                const token = jwt.sign({ id, email, role, firstname, lastname }, process.env.secret_key, { expiresIn: '24h' });
                 if (process.env.NODE_ENV === 'test') process.env.token = token;
                 delete result.rows[0].password;
                 return res.status(200).json({ message: 'Login successful', data: result.rows[0], token });

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SignupForm = ({
   handleChange, handleSubmit, firstName, lastName, email, password, error
@@ -54,4 +55,13 @@ const SignupForm = ({
     </form>
   </div>
 );
+SignupForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
+};
 export default SignupForm;

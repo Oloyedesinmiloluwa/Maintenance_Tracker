@@ -8,12 +8,16 @@ export const createRequestSuccess = request => ({
 export const setCurrentRequest = request => ({
   type: actionType.CURRENT_REQUEST,
   request
-
 });
 export const loadRequestSuccess = requests => ({
   type: actionType.LOAD_REQUESTS,
   requests
 });
+export const deleteRequestSuccess = id => (
+  {
+    type: actionType.DELETE_REQUEST,
+    requestId: id,
+  });
 
 export const createRequest = request => (dispatch) => {
   return fetch(`${baseUrl}/api/v1/users/requests`, {
@@ -21,7 +25,7 @@ export const createRequest = request => (dispatch) => {
     headers: { 'content-type': 'application/json', 'x-access-token': localStorage.getItem('token') },
     body: JSON.stringify(request)
   })
-    .then((response) => { return response.json(); })
+    .then(response => response.json())
     .then((response) => {
       if (response.message === 'Request Added Successfully') {
         dispatch(createRequestSuccess(request));
@@ -29,8 +33,8 @@ export const createRequest = request => (dispatch) => {
       return response;
     });
 };
-export const loadRequests = (isAdmin) => (dispatch) => {
-  const url = isAdmin ? `${baseUrl}/api/v1/requests/`: `${baseUrl}/api/v1/users/requests/`;
+export const loadRequests = (isAdmin, query) => (dispatch) => {
+  const url = isAdmin ? `${baseUrl}/api/v1/requests/${query}` : `${baseUrl}/api/v1/users/requests/${query}`;
   return fetch(url, {
     method: 'GET',
     headers: {
@@ -61,8 +65,8 @@ export const getSingleRequest = requestId => (dispatch) => {
       }
       return response;
     });
-}
-export const actOnRequest = (id, value) => (dispatch) => {
+};
+export const actOnRequest = (id, value) => () => {
   return fetch(`${baseUrl}/api/v1/requests/${id}/${value}`, {
     method: 'PUT',
     headers: {
@@ -70,11 +74,8 @@ export const actOnRequest = (id, value) => (dispatch) => {
       'x-access-token': localStorage.getItem('token')
     },
   })
-    .then(response => response.json())
-    .then((response) => {
-      return response;
-    });
-}
+    .then(response => response.json());
+};
 export const deleteRequest = id => (dispatch) => {
   return fetch(`${baseUrl}/api/v1/users/requests/${id}`, {
     method: 'DELETE',
@@ -83,9 +84,9 @@ export const deleteRequest = id => (dispatch) => {
       'x-access-token': localStorage.getItem('token')
     },
   })
-    .then(response => response.json())
     .then((response) => {
-      return response;
+      if (response.status === 200) { dispatch(deleteRequestSuccess(id)); }
+      return response.json();
     });
 };
 
@@ -95,10 +96,16 @@ export const editRequest = (id, inputData) => (dispatch) => {
     headers: { 'content-type': 'application/json', 'x-access-token': localStorage.getItem('token') },
     body: JSON.stringify(inputData)
   })
-    .then((response) => { return response.json(); });
-}
+    .then(response => response.json())
+    .then((response) => {
+      if (response.message === 'Request Updated Successfully') {
+        dispatch(setCurrentRequest(response.data));
+      }
+      return response;
+    });
+};
 
-export const uploadImage = file => (dispatch) => {
+export const uploadImage = file => () => {
   const formData = new FormData();
   formData.append('request', file);
   return fetch(`${baseUrl}/api/v1/upload`, {

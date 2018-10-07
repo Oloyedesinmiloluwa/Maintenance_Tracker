@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SignupForm from './SignupForm';
 import { connect } from 'react-redux';
-import UserSignup from '../actions/signupAction';
-import Nav from './Navigation';
-import helper from '../helpers';
+import UserSignup from '../../actions/signupAction';
+import Nav from '../common/Navigation';
+import helper from '../../helpers';
 class UserSignupPage extends React.Component {
     state = {
         firstName: '',

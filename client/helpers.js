@@ -18,13 +18,17 @@ export default (page) => {
       return [
         { text: 'Home', path: '/' }
       ];
+    case 'welcome':
+      return [
+        { path: '/requests' }
+      ];
     case 'new':
       return [
         { text: 'Add New', path: '/new-request' }
       ];
     case 'signout':
       return [
-        { text: 'Sign out', path: '/signin' }
+        { text: 'Sign out', path: '/' }
       ];
     case 'list':
       return [

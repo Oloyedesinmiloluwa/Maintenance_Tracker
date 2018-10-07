@@ -1,10 +1,21 @@
+import actionType from './constants';
+
 const baseUrl = window.location.origin;
 export const setCurrentUser = (user) => {
   return {
-    type: 'SET_CURRENT_USER',
+    type: actionType.SET_CURRENT_USER,
     user
   };
 };
+export const signOutUser = (event) => {
+  if (event.target.textContent !== 'Sign out') return;
+  localStorage.clear();
+  return {
+    type: actionType.UNSET_CURRENT_USER,
+    user: {}
+  };
+};
+
 export default userData => (dispatch) => {
   return fetch(`${baseUrl}/api/v1/auth/login`, {
     method: 'POST',
