@@ -6,7 +6,7 @@ env:
     - CC_TEST_REPORTER_ID=410a965e5ce79b5ffe3fd354fc74b4ed9e6fee15b84fc44a5052606a7c4f426a
 services:
   - postgresql
-install: 
+install:
   - npm install
 
 before_script:
@@ -16,7 +16,6 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - npm test
-  - npm run client-test
 after_success:
   - npm run coverage
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

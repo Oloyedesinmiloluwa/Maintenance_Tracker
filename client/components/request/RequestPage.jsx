@@ -18,7 +18,9 @@ export class RequestPage extends React.Component {
         noRequestMessage: '',
     };
     handleChange = (event) => {
+      const { dated } = this.state
         this.setState({ [event.target.name]: event.target.value });
+        if (event.target.name === 'dated' && dated) this.onClick(event);
     }
     componentDidMount = () => {
       const { currentUser, loadRequests } = this.props
@@ -31,7 +33,7 @@ export class RequestPage extends React.Component {
       const { dated, status, category } = this.state
       event.preventDefault();
       this.setState({ filterMessage: '' });
-      if (event.target.textContent === 'From:' && dated)loadRequests(role === 'admin',`?dated=${dated}`).then(response => {
+      if (event.target.name === 'dated' && dated)loadRequests(role === 'admin',`?dated=${dated}`).then(response => {
         this.setState({ filterMessage: `Displaying requests from ${dated}` });
         response.data.length < 1 ? this.setState({ noRequestMessage: 'No result found' }) : this.setState({ noRequestMessage: '' });
       });

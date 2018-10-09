@@ -186,6 +186,7 @@ body {
 .counter {
   margin-left: 1%;
   color: rgb(44, 133, 160);
+  font-size: 90%;
 }
 .loader {
   margin: 20px auto;
@@ -621,7 +622,6 @@ tr {
   text-align: justify;
 }
 tr:nth-child(even) {
-  /* background-color: rgb(241, 247, 255); */
   background-color: rgb(240, 244, 248);
 }
 td:first-letter {

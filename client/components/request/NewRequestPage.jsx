@@ -22,6 +22,10 @@ export class NewRequestPage extends React.Component {
         color: '',
         isEdit: false,
         isLoading: false,
+        counterDisplay: {
+            title: '',
+            description: ''
+        },
     };
 
     componentDidMount() {
@@ -31,8 +35,11 @@ export class NewRequestPage extends React.Component {
     }
 
     handleChange = (event) => {
-      const { request } = this.state
-    this.setState({ request: { ...request, [event.target.name] : event.target.value }})
+      const { request, counterDisplay } = this.state;
+      const maxInput = { title: 21, description: 251 };
+    this.setState({ request: { ...request, [event.target.name] : event.target.value }});
+    if (event.target.value.length < maxInput[event.target.name]) this.setState({ counterDisplay: { ...counterDisplay, [event.target.name]: `${event.target.value.length}/${maxInput[event.target.name] - 1} max characters` } });
+      else this.setState({ counterDisplay: { ...counterDisplay, [event.target.name]: 'Max characters exceeded' } });
     }
     onSubmit = () => {
         const { editRequestAction, currentRequest, history } = this.props;
@@ -80,7 +87,7 @@ export class NewRequestPage extends React.Component {
     }
 
     render() {
-        const { message, color,  request } = this.state;
+        const { message, color,  request, counterDisplay } = this.state;
         const { currentUser } = this.props;
         return (
           <div>
@@ -98,7 +105,7 @@ export class NewRequestPage extends React.Component {
                 <input onChange={this.onImageChange} type="file" id="file-upload" name="request" accept="image/*" />
                 </label>
               </div>
-              <NewRequestForm {...{request}} handleChange={this.handleChange} />
+              <NewRequestForm {...{request}} handleChange={this.handleChange} {...{counterDisplay}} />
               {message && <MessageText {...{ color, message }} />}
               <div id="request-btn">
                 <button onClick={this.onSubmit}>Submit</button>
