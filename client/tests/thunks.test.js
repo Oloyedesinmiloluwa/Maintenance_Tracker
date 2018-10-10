@@ -1,10 +1,10 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import loginAction from '../../../actions/loginAction';
-import signupAction from '../../../actions/signupAction';
-import { createRequest, getSingleRequest, loadRequests, actOnRequest, deleteRequest, editRequest, uploadImage } from '../../../actions/requestAction';
-import actionTypes from '../../../actions/constants';
-import { requests } from './mockData';
+import loginAction from './../actions/loginAction';
+import signupAction from './../actions/signupAction';
+import { createRequest, getSingleRequest, loadRequests, actOnRequest, deleteRequest, editRequest, uploadImage } from './../actions/requestAction';
+import actionTypes from './../actions/constants';
+import { requests } from './_mocks_/mockData';
 
 const mockStore = configureMockStore([thunk]);
 describe('Testing API calls', () => {

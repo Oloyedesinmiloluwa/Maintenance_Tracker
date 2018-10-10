@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DetailPage from '../../../components/request/DetailPage';
-import { requests } from './mockData';
+import DetailPage from '../../components/request/DetailPage';
+import { requests } from '../_mocks_/mockData';
 
 describe('Test DetailPage component', () => {
   it('it should render properly', (done) => {

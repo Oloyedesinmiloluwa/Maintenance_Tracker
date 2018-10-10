@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import { ManageDetailPage, mapStateToProps } from '../../../components/request/ManageDetailPage';
-import { user, requests, event } from './mockData';
+import { ManageDetailPage, mapStateToProps } from '../../components/request/ManageDetailPage';
+import { user, requests, event } from '../_mocks_/mockData';
 
 describe('Test ManageDetailPage component', () => {
   const state = {

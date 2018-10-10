@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MessageText from '../../../components/common/MessageText';
+import MessageText from '../../components/common/MessageText';
 
 describe('Test MessageText component', () => {
   it('it should render properly', (done) => {

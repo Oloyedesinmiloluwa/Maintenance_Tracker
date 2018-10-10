@@ -18,29 +18,40 @@ export class RequestPage extends React.Component {
         noRequestMessage: '',
     };
     handleChange = (event) => {
-      const { dated } = this.state
         this.setState({ [event.target.name]: event.target.value });
-        if (event.target.name === 'dated' && dated) this.onClick(event);
     }
     componentDidMount = () => {
-      const { currentUser, loadRequests } = this.props
-      if (currentUser.detail.role !== 'admin') loadRequests(false, ' ').then(() => this.setState({ isLoading: false }));
-      else loadRequests(true, ' ').then(() => this.setState({ isLoading: false }));
+      const { currentUser, loadRequests, history } = this.props
+      if (currentUser.detail.role !== 'admin') loadRequests(false, ' ').then((res) => {
+        if (res.message === 'Authentication failed') return history.push('/signin');
+        this.setState({ isLoading: false });
+      });
+      else loadRequests(true, ' ').then((res) => {
+        if (res.message === 'Authentication failed') return history.push('/signin');
+        this.setState({ isLoading: false });
+      });
     }
     onClick = (event) => {
       const { loadRequests, currentUser } = this.props
       const  { detail: {role}} = currentUser;
-      const { dated, status, category } = this.state
+      const { status, category } = this.state
       event.preventDefault();
+      this.setState({ [event.target.name]: event.target.value });
       this.setState({ filterMessage: '' });
-      if (event.target.name === 'dated' && dated)loadRequests(role === 'admin',`?dated=${dated}`).then(response => {
-        this.setState({ filterMessage: `Displaying requests from ${dated}` });
+      if (event.target.name === 'dated' ){
+        const dateValue = event.target.value;
+        let valueAsDate = event.target.valueAsDate.toDateString();
+        loadRequests(role === 'admin',`?dated=${dateValue}`).then(response => {
+        this.setState({ filterMessage: `Displaying requests from ${valueAsDate}` });
         response.data.length < 1 ? this.setState({ noRequestMessage: 'No result found' }) : this.setState({ noRequestMessage: '' });
       });
-      else if (event.target.textContent === 'Filter by:') {
-        loadRequests(role === 'admin',`?status=${status}&category=${category}`).then(response => {
-          if (status || category) this.setState({ filterMessage: `Result filtered by ${status}${category}` });
+    }
+      else if (event.target.textContent.startsWith('Filter')) {
+        const isAdmin = role === 'admin';
+        loadRequests(isAdmin,`?status=${status}&category=${category}`).then(response => {
           if (status && category) this.setState({ filterMessage: `Result filtered by ${status} &  ${category}` });
+          else if (status || category) this.setState({ filterMessage: `Result filtered by ${status}${category}` });
+          else this.setState({ filterMessage: 'You must select a value to filter by' });
           response.data.length < 1 ? this.setState({ noRequestMessage: 'No result found' }) : this.setState({ noRequestMessage: '' });
         });
       }
