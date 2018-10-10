@@ -452,17 +452,20 @@ border-radius: 9px;
   border-radius: 5px;
   border-color:#15437F;
 }
-#filter-by [type="date"] { 
+#filter-by [type="date"] {
   height: 30px;
   }
 #filter-date button, .status-container button {
   background:#0B2240;
   border-radius: 5px;
-  padding:5px;
+  padding:5px 10px;
   color:white;
 }
-#filter-date button:hover, .status-container button:hover {
-  background-color: #15437F;
+ .status-container button:hover {
+  background-color:#021227;
+  font-size: 110%;
+  transition: 0.5s;
+  padding-right: 20px;
 }
 [class="fa fa-check"] {
   color: green;

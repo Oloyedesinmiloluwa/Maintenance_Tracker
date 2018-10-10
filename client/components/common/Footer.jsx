@@ -10,24 +10,24 @@ const Footer = () => (
           <p>Find us:</p>
         </li>
         <li>
-          <Link to="#">
+          <a href="https://www.facebook.com/oloyede.sinmiloluwa">
             <i className="fa fa-facebook-square"></i>
-          </Link>
+          </a>
         </li>
         <li>
-          <Link to="#">
+          <a href="https://twitter.com/Oloyedesinmilo2">
             <i className="fa fa-twitter-square"></i>
-          </Link>
+          </a>
         </li>
         <li>
-          <Link to="#">
+          <a href="https://www.linkedin.com/in/sinmiloluwa-oloyede-749077106/">
             <i className="fa fa-linkedin-square"></i>
-          </Link>
+          </a>
         </li>
         <li>
-          <Link to="#">
+          <a href="https://www.instagram.com/sinmiloluwasunday/">
             <i className="fa fa-instagram"></i>
-          </Link>
+          </a>
         </li>
       </ul>
     </div>

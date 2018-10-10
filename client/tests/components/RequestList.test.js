@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import RequestList from '../../../components/request/RequestList';
-import { requests } from './mockData';
+import RequestList from '../../components/request/RequestList';
+import { requests } from '../_mocks_/mockData';
 
 describe('Test Home component', () => {
   it('it should render properly', (done) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import NewRequestForm from '../../../components/request/NewRequestForm';
-import { requests } from './mockData';
+import NewRequestForm from '../../components/request/NewRequestForm';
+import { requests } from '../_mocks_/mockData';
 
 describe('Test NewRequestForm component', () => {
   it('it should render properly', (done) => {

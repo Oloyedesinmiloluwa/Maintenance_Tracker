@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import UserWelcomeText from '../../../components/common/UserWelcomeText';
-import { user } from './mockData';
+import UserWelcomeText from '../../components/common/UserWelcomeText';
+import { user } from '../_mocks_/mockData';
 
 describe('Test UserWelcomeText component', () => {
 it('it should render properly', (done) => {

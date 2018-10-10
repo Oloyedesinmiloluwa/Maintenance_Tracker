@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Dropdown from '../../../components/common/Dropdown';
+import Dropdown from '../../components/common/Dropdown';
 
 describe('Test Dropdown component', () => {
   const options = ['approved', 'disapproved','resolved', 'pending'];
