@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import RequestRow from '../../../components/request/RequestRow';
-import { requests } from './mockData';
+import RequestRow from '../../components/request/RequestRow';
+import { requests } from '../_mocks_/mockData';
 
 describe('Test RequestRow component', () => {
   it('it should render properly', (done) => {

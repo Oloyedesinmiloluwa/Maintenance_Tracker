@@ -2,8 +2,7 @@
 [![Build Status](https://travis-ci.org/Oloyedesinmiloluwa/Maintenance_Tracker.svg?branch=develop)](https://travis-ci.org/Oloyedesinmiloluwa/Maintenance_Tracker)
 [![Coverage Status](https://coveralls.io/repos/github/Oloyedesinmiloluwa/Maintenance_Tracker/badge.svg?branch=develop)](https://coveralls.io/github/Oloyedesinmiloluwa/Maintenance_Tracker?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4776543d19681cf61613/maintainability)](https://codeclimate.com/github/Oloyedesinmiloluwa/Maintenance_Tracker/maintainability)
-
-Frontend
+FRONTEND
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4776543d19681cf61613/test_coverage)](https://codeclimate.com/github/Oloyedesinmiloluwa/Maintenance_Tracker/test_coverage)
 [![CircleCI](https://circleci.com/gh/Oloyedesinmiloluwa/Maintenance_Tracker/tree/develop.svg?style=svg)](https://circleci.com/gh/Oloyedesinmiloluwa/Maintenance_Tracker/tree/develop)
 

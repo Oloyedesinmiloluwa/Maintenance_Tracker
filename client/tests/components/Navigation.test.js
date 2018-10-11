@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Nav } from '../../../components/common/Navigation';
-import helper from '../../../helpers';
+import { Nav } from '../../components/common/Navigation';
+import helper from '../../helpers';
 
 describe('Test Dropdown component', () => {
   it('it should render properly', (done) => {

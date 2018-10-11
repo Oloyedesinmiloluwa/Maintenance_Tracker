@@ -9,15 +9,15 @@ const FilterForm = ({
       <ul className="status-item status-start">
         <li>
           <form id="filter-date">
-            <button onClick={onClick}>From:</button>
-            <input type="date" name="dated" min="2017-01-01" max="2099-12-31" value={dated} onChange={handleChange} />
+            <button disabled onClick={onClick}>Get from:</button>
+            <input type="date" name="dated" min="2017-01-01" max="2099-12-31" value={dated} onChange={onClick} />
             <br />
           </form>
         </li>
       </ul>
       <ul className="status-container status-end">
         <li>
-          <button onClick={onClick}>Filter by:</button>
+          <button onClick={onClick}>Filter <i className="fa fa-arrow-circle-right"></i></button>
         </li>
         <li>
           <form>
