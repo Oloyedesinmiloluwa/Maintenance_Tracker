@@ -350,10 +350,11 @@ border-radius: 9px;
   height: 256px;
   color: white;
 }
-.mini-card-text:hover {
+/* .mini-card-text:hover {
   font-size: 9em;
   transition: 0.5s;
-}
+  box-shadow: rgb(15, 52, 100, 0.1) 2px 2px 5px 5px;
+} */
 .mini-card-text {
   text-align: center;
   font-size: 8em;
@@ -367,7 +368,73 @@ border-radius: 9px;
   border-radius:5px;
   color:white;
   height: auto;
+  /* box-shadow: rgb(15, 52, 100, 1) 2px 2px 5px 5px; */
 }
+
+#front {
+  /*     transform: rotateY(180deg); */
+  /*   perspective: 1000px; */
+     backface-visibility: hidden;
+  /*   transition: 0.5s; */
+    /* width: 300px;
+    height: 300px; */
+    /* background: red; */
+  /*   float: right; */
+  }
+  #carder {
+   /* width: 300px;
+    height: 300px; */
+    perspective: 1000px;
+    background: transparent;
+  }
+  .inner-card {
+        transition: 0.5s;
+        transform-style: preserve-3d;
+        background: transparent;
+
+    flex: 0 1 24%;
+    /* background: #15437F; */
+    border-radius: 5px;
+    color: white;
+    height: auto;
+  /* position: relative;
+    width: 100%;
+    height: 100%; */
+  }
+  .card-wrapper {
+    flex: 0 1 24%;
+    /* background: #15437F; */
+    border-radius: 5px;
+    color: white;
+    height: auto;
+  }
+  .card-wrapper:hover .inner-card {
+        transform: rotateY(180deg);
+  }
+  #front, #back {
+    /* position: absolute;
+    width: 100%;
+    height: 100%; */
+  }
+  #back {
+      transform: rotateY(180deg);
+     backface-visibility: hidden;
+     position: absolute;
+     top: 0;
+    width: 100%;
+    height: 100%;
+    background: #15437F;
+  }
+#back {
+  /* vertical-align: middle; */
+  /* padding: 10px; */
+  text-align: center;
+}
+#back p {
+  font-weight: bold;
+  margin: 50px;
+}
+
 .card h3 {
   color: white;
 }
@@ -814,10 +881,10 @@ footer {
   #get-started {
     font-size: 120%;
   }
-  .card {
+  .card, .card-wrapper {
     flex: 1 0 300px;
     margin: 5px;
-    border: solid 1px rgb(73, 73, 182);
+    /* border: solid 1px rgb(73, 73, 182); */
     border-radius:5px;
     height: auto;
   }
@@ -855,7 +922,7 @@ footer {
   }
 }
 @media(min-width:580px) and (max-width: 700px) {
-  .card {
+  .card,.card-wrapper {
     flex: 1 0 200px;
     max-width: 300px;
     margin: 5px;

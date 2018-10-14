@@ -15,30 +15,65 @@ const Home = ({ userName }) => (
       <h3 className="text-center">Make your repair request fast </h3>
     </div><br />
     <p className="text-center" id="how-it-works">~ How it works ~</p>
+    {/* <div class="cardjkk">
+      <div class="card-inner">
+
+  <div class="large"> hello </div>
+   <div class="small"> what </div>
+    </div>
+  </div> */}
     <div className="lightly-darker-container">
-      <div className="cards">
-        <div className="card">
-          <div className="mini-card-text"><i className="fa fa-eye"></i></div>
-          <div className="card-content">
-            <h3><Link to="/requests">You see<br />a fault</Link></h3>
+      <div className="cards" id="carder" >
+        <div className="card-wrapper">
+          <div className="inner-card">
+            <div className="card" id="front">
+              <div className="mini-card-text"><i className="fa fa-eye"></i></div>
+              <div className="card-content">
+                <h3><Link to="/requests">You see<br />a fault</Link></h3>
+              </div>
+            </div>
+            <div className="card" id="back">
+              <p> It could be a damaged chair, a fault laptop or an equipment that needs maintenance</p>
+            </div>
           </div>
         </div>
-        <div className="card">
-          <div className="mini-card-text"><i className="fa fa-envelope"></i></div>
-          <div className="card-content">
-            <h3><Link to="/requests">You make<br />a request</Link></h3>
+        <div className="card-wrapper">
+          <div className="inner-card">
+            <div className="card" id="front">
+            <div className="mini-card-text"><i className="fa fa-envelope"></i></div>
+              <div className="card-content">
+              <h3><Link to="/requests">You make<br />a request</Link></h3>
+              </div>
+            </div>
+            <div className="card" id="back">
+              <p> Please be explicit, you should give it a short title and choose the right category</p>
+            </div>
           </div>
         </div>
-        <div className="card">
-          <div className="mini-card-text"><i className="fa fa-envelope-open"></i></div>
-          <div className="card-content">
-            <h3><Link to="/requests">We see<br />the request</Link></h3>
+        <div className="card-wrapper">
+          <div className="inner-card">
+            <div className="card" id="front">
+            <div className="mini-card-text"><i className="fa fa-envelope-open"></i></div>
+              <div className="card-content">
+              <h3><Link to="/requests">We see<br />the request</Link></h3>
+              </div>
+            </div>
+            <div className="card" id="back">
+              <p> Your request will have a status of pending at this point, please be patient while we see into it</p>
+            </div>
           </div>
         </div>
-        <div className="card">
-          <div className="mini-card-text"><i className="fa fa-gavel"></i></div>
-          <div className="card-content">
-            <h3><Link to="/requests">We act<br />on it</Link></h3>
+        <div className="card-wrapper">
+          <div className="inner-card">
+            <div className="card" id="front">
+            <div className="mini-card-text"><i className="fa fa-gavel"></i></div>
+              <div className="card-content">
+              <h3><Link to="/requests">We act<br />on it</Link></h3>
+              </div>
+            </div>
+            <div className="card" id="back">
+              <p> Here your request will change status, please look out for it</p>
+            </div>
           </div>
         </div>
       </div>

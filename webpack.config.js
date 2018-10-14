@@ -7,7 +7,7 @@ const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: `${APP_DIR}/public/index.html`,
 });
 const config = {
-  mode: 'production',
+  mode: 'development',
   entry: `${APP_DIR}/index.jsx`,
   output: {
     publicPath: '/',
