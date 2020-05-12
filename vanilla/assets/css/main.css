@@ -15,6 +15,7 @@
   text-shadow: 4px 4px 8px rgb(46, 139, 216);
   color: #0B2240;
   font-size: 300%;
+  margin: 0px
 }
 .red-text {
   color: red;
@@ -33,8 +34,9 @@
 .welcome-div {
   height: 500px;
   max-height: 400px;
-  background-image: url("../image/repair1.jpg");
-  padding-top: 10%;
+  background-image: url("../image/repair0.jpg");
+  background-size: cover;
+  padding-top: 8%;
 }
 .nav {
   list-style: none;
@@ -88,7 +90,7 @@ text-decoration: none;
   margin-right: 2%;
   list-style: none;
   justify-content: flex-end;
-  color: tomato;
+  color: darkblue;
   font-size: 150%;
 }
 #social-label {
@@ -100,7 +102,7 @@ text-decoration: none;
 }
 .social li {
   margin: 0 2%;
-  border: solid 2px tomato;
+  border: solid 2px darkblue;
   background: white;
   height: 40px;
   width: 40px;
@@ -108,13 +110,13 @@ text-decoration: none;
   border-radius: 5px;
 }
 .social li a {
-  color: tomato;
+  color:darkblue;
 }
 .social i:hover {
-  color: rgb(116, 23, 7);
+  color: blue;
 }
 .social li:hover {
-  border: solid 2px rgb(151, 33, 12);
+  border: solid 2px blue;
 }
 .social i {
   background: white;
@@ -331,7 +333,7 @@ border-radius: 9px;
   margin-left: auto;
   margin-top: 8px;
   padding: 8px 16px;
-  border: none;
+  /* border: none; */
   background: #0B2240;
   color: #f2f2f2;
   letter-spacing: .09em;
@@ -890,9 +892,6 @@ footer {
   }
   .welcome-div {
     max-height: 350px;
-    background-image: url("../image/repair1.jpg");
-    background-repeat: no-repeat;
-    background-size: contain;
   }
 }
 @media(min-width:300px) and (max-width: 360px) {
@@ -907,7 +906,7 @@ footer {
     padding: 2% 0;
   }
   .welcome-div h1{
-    margin-top: 55%;
+    /* margin-top: 55%; */
     margin-bottom: 3%;
   }
   #status-header {
@@ -942,10 +941,6 @@ footer {
   }
 }
 @media(min-width:768px) and (max-width: 850px) {
-  .welcome-div {
-  background-repeat: no-repeat;
-  background-size: contain;
-  }
   #status-header {
     padding: 5px;
     margin: 0 15%;

@@ -10,7 +10,7 @@ const Footer = () => (
           <p>Find us:</p>
         </li>
         <li>
-          <a href="https://www.facebook.com/oloyede.sinmiloluwa">
+          <a href="#">
             <i className="fa fa-facebook-square"></i>
           </a>
         </li>
@@ -25,7 +25,7 @@ const Footer = () => (
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/sinmiloluwasunday/">
+          <a href="#">
             <i className="fa fa-instagram"></i>
           </a>
         </li>

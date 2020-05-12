@@ -13,7 +13,7 @@ const Home = ({ userName }) => (
     <div className="welcome-div">
       <h1 className="text-center" id="home-logo">M-Tracker</h1>
       <h3 className="text-center">Make your repair request fast </h3>
-    </div><br />
+    </div>
     <p className="text-center" id="how-it-works">~ How it works ~</p>
     {/* <div class="cardjkk">
       <div class="card-inner">

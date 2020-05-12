@@ -16,7 +16,7 @@ class UserSignupPage extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.UserSignup(this.state).then((response) => {
-          response.message !== 'Successfully created an account' ? this.setState({error: response.message}):this.props.history.push('/');
+          response.message !== 'Successfully created an account' ? this.setState({error: response.message}):this.props.history.push('/requests');
         });
     };
     handleChange = (event) => {
