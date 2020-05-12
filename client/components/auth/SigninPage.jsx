@@ -24,7 +24,7 @@ class UserSignin extends React.Component {
         event.preventDefault();
         this.props.UserLogin({ email, password })
         .then((response) => {
-          response.message !== 'Login successful' ? this.setState({error: response.message}):this.props.history.push('/request');
+          response.message !== 'Login successful' ? this.setState({error: response.message}):this.props.history.push('/requests');
         });
     };
     handleChange = (event) => {
